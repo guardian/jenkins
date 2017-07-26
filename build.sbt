@@ -1,6 +1,6 @@
 name := "mulefa"
 version := "1.0"
-
+scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8")
 scalaVersion := "2.12.2"
 
 libraryDependencies ++= Seq(
