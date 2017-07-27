@@ -1,6 +1,6 @@
 package jenkins
 
-import com.gu.contentatom.thrift.{Atom, AtomData}
+import com.gu.contentatom.thrift.Atom
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
 import com.gu.contentatom.thrift.atom.guide.GuideAtom
@@ -16,57 +16,60 @@ import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import com.twitter.scrooge.ThriftStruct
 import play.twirl.api.{Html, JavaScript, Css}
 
-abstract class DefaultRendering[A <: AtomData] extends Rendering[A] {
-  def css(atom: Atom) = None
-  def js(atom: Atom) = None
+abstract class DefaultRendering[A <: ThriftStruct] extends Rendering[A] {
+  def html(atom: Atom, data: A): Html = html_impl(atom, data)
+  def css(atom: Atom, data: A) = None
+  def js(atom: Atom, data: A) = None
+
+  def html_impl: (Atom, A) => Html
 }
 
 object DefaultRendering {
-  implicit case object CTADefaultRendering extends DefaultRendering[AtomData.Cta] {
+  implicit val ctaRendering = new DefaultRendering[CTAAtom] {
     def html_impl = (atom, data) => cta.default.html.index(atom, data)
   }
 
-  implicit case object ExplainerDefaultRendering extends DefaultRendering[AtomData.Explainer] {
+  implicit val explainerRendering = new DefaultRendering[ExplainerAtom] {
     def html_impl = (atom, data) => explainer.default.html.index(atom, data)
   }
 
-  implicit case object GuideDefaultRendering extends DefaultRendering[AtomData.Guide] {
+  implicit val guideRendering = new DefaultRendering[GuideAtom] {
     def html_impl = (atom, data) => guide.default.html.index(atom, data)
   }
 
-  implicit case object InteractiveDefaultRendering extends DefaultRendering[AtomData.Interactive] {
+  implicit val interactiveRendering = new DefaultRendering[InteractiveAtom] {
     def html_impl = (atom, data) => interactive.default.html.index(atom, data)
   }
 
-  implicit case object MediaDefaultRendering extends DefaultRendering[AtomData.Media] {
+  implicit val mediaRendering = new DefaultRendering[MediaAtom] {
     def html_impl = (atom, data) => media.default.html.index(atom, data)
   }
 
-  implicit case object ProfileDefaultRendering extends DefaultRendering[AtomData.Profile] {
+  implicit val profileRendering = new DefaultRendering[ProfileAtom] {
     def html_impl = (atom, data) => profile.default.html.index(atom, data)
   }
 
-  implicit case object QandaDefaultRendering extends DefaultRendering[AtomData.Qanda] {
+  implicit val qandaRendering = new DefaultRendering[QAndAAtom] {
     def html_impl = (atom, data) => qanda.default.html.index(atom, data)
   }
 
-  implicit case object QuizDefaultRendering extends DefaultRendering[AtomData.Quiz] {
+  implicit val quizRendering = new DefaultRendering[QuizAtom] {
     def html_impl = (atom, data) => quiz.default.html.index(atom, data)
   }
 
-  implicit case object RecipeDefaultRendering extends DefaultRendering[AtomData.Recipe] {
+  implicit val recipeRendering = new DefaultRendering[RecipeAtom] {
     def html_impl = (atom, data) => recipe.default.html.index(atom, data)
   }
 
-  implicit case object ReviewDefaultRendering extends DefaultRendering[AtomData.Review] {
+  implicit val reviewRendering = new DefaultRendering[ReviewAtom] {
     def html_impl = (atom, data) => review.default.html.index(atom, data)
   }
 
-  implicit case object StoryquestionsDefaultRendering extends DefaultRendering[AtomData.Storyquestions] {
+  implicit val storyquestionsRendering = new DefaultRendering[StoryQuestionsAtom] {
     def html_impl = (atom, data) => storyquestions.default.html.index(atom, data)
   }
 
-  implicit case object TimelineDefaultRendering extends DefaultRendering[AtomData.Timeline] {
+  implicit val timelineRendering = new DefaultRendering[TimelineAtom] {
     def html_impl = (atom, data) => timeline.default.html.index(atom, data)
   }
 }
