@@ -7,16 +7,16 @@ trait AtomRenderer {
   type CSS = Option[String]
   type JS = Option[String]
 
-  def getAll[A <: AtomData : Resource](atom: Atom): (HTML, CSS, JS) =
+  def getAll[A <: AtomData : Rendering](atom: Atom): (HTML, CSS, JS) =
     (getHTML(atom), getCSS(atom), getJS(atom))
 
-  def getHTML[A <: AtomData](atom: Atom)(implicit r: Resource[A]): HTML =
+  def getHTML[A <: AtomData](atom: Atom)(implicit r: Rendering[A]): HTML =
     r.html(atom).toString
 
-  def getCSS[A <: AtomData](atom: Atom)(implicit r: Resource[A]): CSS =
+  def getCSS[A <: AtomData](atom: Atom)(implicit r: Rendering[A]): CSS =
     r.css(atom).map(_.toString)
 
-  def getJS[A <: AtomData](atom: Atom)(implicit r: Resource[A]): JS =
+  def getJS[A <: AtomData](atom: Atom)(implicit r: Rendering[A]): JS =
     r.js(atom).map(_.toString)
 
   def getDefaultHTML(atom: Atom): HTML = atom.defaultHtml
@@ -41,6 +41,6 @@ object AtomRenderer extends AtomRenderer {
 }
 
 trait DefaultAtomRenderer extends AtomRenderer {
-  def getHTML[A <: AtomData](atom: Atom)(implicit r: DefaultResource[A]): HTML =
+  def getHTML[A <: AtomData](atom: Atom)(implicit r: DefaultRendering[A]): HTML =
     r.html(atom).toString
 }
