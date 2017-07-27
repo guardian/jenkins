@@ -1,7 +1,5 @@
 package jenkins
 
-import cats.Functor
-import cats.data.OptionT
 import com.gu.contentatom.thrift.{Atom, AtomData, AtomType}
 
 trait AtomRenderer {
@@ -42,5 +40,5 @@ object AtomRenderer extends AtomRenderer {
 
 trait DefaultAtomRenderer extends AtomRenderer {
   def getHTML[A <: AtomData](atom: Atom)(implicit r: DefaultResource[A]): HTML =
-    super.getHTML(atom)(r)
+    r.html(atom).toString
 }
