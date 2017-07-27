@@ -53,8 +53,6 @@ trait AtomReader[A <: AtomData] {
 }
 
 object AtomReader {
-  type Aux[A <: AtomData, B <: ThriftStruct] = AtomReader[A] { type AtomType = B }
-
   implicit case object CTAAtomReader extends AtomReader[AtomData.Cta] {
     type AtomType = CTAAtom
     def splat(atom: Atom) = data(atom).cta
