@@ -22,65 +22,51 @@ abstract class DefaultResource[A <: AtomData] extends Resource[A] {
 }
 
 object DefaultResource {
-  implicit def resource[A <: AtomData, B <: ThriftStruct](
-    implicit
-    impl: DefaultResourceImpl[A, B],
-    reader: AtomReader.Aux[A, B]
-  ): DefaultResource[A] = new DefaultResource[A] {
-    def html(atom: Atom) = impl.html(atom, reader.splat(atom))
-  }
-}
-
-trait DefaultResourceImpl[A <: AtomData, B <: ThriftStruct] extends {
-  def html: (Atom, B) => Html
-}
-
-object DefaultResourceImpl {
-  implicit case object CTADefaultResource extends DefaultResourceImpl[AtomData.Cta, CTAAtom] {
-    def html = (atom, data) => cta.default.html.index(atom, data)
+  implicit case object CTADefaultResource extends DefaultResource[AtomData.Cta] {
+    def html_impl = (atom, data) => cta.default.html.index(atom, data)
   }
 
-  implicit case object ExplainerDefaultResource extends DefaultResourceImpl[AtomData.Explainer, ExplainerAtom] {
-    def html = (atom, data) => explainer.default.html.index(atom, data)
+  implicit case object ExplainerDefaultResource extends DefaultResource[AtomData.Explainer] {
+    def html_impl = (atom, data) => explainer.default.html.index(atom, data)
   }
 
-  implicit case object GuideDefaultResource extends DefaultResourceImpl[AtomData.Guide, GuideAtom] {
-    def html = (atom, data) => guide.default.html.index(atom, data)
+  implicit case object GuideDefaultResource extends DefaultResource[AtomData.Guide] {
+    def html_impl = (atom, data) => guide.default.html.index(atom, data)
   }
 
-  implicit case object InteractiveDefaultResource extends DefaultResourceImpl[AtomData.Interactive, InteractiveAtom] {
-    def html = (atom, data) => interactive.default.html.index(atom, data)
+  implicit case object InteractiveDefaultResource extends DefaultResource[AtomData.Interactive] {
+    def html_impl = (atom, data) => interactive.default.html.index(atom, data)
   }
 
-  implicit case object MediaDefaultResource extends DefaultResourceImpl[AtomData.Media, MediaAtom] {
-    def html = (atom, data) => media.default.html.index(atom, data)
+  implicit case object MediaDefaultResource extends DefaultResource[AtomData.Media] {
+    def html_impl = (atom, data) => media.default.html.index(atom, data)
   }
 
-  implicit case object ProfileDefaultResource extends DefaultResourceImpl[AtomData.Profile, ProfileAtom] {
-    def html = (atom, data) => profile.default.html.index(atom, data)
+  implicit case object ProfileDefaultResource extends DefaultResource[AtomData.Profile] {
+    def html_impl = (atom, data) => profile.default.html.index(atom, data)
   }
 
-  implicit case object QandaDefaultResource extends DefaultResourceImpl[AtomData.Qanda, QAndAAtom] {
-    def html = (atom, data) => qanda.default.html.index(atom, data)
+  implicit case object QandaDefaultResource extends DefaultResource[AtomData.Qanda] {
+    def html_impl = (atom, data) => qanda.default.html.index(atom, data)
   }
 
-  implicit case object QuizDefaultResource extends DefaultResourceImpl[AtomData.Quiz, QuizAtom] {
-    def html = (atom, data) => quiz.default.html.index(atom, data)
+  implicit case object QuizDefaultResource extends DefaultResource[AtomData.Quiz] {
+    def html_impl = (atom, data) => quiz.default.html.index(atom, data)
   }
 
-  implicit case object RecipeDefaultResource extends DefaultResourceImpl[AtomData.Recipe, RecipeAtom] {
-    def html = (atom, data) => recipe.default.html.index(atom, data)
+  implicit case object RecipeDefaultResource extends DefaultResource[AtomData.Recipe] {
+    def html_impl = (atom, data) => recipe.default.html.index(atom, data)
   }
 
-  implicit case object ReviewDefaultResource extends DefaultResourceImpl[AtomData.Review, ReviewAtom] {
-    def html = (atom, data) => review.default.html.index(atom, data)
+  implicit case object ReviewDefaultResource extends DefaultResource[AtomData.Review] {
+    def html_impl = (atom, data) => review.default.html.index(atom, data)
   }
 
-  implicit case object StoryquestionsDefaultResource extends DefaultResourceImpl[AtomData.Storyquestions, StoryQuestionsAtom] {
-    def html = (atom, data) => storyquestions.default.html.index(atom, data)
+  implicit case object StoryquestionsDefaultResource extends DefaultResource[AtomData.Storyquestions] {
+    def html_impl = (atom, data) => storyquestions.default.html.index(atom, data)
   }
 
-  implicit case object TimelineDefaultResource extends DefaultResourceImpl[AtomData.Timeline, TimelineAtom] {
-    def html = (atom, data) => timeline.default.html.index(atom, data)
+  implicit case object TimelineDefaultResource extends DefaultResource[AtomData.Timeline] {
+    def html_impl = (atom, data) => timeline.default.html.index(atom, data)
   }
 }
