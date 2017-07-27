@@ -13,13 +13,12 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
-import com.twitter.scrooge.ThriftStruct
-import play.twirl.api.{Html, JavaScript, Css}
+import play.twirl.api.Html
 
-abstract class DefaultRendering[A <: ThriftStruct] extends Rendering[A] {
-  def html(atom: Atom, data: A): Html = html_impl(atom, data)
-  def css(atom: Atom, data: A) = None
-  def js(atom: Atom, data: A) = None
+trait DefaultRendering[A] extends Rendering[A] {
+  def html = html_impl
+  def css = (atom, data) => None
+  def js = (atom, data) => None
 
   def html_impl: (Atom, A) => Html
 }

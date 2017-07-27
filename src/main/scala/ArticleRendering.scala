@@ -13,13 +13,12 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
-import com.twitter.scrooge.ThriftStruct
 import play.twirl.api.{Html, Css, JavaScript}
 
-abstract class ArticleRendering[A <: ThriftStruct] extends Rendering[A] {
-  def html(atom: Atom, data: A) = html_impl(atom, data)
-  def css(atom: Atom, data: A) = Some(css_impl(atom, data))
-  def js(atom: Atom, data: A) = Some(js_impl(atom, data))
+trait ArticleRendering[A] extends Rendering[A] {
+  def html = html_impl
+  def css = (atom, data) => Some(css_impl(atom, data))
+  def js = (atom, data) => Some(js_impl(atom, data))
 
   def html_impl: (Atom, A) => Html
   def css_impl: (Atom, A) => Css

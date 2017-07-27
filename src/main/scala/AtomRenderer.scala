@@ -1,61 +1,71 @@
 package jenkins
 
 import com.gu.contentatom.thrift.{Atom, AtomData, AtomType}
-import com.gu.contentatom.thrift.atom.cta.CTAAtom
-import com.twitter.scrooge.ThriftStruct
+import play.twirl.api.{Html, JavaScript, Css}
 
-trait AtomRenderer {
+trait AtomRenderer[F[_] <: Rendering[_]] {
   type HTML = String
   type CSS = Option[String]
   type JS = Option[String]
 
-  def apply(atom: Atom) = atom.data match {
-    case AtomData.Cta(d)            => getAll(atom, d)
-    case AtomData.Explainer(d)      => getAll(atom, d)
-    case AtomData.Guide(d)          => getAll(atom, d)
-    case AtomData.Interactive(d)    => getAll(atom, d)
-    case AtomData.Media(d)          => getAll(atom, d)
-    case AtomData.Profile (d)       => getAll(atom, d)
-    case AtomData.Qanda(d)          => getAll(atom, d)
-    case AtomData.Quiz(d)           => getAll(atom, d)
-    case AtomData.Recipe(d)         => getAll(atom, d)
-    case AtomData.Review(d)         => getAll(atom, d)
-    case AtomData.Storyquestions(d) => getAll(atom, d)
-    case AtomData.Timeline(d)       => getAll(atom, d)
-    case _                          => (atom.defaultHtml, None, None)
-  }
+  def getHTML[A](atom: Atom, data: A)(implicit reader: F[A]): HTML
+  def getCSS[A](atom: Atom, data: A)(implicit reader: F[A]): CSS
+  def getJS[A](atom: Atom, data: A)(implicit reader: F[A]): JS
 
-  def getHTML[A <: ThriftStruct](atom: Atom, data: A, r: Rendering[A]): HTML =
-    r.html(atom, data).toString
-
-  def getHTML[A <: ThriftStruct](atom: Atom, data: A): HTML
-
-  def getCSS[A <: ThriftStruct](atom: Atom, data: A, r: Rendering[A]): CSS =
-    r.css(atom, data).map(_.toString)
-
-  def getCSS[A <: ThriftStruct](atom: Atom, data: A): CSS
-
-  def getJS[A <: ThriftStruct](atom: Atom, data: A, r: Rendering[A]): JS =
-    r.js(atom, data).map(_.toString)
-
-  def getJS[A <: ThriftStruct](atom: Atom, data: A): JS
-
-  def getAll[A <: ThriftStruct](atom: Atom, data: A): (HTML, CSS, JS) =
+  def getAll[A : F](atom: Atom, data: A): (HTML, CSS, JS) =
     (getHTML(atom, data), getCSS(atom, data), getJS(atom, data))
 }
 
-trait ArticleAtomRenderer extends AtomRenderer {
-  def getHTML[A <: ThriftStruct](atom: Atom, data: A)(implicit reader: ArticleRendering[A]): HTML =
-    getHTML(atom, data, reader)
+object ArticleAtomRender extends AtomRenderer[ArticleRendering] {
+  def apply(atom: Atom) = atom.data match {
+    case AtomData.Cta(data)            => getAll(atom, data)
+    case AtomData.Explainer(data)      => getAll(atom, data)
+    case AtomData.Guide(data)          => getAll(atom, data)
+    case AtomData.Interactive(data)    => getAll(atom, data)
+    case AtomData.Media(data)          => getAll(atom, data)
+    case AtomData.Profile (data)       => getAll(atom, data)
+    case AtomData.Qanda(data)          => getAll(atom, data)
+    case AtomData.Quiz(data)           => getAll(atom, data)
+    case AtomData.Recipe(data)         => getAll(atom, data)
+    case AtomData.Review(data)         => getAll(atom, data)
+    case AtomData.Storyquestions(data) => getAll(atom, data)
+    case AtomData.Timeline(data)       => getAll(atom, data)
+    case _                             => (atom.defaultHtml, None, None)
+  }
 
-  def getCSS[A <: ThriftStruct](atom: Atom, data: A)(implicit reader: ArticleRendering[A]): CSS =
-    getCSS(atom, data, reader)
+  def getHTML[A](atom: Atom, data: A)(implicit reader: ArticleRendering[A]): HTML =
+    reader.html(atom, data).toString
 
-  def getJS[A <: ThriftStruct](atom: Atom, data: A)(implicit reader: ArticleRendering[A]): JS =
-    getJS(atom, data, reader)
+  def getCSS[A](atom: Atom, data: A)(implicit reader: ArticleRendering[A]): CSS =
+    reader.css(atom, data).map(_.toString)
+
+  def getJS[A](atom: Atom, data: A)(implicit reader: ArticleRendering[A]): JS =
+    reader.js(atom, data).map(_.toString)
 }
 
-trait DefaultAtomRenderer extends AtomRenderer {
-  def getHTML[A <: ThriftStruct](atom: Atom, data: A)(implicit r: DefaultRendering[A]): HTML =
-    r.html(atom, data).toString
+object DefaultAtomRender extends AtomRenderer[DefaultRendering] {
+  def apply(atom: Atom) = atom.data match {
+    case AtomData.Cta(data)            => getAll(atom, data)
+    case AtomData.Explainer(data)      => getAll(atom, data)
+    case AtomData.Guide(data)          => getAll(atom, data)
+    case AtomData.Interactive(data)    => getAll(atom, data)
+    case AtomData.Media(data)          => getAll(atom, data)
+    case AtomData.Profile (data)       => getAll(atom, data)
+    case AtomData.Qanda(data)          => getAll(atom, data)
+    case AtomData.Quiz(data)           => getAll(atom, data)
+    case AtomData.Recipe(data)         => getAll(atom, data)
+    case AtomData.Review(data)         => getAll(atom, data)
+    case AtomData.Storyquestions(data) => getAll(atom, data)
+    case AtomData.Timeline(data)       => getAll(atom, data)
+    case _                             => (atom.defaultHtml, None, None)
+  }
+
+  def getHTML[A](atom: Atom, data: A)(implicit reader: DefaultRendering[A]): HTML =
+    reader.html(atom, data).toString
+
+  def getCSS[A](atom: Atom, data: A)(implicit reader: DefaultRendering[A]): CSS =
+    reader.css(atom, data).map(_.toString)
+
+  def getJS[A](atom: Atom, data: A)(implicit reader: DefaultRendering[A]): JS =
+    reader.js(atom, data).map(_.toString)
 }
