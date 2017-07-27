@@ -16,57 +16,57 @@ import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import com.twitter.scrooge.ThriftStruct
 import play.twirl.api.{Html, JavaScript, Css}
 
-abstract class DefaultResource[A <: AtomData] extends Resource[A] {
+abstract class DefaultRendering[A <: AtomData] extends Rendering[A] {
   def css(atom: Atom) = None
   def js(atom: Atom) = None
 }
 
-object DefaultResource {
-  implicit case object CTADefaultResource extends DefaultResource[AtomData.Cta] {
+object DefaultRendering {
+  implicit case object CTADefaultRendering extends DefaultRendering[AtomData.Cta] {
     def html_impl = (atom, data) => cta.default.html.index(atom, data)
   }
 
-  implicit case object ExplainerDefaultResource extends DefaultResource[AtomData.Explainer] {
+  implicit case object ExplainerDefaultRendering extends DefaultRendering[AtomData.Explainer] {
     def html_impl = (atom, data) => explainer.default.html.index(atom, data)
   }
 
-  implicit case object GuideDefaultResource extends DefaultResource[AtomData.Guide] {
+  implicit case object GuideDefaultRendering extends DefaultRendering[AtomData.Guide] {
     def html_impl = (atom, data) => guide.default.html.index(atom, data)
   }
 
-  implicit case object InteractiveDefaultResource extends DefaultResource[AtomData.Interactive] {
+  implicit case object InteractiveDefaultRendering extends DefaultRendering[AtomData.Interactive] {
     def html_impl = (atom, data) => interactive.default.html.index(atom, data)
   }
 
-  implicit case object MediaDefaultResource extends DefaultResource[AtomData.Media] {
+  implicit case object MediaDefaultRendering extends DefaultRendering[AtomData.Media] {
     def html_impl = (atom, data) => media.default.html.index(atom, data)
   }
 
-  implicit case object ProfileDefaultResource extends DefaultResource[AtomData.Profile] {
+  implicit case object ProfileDefaultRendering extends DefaultRendering[AtomData.Profile] {
     def html_impl = (atom, data) => profile.default.html.index(atom, data)
   }
 
-  implicit case object QandaDefaultResource extends DefaultResource[AtomData.Qanda] {
+  implicit case object QandaDefaultRendering extends DefaultRendering[AtomData.Qanda] {
     def html_impl = (atom, data) => qanda.default.html.index(atom, data)
   }
 
-  implicit case object QuizDefaultResource extends DefaultResource[AtomData.Quiz] {
+  implicit case object QuizDefaultRendering extends DefaultRendering[AtomData.Quiz] {
     def html_impl = (atom, data) => quiz.default.html.index(atom, data)
   }
 
-  implicit case object RecipeDefaultResource extends DefaultResource[AtomData.Recipe] {
+  implicit case object RecipeDefaultRendering extends DefaultRendering[AtomData.Recipe] {
     def html_impl = (atom, data) => recipe.default.html.index(atom, data)
   }
 
-  implicit case object ReviewDefaultResource extends DefaultResource[AtomData.Review] {
+  implicit case object ReviewDefaultRendering extends DefaultRendering[AtomData.Review] {
     def html_impl = (atom, data) => review.default.html.index(atom, data)
   }
 
-  implicit case object StoryquestionsDefaultResource extends DefaultResource[AtomData.Storyquestions] {
+  implicit case object StoryquestionsDefaultRendering extends DefaultRendering[AtomData.Storyquestions] {
     def html_impl = (atom, data) => storyquestions.default.html.index(atom, data)
   }
 
-  implicit case object TimelineDefaultResource extends DefaultResource[AtomData.Timeline] {
+  implicit case object TimelineDefaultRendering extends DefaultRendering[AtomData.Timeline] {
     def html_impl = (atom, data) => timeline.default.html.index(atom, data)
   }
 }
