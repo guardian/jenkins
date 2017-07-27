@@ -1,6 +1,6 @@
 name := "mulefa"
 version := "1.0"
-scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8")
+scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds")
 scalaVersion := "2.12.2"
 crossScalaVersions := Seq("2.11.11")
 
