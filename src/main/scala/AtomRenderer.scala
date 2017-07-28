@@ -4,7 +4,7 @@ import com.gu.contentatom.thrift.{Atom, AtomData, AtomType}
 
 trait AtomRenderer {
   protected val renderings: Renderings
-  import rendering._
+  import renderings._
 
   type HTML = String
   type CSS = Option[String]
