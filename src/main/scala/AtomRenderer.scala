@@ -4,7 +4,11 @@ import com.gu.contentatom.thrift.{Atom, AtomData, AtomType}
 import play.twirl.api.{Html, JavaScript, Css}
 
 trait AtomRenderer {
+<<<<<<< HEAD
   protected val renderings: Renderings
+=======
+  protected val rendering: Renderings
+>>>>>>> 6d4d9d32d7cbe238cb59d161787e89cf03413d49
   import rendering._
 
   type HTML = String
@@ -41,9 +45,17 @@ trait AtomRenderer {
 }
 
 object ArticleAtomRenderer extends AtomRenderer {
+<<<<<<< HEAD
   val renderings = ArticleRenderings
 }
 
 object DefaultAtomRenderer extends AtomRenderer {
   val renderings = DefaultRenderings
+=======
+  val rendering = ArticleRenderings
+}
+
+object DefaultAtomRenderer extends AtomRenderer {
+  val rendering = DefaultRenderings
+>>>>>>> 6d4d9d32d7cbe238cb59d161787e89cf03413d49
 }
