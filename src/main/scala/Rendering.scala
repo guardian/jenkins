@@ -1,7 +1,8 @@
 package jenkins
 
 import com.gu.contentatom.thrift.Atom
-import play.twirl.api.{Html, JavaScript, Css}
+import play.twirl.api.{Html, JavaScript}
+import twirl.Css
 
 trait Rendering[A] {
   def html: (Atom, A) => Html

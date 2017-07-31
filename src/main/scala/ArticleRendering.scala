@@ -13,7 +13,8 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
-import play.twirl.api.{Html, Css, JavaScript}
+import play.twirl.api.{Html, JavaScript}
+import twirl.Css
 
 trait ArticleRendering[A] extends Rendering[A] {
   def html = html_impl
