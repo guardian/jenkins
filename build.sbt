@@ -13,3 +13,5 @@ TwirlKeys.templateFormats += ("css" -> "jenkins.twirl.CssFormat")
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
 sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value
+
+JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
