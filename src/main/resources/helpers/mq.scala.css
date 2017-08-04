@@ -11,11 +11,12 @@
   "wide"            -> "1300px"
 )) { breakpoints =>
 
-  @defining(until.map(until => s"and (max-width: ${breakpoints.get(until)})")) { maxWidth =>
+  @defining(
+    until.map(until => s"and (max-width: ${breakpoints.get(until)})"),
+    s"{ $css }"
+  ) { case (maxWidth, content) =>
 
-    @@media(min-width: @breakpoints.get(from)) (@maxWidth) {
-      @css
-    }
+    @@media(min-width: @breakpoints.get(from)) @maxWidth @content
 
   }
 }
