@@ -127,7 +127,7 @@
 
 .user__question-upvote {
   @textSans(3);
-  right: calc(var(--gutter) - 2);
+  right: calc(var(--gutter) - 2px);
   bottom: var(--gutter);
   position: absolute;
   color: var(--news-main-1);
@@ -163,8 +163,8 @@
 }
 
 .storyquestion-email-signup-form .text-input {
-  border-bottom-left-radius: calc(var(--baseline) * 2 + 4);
-  border-top-left-radius: calc(var(--baseline) * 2 + 4);
+  border-bottom-left-radius: calc(var(--baseline) * 2 + 4px);
+  border-top-left-radius: calc(var(--baseline) * 2 + 4px);
   font-size: 14px;
 }
 
