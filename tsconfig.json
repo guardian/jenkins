@@ -1,15 +1,22 @@
-{  
-    "compilerOptions": {
-      "sourceMap": true,
-      "mapRoot": "/src/main/resources",
-      "sourceRoot": "/src/main/resources",
-      "alwaysStrict": true,
-      "noLib": true,
-      "module": "ES6",
-      "target": "ES2017",
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "removeComments": true,
-      "strict": true
-  }
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "inlineSourceMap": true,
+    "sourceRoot": "/src/main/resources",
+    "alwaysStrict": true,
+    "module": "es6",
+    "target": "ES2017",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "strict": true
+  },
+  "include": [
+      "src/main/resources/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "project/target",
+    "target"
+  ]
 }
