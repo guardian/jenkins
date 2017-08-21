@@ -2,4 +2,25 @@
 , data: com.gu.contentatom.thrift.atom.guide.GuideAtom
 )
 
-test
+@fragments.snippet(
+  atom.id,
+  className = "guide",
+  label = data.typeLabel.getOrElse("Quick Guide"),
+  headline = atom.title.getOrElse("")
+){
+  @* TODO: responsive images *@
+  @for(img <- data.image ) {
+    <div class="atom--snippet__image">
+      <img src="@img" alt>
+    </div>
+  }
+
+  @for(item <- data.items) {
+    <div class="atom--snippet__item">
+      @item.title.map { t =>
+        <div class="atom--snippet__heading"><b>@t</b></div>
+      }
+      @Html(item.body)
+    </div>
+  }
+}

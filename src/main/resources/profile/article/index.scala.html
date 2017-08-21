@@ -2,4 +2,25 @@
 , data: com.gu.contentatom.thrift.atom.profile.ProfileAtom
 )
 
-test
+@fragments.atoms.snippet(
+  atom.id,
+  className = "profile",
+  label = data.typeLabel.getOrElse("Profile"),
+  headline = atom.title.getOrElse("")
+){
+  @* TODO: responsive images *@
+  @for(img <- data.image ) {
+    <div class="atom--snippet__image">
+      <img src="@img" alt>
+    </div>
+  }
+
+  @for(item <- data.items) {
+    <div class="atom--snippet__item">
+      @item.title.map { t =>
+        <div class="atom--snippet__heading"><b>@t</b></div>
+      }
+      @Html(item.body)
+    </div>
+  }
+}
