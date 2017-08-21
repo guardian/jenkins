@@ -2,14 +2,14 @@
 , data: com.gu.contentatom.thrift.atom.qanda.QAndAAtom
 )
 
-fragments.atoms.snippet(
+fragments.atoms.html.snippet(
   atom.id,
   className = "qanda",
   label = data.typeLabel.getOrElse("Q&amp;A"),
   headline = atom.title.getOrElse("")
 ){
   @* TODO: responsive images *@
-  @for(img <- data.image ) {
+  @for(img <- data.eventImage ) {
     <div class="atom--snippet__image">
       <img src="@img" alt>
     </div>

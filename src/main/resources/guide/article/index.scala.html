@@ -2,14 +2,14 @@
 , data: com.gu.contentatom.thrift.atom.guide.GuideAtom
 )
 
-@fragments.snippet(
+@fragments.atoms.html.snippet(
   atom.id,
   className = "guide",
   label = data.typeLabel.getOrElse("Quick Guide"),
   headline = atom.title.getOrElse("")
 ){
   @* TODO: responsive images *@
-  @for(img <- data.image ) {
+  @for(img <- data.guideImage ) {
     <div class="atom--snippet__image">
       <img src="@img" alt>
     </div>
