@@ -1,6 +1,6 @@
 package jenkins
 
-import com.gu.contentatom.thrift.{Atom, AtomData, AtomType}
+import com.gu.contentatom.thrift.{Atom, AtomData}
 import io.circe._
 
 trait AtomRenderer {
