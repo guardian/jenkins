@@ -1,6 +1,18 @@
 package jenkins
 
 import com.gu.contentatom.thrift.{Atom, AtomData}
+import com.gu.contentatom.thrift.atom.cta.CTAAtom
+import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
+import com.gu.contentatom.thrift.atom.guide.GuideAtom
+import com.gu.contentatom.thrift.atom.interactive.InteractiveAtom
+import com.gu.contentatom.thrift.atom.media.MediaAtom
+import com.gu.contentatom.thrift.atom.profile.ProfileAtom
+import com.gu.contentatom.thrift.atom.qanda.QAndAAtom
+import com.gu.contentatom.thrift.atom.quiz.QuizAtom
+import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
+import com.gu.contentatom.thrift.atom.review.ReviewAtom
+import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
+import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import io.circe._
 
 trait AtomRenderer {
@@ -43,6 +55,36 @@ trait AtomRenderer {
 
   def getJS[A](implicit reader: Rendering[A]): JS =
     reader.js.map(_.toString)
+
+  def getAllCSS: Seq[CSS] = Seq[CSS](
+    getCSS[CTAAtom],
+    getCSS[ExplainerAtom],
+    getCSS[GuideAtom],
+    getCSS[InteractiveAtom],
+    getCSS[MediaAtom],
+    getCSS[ProfileAtom],
+    getCSS[QAndAAtom],
+    getCSS[QuizAtom],
+    getCSS[RecipeAtom],
+    getCSS[ReviewAtom],
+    getCSS[StoryQuestionsAtom],
+    getCSS[TimelineAtom]
+  )
+
+  def getAllJS: Seq[JS] = Seq[JS](
+    getJS[CTAAtom],
+    getJS[ExplainerAtom],
+    getJS[GuideAtom],
+    getJS[InteractiveAtom],
+    getJS[MediaAtom],
+    getJS[ProfileAtom],
+    getJS[QAndAAtom],
+    getJS[QuizAtom],
+    getJS[RecipeAtom],
+    getJS[ReviewAtom],
+    getJS[StoryQuestionsAtom],
+    getJS[TimelineAtom]
+  )
 }
 
 object ArticleAtomRenderer extends AtomRenderer {
