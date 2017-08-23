@@ -16,9 +16,9 @@ import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import play.twirl.api.Html
 
 trait DefaultRendering[A] extends Rendering[A] {
-  def html = html_impl
-  def css = (atom, data) => None
-  def js = (atom, data) => None
+  def html(atom: Atom, data: A) = html_impl(atom, data)
+  def css = None
+  def js = None
 
   def html_impl: (Atom, A) => Html
 }

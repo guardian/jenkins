@@ -1,6 +1,4 @@
-@(atom: com.gu.contentatom.thrift.Atom
-, data: com.gu.contentatom.thrift.atom.guide.GuideAtom
-)
+@()
 
 @fragments.atoms.css.snippet()
 

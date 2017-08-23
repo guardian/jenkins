@@ -1,6 +1,4 @@
-@(atom: com.gu.contentatom.thrift.Atom
-, data: com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
-)
+@()
 
 @import helpers.css.mq;
 @import helpers.css.headline;

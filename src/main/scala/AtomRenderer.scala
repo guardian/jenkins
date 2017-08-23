@@ -17,14 +17,14 @@ trait AtomRenderer {
   def getHTML[A](atom: Atom, data: A)(implicit reader: Rendering[A]): HTML =
     reader.html(atom, data).toString
 
-  def getCSS[A](atom: Atom, data: A)(implicit reader: Rendering[A]): CSS =
-    reader.css(atom, data).map(_.toString)
+  def getCSS[A](implicit reader: Rendering[A]): CSS =
+    reader.css.map(_.toString)
 
-  def getJS[A](atom: Atom, data: A)(implicit reader: Rendering[A]): JS =
-    reader.js(atom, data).map(_.toString)
+  def getJS[A](implicit reader: Rendering[A]): JS =
+    reader.js.map(_.toString)
 
   def getAll[A : Rendering](atom: Atom, data: A): (HTML, CSS, JS) =
-    (getHTML(atom, data), getCSS(atom, data), getJS(atom, data))
+    (getHTML(atom, data), getCSS[A], getJS[A])
   
   def getAll(atom: Atom): (HTML, CSS, JS) = atom.data match {
     case AtomData.Cta(data)            => getAll(atom, data)
