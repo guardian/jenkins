@@ -1,8 +1,7 @@
 package jenkins
 
 import com.gu.contentatom.thrift.Atom
-import java.io.InputStream
-import play.twirl.api.{Html, JavaScript}
+import play.twirl.api.Html
 import scala.io.Source
 import twirl.Css
 
