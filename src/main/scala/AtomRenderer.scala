@@ -14,6 +14,7 @@ import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import io.circe._
+import io.circe.parser._
 
 trait AtomRenderer {
   protected val renderings: Renderings
@@ -48,7 +49,10 @@ trait AtomRenderer {
   def getHTML(json: Json): Option[HTML] = json.as[Atom] match {
     case Left(_) => None
     case Right(atom) => Some(getHTML(atom))
-  } 
+  }
+
+  def getHTML(string: String): Option[HTML] =
+    parse(string).right.toOption.flatMap(getHTML)
 
   def getCSS[A](implicit reader: Rendering[A]): CSS =
     reader.css.map(_.toString)
