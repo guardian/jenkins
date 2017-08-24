@@ -88,9 +88,9 @@ trait AtomRenderer {
 }
 
 object ArticleAtomRenderer extends AtomRenderer {
-  val renderings = ArticleRenderings
+  val renderings = renderers.ArticleRenderings
 }
 
 object DefaultAtomRenderer extends AtomRenderer {
-  val renderings = DefaultRenderings
+  val renderings = renderers.DefaultRenderings
 }
