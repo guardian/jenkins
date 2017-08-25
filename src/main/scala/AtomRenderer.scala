@@ -1,4 +1,4 @@
-package jenkins
+package com.gu.contentatom.renderer
 
 import com.gu.contentatom.thrift.{Atom, AtomData}
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
@@ -15,6 +15,7 @@ import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import io.circe._
 import io.circe.parser._
+import renderers.{Renderings, Rendering}
 
 trait AtomRenderer {
   protected val renderings: Renderings

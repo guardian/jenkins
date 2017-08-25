@@ -1,4 +1,5 @@
-package jenkins
+package com.gu.contentatom.renderer
+package renderers
 
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom

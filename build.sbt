@@ -14,7 +14,7 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-parser"       % circeVersion
 )
 
-TwirlKeys.templateFormats += ("css" -> "jenkins.twirl.CssFormat")
+TwirlKeys.templateFormats += ("css" -> "com.gu.contentatom.renderer.twirl.CssFormat")
 
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 

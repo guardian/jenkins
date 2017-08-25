@@ -1,4 +1,4 @@
-package jenkins
+package com.gu.contentatom.renderer
 package twirl
 
 import play.twirl.api.{BufferedContent, Format, Formats}

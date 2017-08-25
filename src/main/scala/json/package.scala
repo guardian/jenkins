@@ -1,4 +1,4 @@
-package jenkins
+package com.gu.contentatom.renderer
 
 import com.gu.contentatom.thrift.Atom
 import com.gu.fezziwig.CirceScroogeMacros._

@@ -1,4 +1,4 @@
-@(from: String, until: Option[String] = None)(css: jenkins.twirl.Css)
+@(from: String, until: Option[String] = None)(css: com.gu.contentatom.renderer.twirl.Css)
 
 @defining(Map(
   "mobile"          -> "320px",
