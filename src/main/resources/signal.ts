@@ -54,14 +54,14 @@ const make = <A>(a: A): Signal<A> => {
 const constant = make;
 
 // Maps incoming signal to a new one
-const map = <A, B>(sa: Signal<A>) => (f: Morphism<A ,B>): Signal<B> => {
+const map = <A, B>(f: Morphism<A ,B>) => (sa: Signal<A>): Signal<B> => {
   const sb = make(f(sa.get()));
   sa.subscribe(a => sb.set(f(a)));
   return sb;
 }
 
 // Monadic join of an incoming signal
-const flatMap = <A, B>(sa: Signal<A>) => (f: Morphism<A, Signal<B>>): Signal<B> => {
+const flatMap = <A, B>(f: Morphism<A, Signal<B>>) => (sa: Signal<A>): Signal<B> => {
   const sb = f(sa.get());
   sa.subscribe(a => {
     sb.set(f(a).get());
@@ -71,7 +71,7 @@ const flatMap = <A, B>(sa: Signal<A>) => (f: Morphism<A, Signal<B>>): Signal<B> 
 
 // Filters incoming signal.
 // Note: requires a zero should the current value not pass the test
-const filter = <A>(sa: Signal<A>) => (f: Morphism<A, boolean>) => (z: A): Signal<A> => {
+const filter = <A>(f: Morphism<A, boolean>) => (z: A) => (sa: Signal<A>): Signal<A> => {
   const ssa = make(f(sa.get()) ? sa.get() : z);
   sa.subscribe(a => {
     if( f(a) )
@@ -81,7 +81,7 @@ const filter = <A>(sa: Signal<A>) => (f: Morphism<A, boolean>) => (z: A): Signal
 }
 
 // Maps incoming functions from one signal to incoming values of another
-const apply = <A, B>(sa: Signal<A>) => (sfa: Signal<Morphism<A, B>>): Signal<B> => {
+const apply = <A, B>(sfa: Signal<Morphism<A, B>>) => (sa: Signal<A>): Signal<B> => {
   const sb = make(sfa.get()(sa.get()));
   sfa.subscribe((f: Morphism<A, B>) => {
     sb.set(f(sa.get()));
@@ -101,7 +101,7 @@ const merge = <A>(sa1: Signal<A>) => (sa2: Signal<A>): Signal<A> => {
 }
 
 // Accumulates over incoming values
-const foldp = <A, B>(sa: Signal<A>) => (f: Morphism<A, Morphism<B, B>>) => (z: B): Signal<B> => {
+const foldp = <A, B>(f: Morphism<A, Morphism<B, B>>) => (z: B) => (sa: Signal<A>): Signal<B> => {
   const sb = make(z);
   sa.subscribe(a => {
     sb.set(f(a)(sb.get()));
