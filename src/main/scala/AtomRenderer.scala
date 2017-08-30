@@ -60,6 +60,44 @@ trait AtomRenderer {
 
   def getJS[A](implicit reader: Rendering[A]): JS =
     reader.js.map(_.toString)
+  
+  def getCSS(atomType: String): CSS = atomType match {
+    case "cta"            => getCSS[CTAAtom]
+    case "explainer"      => getCSS[ExplainerAtom]
+    case "guide"          => getCSS[GuideAtom]
+    case "interactive"    => getCSS[InteractiveAtom]
+    case "media"          => getCSS[MediaAtom]
+    case "profile"        => getCSS[ProfileAtom]
+    case "qanda"          => getCSS[QAndAAtom]
+    case "quiz"           => getCSS[QuizAtom]
+    case "recipe"         => getCSS[RecipeAtom]
+    case "review"         => getCSS[ReviewAtom]
+    case "storyquestions" => getCSS[StoryQuestionsAtom]
+    case "timeline"       => getCSS[TimelineAtom]
+    case _                => None
+  }
+
+  def getCSS(atomTypes: Seq[String]): Seq[String] =
+    atomTypes.distinct.map(getCSS).flatten
+  
+  def getJS(atomType: String): JS = atomType match {
+    case "cta"            => getJS[CTAAtom]
+    case "explainer"      => getJS[ExplainerAtom]
+    case "guide"          => getJS[GuideAtom]
+    case "interactive"    => getJS[InteractiveAtom]
+    case "media"          => getJS[MediaAtom]
+    case "profile"        => getJS[ProfileAtom]
+    case "qanda"          => getJS[QAndAAtom]
+    case "quiz"           => getJS[QuizAtom]
+    case "recipe"         => getJS[RecipeAtom]
+    case "review"         => getJS[ReviewAtom]
+    case "storyquestions" => getJS[StoryQuestionsAtom]
+    case "timeline"       => getJS[TimelineAtom]
+    case _                => None
+  }
+
+  def getJS(atomTypes: Seq[String]): Seq[String] =
+    atomTypes.distinct.map(getJS).flatten
 
   def getAllCSS: Seq[CSS] = Seq[CSS](
     getCSS[CTAAtom],
