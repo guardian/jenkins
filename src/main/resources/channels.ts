@@ -10,6 +10,7 @@ export
   , dropRepeats
   , take
   , drop
+  , tap
   };
 
 import { Morphism } from './types';
@@ -19,7 +20,7 @@ type Channel<A> = {
   put:      (a: A) => PutResult<A>;
   canPut:   () => boolean;
   canTake:  () => boolean;
-  andThen:  <B>(f: Morphism<Channel<A>, Channel<B>>) => Channel<B>;
+  '->':     <B>(f: Morphism<Channel<A>, Channel<B>>) => Channel<B>;
   close:    () => void;
   isClosed: boolean;
 };
@@ -70,7 +71,7 @@ const chan = <A>(): Channel<A> => {
     put,
     canPut,
     canTake,
-    andThen,
+    '->': andThen,
     close,
     isClosed
   });
@@ -232,4 +233,16 @@ const drop = <A>(n: number) => (ca: Channel<A>): Channel<A> => {
   }
   drop_rec(n);
   return ca2;
+}
+
+const tap = <A>(f: Morphism<A, void>) => (ca: Channel<A>): void => {
+  const tap_rec = () => {
+    takeAsync(ca).then(a => {
+      if( a === null )
+        return;
+      f(a);
+      tap_rec();
+    });
+  }
+  tap_rec();
 }

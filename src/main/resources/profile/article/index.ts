@@ -1,6 +1,6 @@
 /// <reference path="../../typedefs.ts" />
 
-import { map, filter, take } from '../../channels';
+import { Channel, map, filter, take, tap } from '../../channels';
 import { fromEvent } from '../../events';
 
 type Atom = {
@@ -22,17 +22,18 @@ type ProfileAtom = {
 } & Snippet & Atom;
 
 export default function({ ophan, dom }: Services) {
+  let chan: Channel<Feedback>;
   const start = (a: ProfileAtom): Promise<void> => {
-    fromEvent('click', a.question)
-      .andThen(filter((e: UIEvent) => (e.target as Element).classList.contains('.button')))
-      .andThen(map((e: UIEvent) => (e.target as HTMLButtonElement).value === 'like' ? Feedback.Like : Feedback.Dislike))
-      .andThen(take(1))
-      .call(onFeedback(a));
+    chan = fromEvent('click', a.question)
+      ['->'] (filter((e: UIEvent) => (e.target as Element).classList.contains('.button')))
+      ['->'] (map((e: UIEvent) => (e.target as HTMLButtonElement).value === 'like' ? Feedback.Like : Feedback.Dislike))
+      ['->'] (take(1));
+    tap(onFeedback(a))(chan);
     return Promise.resolve();
   };
 
   const stop = () => {
-
+    chan.close();
   };
   
   const onFeedback = (a: ProfileAtom) => (x: Feedback): void => {
