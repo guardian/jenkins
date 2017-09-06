@@ -1,6 +1,6 @@
 /// <reference path="../../typedefs.ts" />
 
-import { map, filter } from '../../signal';
+import { map, filter, take } from '../../channels';
 import { fromEvent } from '../../events';
 
 type Atom = {
@@ -26,7 +26,8 @@ export default function({ ophan, dom }: Services) {
     fromEvent('click', a.question)
       .andThen(filter((e: UIEvent) => (e.target as Element).classList.contains('.button')))
       .andThen(map((e: UIEvent) => (e.target as HTMLButtonElement).value === 'like' ? Feedback.Like : Feedback.Dislike))
-      .once(onFeedback(a));
+      .andThen(take(1))
+      .call(onFeedback(a));
     return Promise.resolve();
   };
 

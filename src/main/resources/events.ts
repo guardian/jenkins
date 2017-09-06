@@ -3,12 +3,12 @@ export
   };
 
 import { Morphism } from './types';
-import { Signal, constant } from './signal';
+import { Channel, chan, putAsync } from './channels';
 
-const fromEvent = <A>(e: string, t: EventTarget) => (z: A) => (f: Morphism<Event, A>): Signal<A> => {
-  const s: Signal<A> = constant(z); 
-  t.addEventListener(e, (ev) => {
-    s.set(f(ev));
+const fromEvent = (e: string, t: EventTarget): Channel<Event> => {
+  const c: Channel<Event> = chan(); 
+  t.addEventListener(e, (ev: Event) => {
+    putAsync(ev)(c);
   });
-  return s;
+  return c;
 }
