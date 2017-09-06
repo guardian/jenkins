@@ -2,7 +2,6 @@ export
   { fromEvent
   };
 
-import { Morphism } from './types';
 import { Channel, chan, putAsync } from './channels';
 
 const fromEvent = (e: string, t: EventTarget): Channel<Event> => {
