@@ -1,3 +1,5 @@
+import ReleaseTransformations._
+
 name := "atom-renderer"
 organization := "com.gu"
 version := "0.1"
@@ -24,3 +26,26 @@ JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 resolveFromWebjarsNodeModulesDir := true
 
 resolvers += Resolver.bintrayRepo("webjars","maven")
+
+// Add sonatype repository settings
+publishTo := Some(
+  if (isSnapshot.value)
+    Opts.resolver.sonatypeSnapshots
+  else
+    Opts.resolver.sonatypeStaging
+)
+
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  releaseStepCommand("publishSigned"),
+  setNextVersion,
+  commitNextVersion,
+  releaseStepCommand("sonatypeReleaseAll"),
+  pushChanges
+)
