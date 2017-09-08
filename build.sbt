@@ -2,7 +2,6 @@ import ReleaseTransformations._
 
 name := "atom-renderer"
 organization := "com.gu"
-version := "0.1"
 scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8")
 scalaVersion := "2.11.11"
 
