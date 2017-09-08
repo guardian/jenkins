@@ -26,8 +26,6 @@ trait AtomRenderer {
   type CSS = Option[String]
   type JS = Option[String]
 
-  def apply: Atom => HTML = getHTML
-
   def getHTML[A](atom: Atom, data: A)(implicit reader: Rendering[A]): HTML =
     reader.html(atom, data).toString
   
@@ -52,8 +50,8 @@ trait AtomRenderer {
     case Right(atom) => Some(getHTML(atom))
   }
 
-  def getHTML(string: String): Option[HTML] =
-    parse(string).right.toOption.flatMap(getHTML)
+  def getHTML(json: String): Option[HTML] =
+    parse(json).right.toOption.flatMap(getHTML)
 
   def getCSS[A](implicit reader: Rendering[A]): CSS =
     reader.css.map(_.toString)
