@@ -1,0 +1,15 @@
+{
+  "name": "atom-renderer",
+  "version": "0.2.0",
+  "description": "Platform-agnostic rendering library for atoms",
+  "main": "index.js",
+  "repository": "https://github.com/guardian/atom-renderer.git",
+  "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "typescript": "^2.5.2"
+  }
+}
