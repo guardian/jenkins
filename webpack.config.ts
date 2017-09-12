@@ -1,16 +1,7 @@
 const path = require('path');
 
 const babelOptions = {
-  "presets": [
-    [
-      "es2015",
-      {
-        "modules": false
-      }
-    ],
-    "es2016",
-    "es2017"
-  ]
+  "presets": ["env"]
 };
 
 module.exports = {  
