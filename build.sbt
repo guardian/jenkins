@@ -26,6 +26,10 @@ resolveFromWebjarsNodeModulesDir := true
 
 resolvers += Resolver.bintrayRepo("webjars","maven")
 
+// Exclude TypeScript files
+excludeFilter in unmanagedResourceDirectories := HiddenFileFilter || "*.ts"
+mappings in (Compile, packageBin) ~= { _.filter(!_._1.getName.endsWith(".ts")) }
+
 // Add sonatype repository settings
 publishTo := Some(
   if (isSnapshot.value)
