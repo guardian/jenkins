@@ -43,7 +43,7 @@ object ArticleRenderings extends Renderings {
   val guideRendering = new ArticleRendering[GuideAtom] {
     val html_impl = (atom, data) => guide.article.html.index(atom, data)
     val css_impl = () => guide.article.css.index()
-    val js_impl = () => getJavascriptFile("/guide/article/index.js")
+    val js_impl = () => getJavascriptFile("/guide/article/guide.transpiled.js")
   }
 
   val interactiveRendering = new ArticleRendering[InteractiveAtom] {
@@ -61,13 +61,13 @@ object ArticleRenderings extends Renderings {
   val profileRendering = new ArticleRendering[ProfileAtom] {
     val html_impl = (atom, data) => profile.article.html.index(atom, data)
     val css_impl = () => profile.article.css.index()
-    val js_impl = () => getJavascriptFile("/profile/article/index.js")
+    val js_impl = () => getJavascriptFile("/profile/article/profile.transpiled.js")
   }
 
   val qandaRendering = new ArticleRendering[QAndAAtom] {
     val html_impl = (atom, data) => qanda.article.html.index(atom, data)
     val css_impl = () => qanda.article.css.index()
-    val js_impl = () => getJavascriptFile("/qanda/article/index.js")
+    val js_impl = () => getJavascriptFile("/qanda/article/qanda.transpiled.js")
   }
 
   val quizRendering = new ArticleRendering[QuizAtom] {
@@ -97,6 +97,6 @@ object ArticleRenderings extends Renderings {
   val timelineRendering = new ArticleRendering[TimelineAtom] {
     val html_impl = (atom, data) => timeline.article.html.index(atom, data)
     val css_impl = () => timeline.article.css.index()
-    val js_impl = () => getJavascriptFile("/timeline/article/index.js")
+    val js_impl = () => getJavascriptFile("/timeline/article/timeline.transpiled.js")
   }
 }
