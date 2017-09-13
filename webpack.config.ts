@@ -1,48 +1,81 @@
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
-const babelOptions = {
-  "presets": ["env"]
-};
-
-module.exports = {  
-  entry: {
-    guide: './guide/article/index.js',
-    qanda: './qanda/article/index.js',
-    profile: './profile/article/index.js',
-    timeline: './timeline/article/index.js',
-  },
-  output: {
-    filename: '[resource-path]/[name].transpiled.js',
-    path: path.resolve(__dirname, 'src', 'main', 'resources'),
-    libraryTarget: 'var'
-  },
+const commonSettings = {
   resolve: {
-      // Add '.ts' and '.tsx' as a resolvable extension.
-      extensions: [".ts", ".tsx", ".js"]
+    extensions: [".ts"]
   },
   module: {
     rules: [{
-      test: /\.ts(x?)$/,
+      test: /\.ts$/,
       exclude: /node_modules/,
       use: [
         {
-          loader: 'babel-loader',
-          options: babelOptions
+          loader: 'babel-loader'
         },
         {
           loader: 'ts-loader'
         }
       ]
-    }, {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: babelOptions
-        }
-      ]
     }]
   },
-  context: path.resolve(__dirname, 'src', 'main', 'resources')
+  context: path.resolve(__dirname, 'src', 'main', 'resources'),
+  plugins: [
+    new UglifyJSPlugin({
+      parallel: true
+    })
+  ]
 };
+
+const guides = Object.assign({  
+  entry: {
+    guide: './guide/article/index.ts',
+  },
+  output: {
+    filename: '[name].transpiled.js',
+    path: path.resolve(__dirname, 'src', 'main', 'resources', 'guide', 'article'),
+    libraryTarget: 'var'
+  },
+}, commonSettings);
+
+const qandas = Object.assign({  
+  entry: {
+    qanda: './qanda/article/index.ts',
+  },
+  output: {
+    filename: '[name].transpiled.js',
+    path: path.resolve(__dirname, 'src', 'main', 'resources', 'qanda', 'article'),
+    libraryTarget: 'var'
+  },
+}, commonSettings);
+
+const profiles = Object.assign({  
+  entry: {
+    profile: './profile/article/index.ts',
+  },
+  output: {
+    filename: '[name].transpiled.js',
+    path: path.resolve(__dirname, 'src', 'main', 'resources', 'profile', 'article'),
+    libraryTarget: 'var'
+  },
+}, commonSettings);
+
+const timelines = Object.assign({  
+  entry: {
+    timeline: './timeline/article/index.ts',
+  },
+  output: {
+    filename: '[name].transpiled.js',
+    path: path.resolve(__dirname, 'src', 'main', 'resources', 'timeline', 'article'),
+    libraryTarget: 'var'
+  },
+}, commonSettings);
+
+module.exports = [
+  guides,
+  qandas,
+  profiles,
+  timelines
+];
+
+
