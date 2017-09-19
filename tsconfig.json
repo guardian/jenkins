@@ -9,7 +9,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": true,
-    "strict": true
+    "strict": true,
+    "lib": ["dom", "es7"]
   },
   "include": [
       "src/main/resources/**/*"
