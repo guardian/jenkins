@@ -1,5 +1,24 @@
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const fs = require('fs');
+
+const isAtomType = (s: string): boolean => {
+  const atomTypes: string[] = [
+    'cta',
+    'explainer',
+    'guide',
+    'interactive',
+    'media',
+    'profile',
+    'qanda',
+    'quiz',
+    'recipe',
+    'review',
+    'storyquestions',
+    'timeline'
+  ];
+  return atomTypes.includes(s);
+}
 
 const commonSettings = {
   resolve: {
@@ -20,11 +39,11 @@ const commonSettings = {
     }]
   },
   context: path.resolve(__dirname, 'src', 'main', 'resources'),
-  plugins: [
-    new UglifyJSPlugin({
-      parallel: true
-    })
-  ]
+  // plugins: [
+  //   new UglifyJSPlugin({
+  //     parallel: true
+  //   })
+  // ]
 };
 
 const guides = Object.assign({  
