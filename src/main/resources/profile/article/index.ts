@@ -22,33 +22,34 @@ type ProfileAtom = {
 } & Snippet & Atom;
 
 export default function({ ophan, dom }: Services) {
-  let chan: Channel<Feedback>;
-  const start = (a: ProfileAtom): Promise<void> => {
-    chan = fromEvent('click', a.question)
+  const AtomBuilder = (root: Element): Coeval<ProfileAtom> => {
+    let chan: Channel<Feedback>;
+
+    const start = (a: ProfileAtom): Promise<void> => {
+      chan = fromEvent('click', a.question)
       ['->'] (filter((e: UIEvent) => (e.target as Element).classList.contains('atom__button')))
       ['->'] (map((e: UIEvent) => (e.target as HTMLButtonElement).value === 'like' ? Feedback.Like : Feedback.Dislike))
       ['->'] (take(1));
-    tap(onFeedback(a))(chan);
-    return Promise.resolve();
-  };
-
-  const stop = () => {
-    chan.close();
-  };
-  
-  const onFeedback = (a: ProfileAtom) => (x: Feedback): void => {
-    ophan.record({
-      atomId: a.snippetId,
-      component: `snippet_${a.snippetType}`,
-      value: `${a.snippetType}_feedback_${x}`
-    });
-    dom.write(() => {
-      a.ack.hidden = false;
-      a.question.hidden = true;
-    });
-  }
-
-  const AtomBuilder = (root: Element): Coeval<ProfileAtom> => {
+      tap(onFeedback(a))(chan);
+      return Promise.resolve();
+    };
+    
+    const stop = () => {
+      chan.close();
+    };
+    
+    const onFeedback = (a: ProfileAtom) => (x: Feedback): void => {
+      ophan.record({
+        atomId: a.snippetId,
+        component: `snippet_${a.snippetType}`,
+        value: `${a.snippetType}_feedback_${x}`
+      });
+      dom.write(() => {
+        a.ack.hidden = false;
+        a.question.hidden = true;
+      });
+    }
+    
     const runTry = (): Try<ProfileAtom> => {
       const question = (root.querySelector('.atom--snippet__feedback') as HTMLElement);
       const ack = (root.querySelector('.atom--snippet__ack') as HTMLElement);
@@ -61,8 +62,10 @@ export default function({ ophan, dom }: Services) {
           snippetType: <string>snippet.dataset.snippetType,
           question,
           ack,
-          start,
-          stop
+          stop,
+          start(): Promise<void> {
+            return start(this);
+          }
         })
         : 'Some elements were missing when initialising atom';
     }
