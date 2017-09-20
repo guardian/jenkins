@@ -53,7 +53,8 @@ const guides = Object.assign({
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'src', 'main', 'resources', 'guide', 'article'),
-    libraryTarget: 'var'
+    libraryTarget: 'this',
+    library: 'guide'
   },
 }, commonSettings);
 
@@ -62,9 +63,10 @@ const qandas = Object.assign({
     qanda: './qanda/article/index.ts',
   },
   output: {
-    filename: '[name].transpiled.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'src', 'main', 'resources', 'qanda', 'article'),
-    libraryTarget: 'var'
+    libraryTarget: 'this',
+    library: 'qanda'
   },
 }, commonSettings);
 
@@ -73,9 +75,10 @@ const profiles = Object.assign({
     profile: './profile/article/index.ts',
   },
   output: {
-    filename: '[name].transpiled.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'src', 'main', 'resources', 'profile', 'article'),
-    libraryTarget: 'var'
+    libraryTarget: 'this',
+    library: 'profile'
   },
 }, commonSettings);
 
@@ -84,9 +87,10 @@ const timelines = Object.assign({
     timeline: './timeline/article/index.ts',
   },
   output: {
-    filename: '[name].transpiled.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'src', 'main', 'resources', 'timeline', 'article'),
-    libraryTarget: 'var'
+    libraryTarget: 'this',
+    library: 'timeline'
   },
 }, commonSettings);
 
