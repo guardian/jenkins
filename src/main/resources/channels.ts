@@ -36,11 +36,13 @@ type TakeResult<A> = Resume<A | null>
 
 const chan = <A>(): Channel<A> => {
   let isClosed = false;
-  let val: A;
+  let val: A | null;
 
   const take = (): TakeResult<A> => {
     if( canTake() ) {
-      return ['resume', val];
+      const ret: A = val as A;
+      val = null;
+      return ['resume', ret];
     } else if( isClosed ) {
       return ['resume', null];
     } else {
