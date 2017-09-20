@@ -51,7 +51,7 @@ const guides = Object.assign({
     guide: './guide/article/index.ts',
   },
   output: {
-    filename: '[name].transpiled.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'src', 'main', 'resources', 'guide', 'article'),
     libraryTarget: 'var'
   },
