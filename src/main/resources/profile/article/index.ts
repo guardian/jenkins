@@ -25,7 +25,7 @@ export default function({ ophan, dom }: Services) {
   let chan: Channel<Feedback>;
   const start = (a: ProfileAtom): Promise<void> => {
     chan = fromEvent('click', a.question)
-      ['->'] (filter((e: UIEvent) => (e.target as Element).classList.contains('.button')))
+      ['->'] (filter((e: UIEvent) => (e.target as Element).classList.contains('atom__button')))
       ['->'] (map((e: UIEvent) => (e.target as HTMLButtonElement).value === 'like' ? Feedback.Like : Feedback.Dislike))
       ['->'] (take(1));
     tap(onFeedback(a))(chan);
