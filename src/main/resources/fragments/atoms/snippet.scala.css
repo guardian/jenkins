@@ -1,11 +1,9 @@
-@()
+@()(implicit vars: Map[String, String])
 
 @import helpers.css.mq;
 @import helpers.css.headline;
 @import helpers.css.text;
 @import helpers.css.textSans;
-
-@css.vars()
 
 .atom--snippet > summary {
     outline: none;
@@ -17,17 +15,17 @@
 
 .atom--snippet {
     background: #f1f1f1;
-    color: var(--neutral-1);
+    color: @vars.get("neutral-1");
     position: relative;
-    padding: calc(var(--baseline) / 3) calc(var(--gutter) / 4) calc(var(--baseline) / 2);
-    margin: calc(var(--baseline) * 4 / 3) 0 calc(var(--baseline) * 3);
+    padding: calc(@vars.get("baseline") / 3) calc(@vars.get("gutter") / 4) calc(@vars.get("baseline") / 2);
+    margin: calc(@vars.get("baseline") * 4 / 3) 0 calc(@vars.get("baseline") * 3);
 Ï
     font-family: var(--f-sans-serif-text);
 }
 
 .atom--snippet a {
-    color: var(--news-main-1);
-    border-bottom-color: var(--neutral-3);
+    color: @vars.get("news-main-1");
+    border-bottom-color: @vars.get("neutral-3");
 }
 
 .atom--snippet[open] .atom--snippet__handle > :nth-child(1),
@@ -36,13 +34,13 @@
 }
 
 .atom--snippet__header {
-    margin: 0 0 var(--baseline) * 4 / 3;
+    margin: 0 0 @vars.get("baseline") * 4 / 3;
     font-weight: bold;
 }
 
 .atom--snippet__label {
     @text(1);
-    color: var(--news-support-2);
+    color: @vars.get("news-support-2");
     display: block;
 }
 
@@ -57,13 +55,13 @@
     border: 0;
     padding: 0 15px 0 7px;
 
-    background: var(--news-support-2);
+    background: @vars.get("news-support-2");
     color: #ffffff;
 }
 
 .atom--snippet__handle:hover,
 .atom--snippet__handle:focus {
-    background-color: var(--news-support-2);
+    background-color: @vars.get("news-support-2");
 }
 
 .atom--snippet__handle > span,
@@ -75,7 +73,7 @@
 .atom--snippet__handle svg {
     width: 20px;
     height: 20px;
-    margin-right: var(--gutter) / 2;
+    margin-right: @vars.get("gutter") / 2;
 }
 
 .atom--snippet__body {
@@ -83,7 +81,7 @@
 }
 
 .atom--snippet__body > p::before {
-    background-color: var(--news-support-2);
+    background-color: @vars.get("news-support-2");
 }
 
 .atom--snippet__footer {
@@ -100,18 +98,18 @@
 
 .atom--snippet__feedback .button {
     border: 0;
-    margin: 0 0 0 var(--gutter) / 4;
+    margin: 0 0 0 @vars.get("gutter") / 4;
     padding: 0;
     width: 28px;
     height: 28px;
 
-    background: $news-main-1;
+    background: @vars.get("news-main-1");
     color: #ffffff;
 }
 
 .atom--snippet__feedback .button:hover,
 .atom--snippet__feedback .button:focus {
-    background: var(--news-main-1);
+    background: @vars.get("news-main-1");
 }
 
 .atom--snippet__feedback .button[value='dislike'] {
@@ -138,7 +136,7 @@
 
 .atom--snippet__image {
     float: left;
-    margin-right: calc(var(--gutter) / 2);
+    margin-right: calc(@vars.get("gutter") / 2);
 
     display: inline-block;
     position: relative;
@@ -163,7 +161,7 @@
     display: flex;
     width: 200px;
     height: 0;
-    border-top: 1px dotted var(--neutral-2);
+    border-top: 1px dotted @vars.get("neutral-2");
 }
 
 @mq("mobile", Some("mobileLandscape")) {
@@ -173,7 +171,7 @@
 }
 
 .atom--snippet__item+.atom--snippet__item {
-    padding-top: var(--baseline);
+    padding-top: @vars.get("baseline");
 }
 
 .atom--snippet__heading {

@@ -1,13 +1,11 @@
-@()
+@()(implicit vars: Map[String, String])
 
 @import helpers.css.mq;
 @import helpers.css.headline;
 @import helpers.css.textSans;
 
-@css.vars()
-
 .user__question {
-  padding-bottom: var(--baseline);
+  padding-bottom: @vars.get("baseline").getOrElse("");
   overflow: auto;
 }
 
@@ -19,9 +17,9 @@
   @headline(3)
 
   font-weight: 900;
-  color: var(--news-main-1);
-  border-top: 1px solid var(--news-main-2);
-  padding-top: calc(var(--baseline) / 2);
+  color: @vars.get("news-main-1").getOrElse("");
+  border-top: 1px solid @vars.get("news-main-2").getOrElse("");
+  padding-top: calc(@vars.get("baseline").getOrElse("") / 2);
 }
 
 @mq("tablet") {
@@ -32,7 +30,7 @@
 }
 
 .user__question-title--secondary {
-  color: var(--neutral-1);
+  color: @vars.get("neutral-1").getOrElse("");
   display: block;
   font-size: 18px;
   font-weight: 400;
@@ -41,40 +39,40 @@
 .user__questions-text--wrapper {
   position: relative;
   overflow: hidden;
-  background-color: var(--neutral-8);
+  background-color: @vars.get("neutral-8").getOrElse("");
   margin-bottom: 0;
-  padding-top: calc(var(--baseline) / 2);
-  padding-bottom: var(--baseline);
+  padding-top: calc(@vars.get("baseline").getOrElse("") / 2);
+  padding-bottom: @vars.get("baseline").getOrElse("");
   padding-left: 8px;
 }
 
 .user__questions-text--wrapper.is-clicked {
-  background-color: var(--news-support-5);
+  background-color: @vars.get("news-support-5").getOrElse("");
   padding-bottom: 0;
 }
 
 .user__questions-text--wrapper.is-clicked + .storyquestion-submission-container {
-  background-color: var(--news-support-5);
+  background-color: @vars.get("news-support-5").getOrElse("");
 }
 
 .user__questions-text--wrapper:hover {
-  background-color: var(--news-support-5);
+  background-color: @vars.get("news-support-5").getOrElse("");
   cursor: pointer;
 }
 
 .user__questions-text--wrapper:hover .user__question-upvote {
-    background-color: var(--news-main-1);
+    background-color: @vars.get("news-main-1").getOrElse("");
     color: #ffffff;
 }
 
 .user__question-section {
-  border-top: 1px dotted var(--neutral-6);
-  margin-top: calc(var(--baseline) * 2);
+  border-top: 1px dotted @vars.get("neutral-6").getOrElse("");
+  margin-top: calc(@vars.get("baseline").getOrElse("") * 2);
 }
 
 .user__question-section h3 {
   @textSans(2);
-  color: var(--neutral-2);
+  color: @vars.get("neutral-2").getOrElse("");
   font-weight: 200;
 }
 
@@ -84,15 +82,15 @@
   display: block;
   //used to avoid fixed width across multiple break points.
   max-width: 77%;
-  color: var(--news-main-1);
+  color: @vars.get("news-main-1").getOrElse("");
   position: relative;
-  margin-bottom: var(baseline);
+  margin-bottom: @vars.get("baseline").getOrElse("");
 }
 
 @mq("tablet") {
   .user__question-text {
     @headline(3);
-    line-height: calc(var(--baseline) * 2);
+    line-height: calc(@vars.get("baseline").getOrElse("") * 2);
     max-width: 80%;
     font-weight: 900;
   }
@@ -105,13 +103,13 @@
 .user__question-response {
   @textSans(3);
   clear: both;
-  margin-top: var(--baseline);
-  margin-bottom: var(--baseline);
+  margin-top: @vars.get("baseline").getOrElse("");
+  margin-bottom: @vars.get("baseline").getOrElse("");
   font-size: 14px;
   line-height: 18px;
   width: 90%;
   display: block;
-  color: var(--neutral-1);
+  color: @vars.get("neutral-1").getOrElse("");
 }
 
 @mq("tablet") {
@@ -125,18 +123,18 @@
 
 .user__question-upvote {
   @textSans(3);
-  right: calc(var(--gutter) - 2px);
-  bottom: var(--gutter);
+  right: calc(@vars.get("gutter").getOrElse("") - 2px);
+  bottom: @vars.get("gutter").getOrElse("");
   position: absolute;
-  color: var(--news-main-1);
+  color: @vars.get("news-main-1").getOrElse("");
   font-weight: 900;
-  border: 1px solid var(--news-main-1);
-  padding-top: calc(var(--baseline) / 3);
+  border: 1px solid @vars.get("news-main-1").getOrElse("");
+  padding-top: calc(@vars.get("baseline").getOrElse("") / 3);
   float: right;
   outline: 0;
-  padding-left: var(--baseline);
-  padding-right: var(--baseline);
-  border-radius: calc(var(--gutter) * 2);
+  padding-left: @vars.get("baseline").getOrElse("");
+  padding-right: @vars.get("baseline").getOrElse("");
+  border-radius: calc(@vars.get("gutter").getOrElse("") * 2);
   background-color: transparent;
 }
 
@@ -151,7 +149,7 @@
 
 .storyquestion-email-signup-form {
   margin: 0;
-  margin-bottom: var(--baseline);
+  margin-bottom: @vars.get("baseline").getOrElse("");
 }
 
 .storyquestion-email-signup-form .form-field {
@@ -161,13 +159,13 @@
 }
 
 .storyquestion-email-signup-form .text-input {
-  border-bottom-left-radius: calc(var(--baseline) * 2 + 4px);
-  border-top-left-radius: calc(var(--baseline) * 2 + 4px);
+  border-bottom-left-radius: calc(@vars.get("baseline").getOrElse("") * 2 + 4px);
+  border-top-left-radius: calc(@vars.get("baseline").getOrElse("") * 2 + 4px);
   font-size: 14px;
 }
 
 .storyquestion-email-signup-form .button--primary {
-  height: calc(var(--baseline) * 3);
+  height: calc(@vars.get("baseline").getOrElse("") * 3);
 }
 
 .storyquestion-email-signup-form .button--with-input {

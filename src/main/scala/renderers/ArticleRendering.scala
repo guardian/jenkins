@@ -28,6 +28,8 @@ trait ArticleRendering[A] extends Rendering[A] {
 }
 
 object ArticleRenderings extends Renderings {
+  import config._
+  
   val ctaRendering = new ArticleRendering[CTAAtom] {
     val html_impl = (atom, data) => cta.article.html.index(atom, data)
     val css_impl = () => cta.article.css.index()

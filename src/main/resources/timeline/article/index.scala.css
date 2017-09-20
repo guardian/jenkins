@@ -1,4 +1,4 @@
-@()
+@()(implicit vars: Map[String, String])
 
 @fragments.atoms.css.snippet()
 
