@@ -4,7 +4,6 @@
     "inlineSourceMap": true,
     "sourceRoot": "/src/main/resources",
     "alwaysStrict": true,
-    "module": "es6",
     "target": "es2015",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
