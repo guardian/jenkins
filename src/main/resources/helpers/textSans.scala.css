@@ -10,8 +10,8 @@
 )) { textScale =>
 
   @textScale.get(level).map { case (fontSize, lineHeight) =>
-    @{fontSize}px;
-    @{lineHeight}px;
+    font-size: @{fontSize}px;
+    line-height: @{lineHeight}px;
   }
 
 }
