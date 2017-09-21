@@ -39,13 +39,13 @@
 }
 
 .atom--snippet__label {
-    @text(1);
+    @text(1)
     color: @vars.get("news-support-2");
     display: block;
 }
 
 .atom--snippet__headline {
-    @headline(3);
+    @headline(3)
 }
 
 .atom--snippet__handle {
@@ -85,7 +85,7 @@
 }
 
 .atom--snippet__footer {
-    @textSans(2);
+    @textSans(2)
 
     display: flex;
     justify-content: flex-end;
