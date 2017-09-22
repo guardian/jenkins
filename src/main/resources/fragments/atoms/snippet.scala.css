@@ -64,16 +64,12 @@
     background-color: @vars.get("news-support-2");
 }
 
-.atom--snippet__handle > span,
-.atom--snippet__handle .inline-icon {
+.atom--snippet__handle .icon {
     display: inline-flex;
     align-items: center;
-}
-
-.atom--snippet__handle svg {
     width: 20px;
     height: 20px;
-    margin-right: @vars.get("gutter") / 2;
+    margin-right: calc(@vars.get("gutter") / 2);
 }
 
 .atom--snippet__body {
@@ -117,13 +113,13 @@
 }
 
 .atom--snippet__feedback .button,
-.atom--snippet__feedback .inline-icon {
+.atom--snippet__feedback .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
-.atom--snippet__feedback svg {
+.atom--snippet__feedback .icon {
     width: 16px;
     height: 16px;
 }
