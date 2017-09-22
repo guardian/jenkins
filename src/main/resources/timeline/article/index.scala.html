@@ -14,7 +14,7 @@
   @for(item <- data.events) {
     <div class="atom--snippet__item">
       @defining(Instant.ofEpochSecond(item.date)) { date =>
-        <time class="atom--snippet__event-date" datetime="DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(date)">
+        <time class="atom--snippet__event-date" datetime="@DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(date)">
           @DateTimeFormatter.ofPattern("dd EEEE yyyy").withZone(ZoneOffset.UTC).format(date)
         </time>
       }
