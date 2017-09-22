@@ -5,8 +5,8 @@
     <span class="atom--snippet__label">@label</span>
     <h4 class="atom--snippet__headline">@headline</h4>
     <button class="atom__button atom__button--large atom__handle atom__button--stateful" aria-hidden="true">
-      <span class="is-on">Show</span>
-      <span class="is-off">Hide</span>
+      <span class="is-on">@fragments.icons.html.plus() Show</span>
+      <span class="is-off">@fragments.icons.html.minus() Hide</span>
     </button>
   </summary>
   <div class="atom__body">
@@ -15,8 +15,8 @@
   <footer class="atom--snippet__footer">
     <div class="atom--snippet__feedback">
       <div>Was this helpful?</div>
-      <button class="atom__button" value="like" aria-label="Yes">Yes</button>
-      <button class="atom__button" value="dislike" aria-label="No">No</button>
+      <button class="atom__button" value="like" aria-label="Yes">@fragments.icons.html.thumb()</button>
+      <button class="atom__button" value="dislike" aria-label="No">@fragments.icons.html.thumb()</button>
     </div>
     <div class="atom--snippet__ack" hidden aria-role="alert" aria-live="polite">
       Thank you for your feedback.
