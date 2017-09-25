@@ -9,8 +9,6 @@ type Atom = {
   stop: () => void;
 };
 
-enum Feedback { Like = 'like', Dislike = 'dislike' };
-
 type Snippet = {
   snippetId: string;
   snippetType: string;
@@ -23,12 +21,12 @@ type ProfileAtom = {
 
 export default function({ ophan, dom }: Services) {
   const AtomBuilder = (root: Element): Coeval<ProfileAtom> => {
-    let chan: Channel<Feedback>;
+    let chan: Channel<Action>;
 
     const start = (a: ProfileAtom): Promise<void> => {
       chan = fromEvent('click', a.question)
       ['->'] (filter((e: UIEvent) => (e.target as Element).classList.contains('atom__button')))
-      ['->'] (map((e: UIEvent) => (e.target as HTMLButtonElement).value === 'like' ? Feedback.Like : Feedback.Dislike))
+      ['->'] (map((e: UIEvent) => (e.target as HTMLButtonElement).value === 'like' ? Action.LIKE : Action.DISLIKE))
       ['->'] (take(1));
       tap(onFeedback(a))(chan);
       return Promise.resolve();
@@ -38,15 +36,22 @@ export default function({ ophan, dom }: Services) {
       chan.close();
     };
     
-    const onFeedback = (a: ProfileAtom) => (x: Feedback): void => {
+    const onFeedback = (p: ProfileAtom) => (a: Action): void => {
+      const emptySet = new Set();
       ophan.record({
-        atomId: a.snippetId,
-        component: `snippet_${a.snippetType}`,
-        value: `${a.snippetType}_feedback_${x}`
+        componentEvent: {
+          component: {
+            componentType: ComponentType.PROFILE_ATOM,
+            id: p.snippetId,
+            products: emptySet,
+            labels: emptySet
+          },
+          action: a
+        }
       });
       dom.write(() => {
-        a.ack.hidden = false;
-        a.question.hidden = true;
+        p.ack.hidden = false;
+        p.question.hidden = true;
       });
     }
     
