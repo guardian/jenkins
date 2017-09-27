@@ -1,6 +1,6 @@
 package com.gu.contentatom.renderer
 
-import com.gu.contentatom.thrift.{Atom, AtomData}
+import com.gu.contentatom.thrift.{Atom, AtomData, AtomType}
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
 import com.gu.contentatom.thrift.atom.guide.GuideAtom
@@ -59,42 +59,42 @@ trait AtomRenderer {
   def getJS[A](implicit reader: Rendering[A]): JS =
     reader.js.map(_.toString)
   
-  def getCSS(atomType: String): CSS = atomType match {
-    case "cta"            => getCSS[CTAAtom]
-    case "explainer"      => getCSS[ExplainerAtom]
-    case "guide"          => getCSS[GuideAtom]
-    case "interactive"    => getCSS[InteractiveAtom]
-    case "media"          => getCSS[MediaAtom]
-    case "profile"        => getCSS[ProfileAtom]
-    case "qanda"          => getCSS[QAndAAtom]
-    case "quiz"           => getCSS[QuizAtom]
-    case "recipe"         => getCSS[RecipeAtom]
-    case "review"         => getCSS[ReviewAtom]
-    case "storyquestions" => getCSS[StoryQuestionsAtom]
-    case "timeline"       => getCSS[TimelineAtom]
+  def getCSS(atomType: AtomType): CSS = atomType match {
+    case AtomType.Cta            => getCSS[CTAAtom]
+    case AtomType.Explainer      => getCSS[ExplainerAtom]
+    case AtomType.Guide          => getCSS[GuideAtom]
+    case AtomType.Interactive    => getCSS[InteractiveAtom]
+    case AtomType.Media          => getCSS[MediaAtom]
+    case AtomType.Profile        => getCSS[ProfileAtom]
+    case AtomType.Qanda          => getCSS[QAndAAtom]
+    case AtomType.Quiz           => getCSS[QuizAtom]
+    case AtomType.Recipe         => getCSS[RecipeAtom]
+    case AtomType.Review         => getCSS[ReviewAtom]
+    case AtomType.Storyquestions => getCSS[StoryQuestionsAtom]
+    case AtomType.Timeline       => getCSS[TimelineAtom]
     case _                => None
   }
 
-  def getCSS(atomTypes: Seq[String]): Seq[String] =
+  def getCSS(atomTypes: Seq[AtomType]): Seq[String] =
     atomTypes.distinct.map(getCSS).flatten
   
-  def getJS(atomType: String): JS = atomType match {
-    case "cta"            => getJS[CTAAtom]
-    case "explainer"      => getJS[ExplainerAtom]
-    case "guide"          => getJS[GuideAtom]
-    case "interactive"    => getJS[InteractiveAtom]
-    case "media"          => getJS[MediaAtom]
-    case "profile"        => getJS[ProfileAtom]
-    case "qanda"          => getJS[QAndAAtom]
-    case "quiz"           => getJS[QuizAtom]
-    case "recipe"         => getJS[RecipeAtom]
-    case "review"         => getJS[ReviewAtom]
-    case "storyquestions" => getJS[StoryQuestionsAtom]
-    case "timeline"       => getJS[TimelineAtom]
+  def getJS(atomType: AtomType): JS = atomType match {
+    case AtomType.Cta            => getJS[CTAAtom]
+    case AtomType.Explainer      => getJS[ExplainerAtom]
+    case AtomType.Guide          => getJS[GuideAtom]
+    case AtomType.Interactive    => getJS[InteractiveAtom]
+    case AtomType.Media          => getJS[MediaAtom]
+    case AtomType.Profile        => getJS[ProfileAtom]
+    case AtomType.Qanda          => getJS[QAndAAtom]
+    case AtomType.Quiz           => getJS[QuizAtom]
+    case AtomType.Recipe         => getJS[RecipeAtom]
+    case AtomType.Review         => getJS[ReviewAtom]
+    case AtomType.Storyquestions => getJS[StoryQuestionsAtom]
+    case AtomType.Timeline       => getJS[TimelineAtom]
     case _                => None
   }
 
-  def getJS(atomTypes: Seq[String]): Seq[String] =
+  def getJS(atomTypes: Seq[AtomType]): Seq[String] =
     atomTypes.distinct.map(getJS).flatten
 
   def getAllCSS: Seq[CSS] = Seq[CSS](
