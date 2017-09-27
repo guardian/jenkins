@@ -9,7 +9,7 @@
 
 .atom--snippet__item {
     padding-left: 17px;
-    border-left: 1px solid --var(--neutral-2)7f;
+    border-left: 1px solid @vars.get("neutral-2")7f;
 }
 
 .atom--snippet__event-date::before {
@@ -19,7 +19,7 @@
     border-radius: 100%;
     float: left;
     margin-left: -26px;
-    background-color: var(--neutral-2);
+    background-color: @vars.get("neutral-2");
 }
 
 .atom--snippet__event-date {
