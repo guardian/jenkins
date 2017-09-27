@@ -8,11 +8,8 @@
   label = data.typeLabel.getOrElse("Profile"),
   headline = atom.title.getOrElse("")
 ){
-  @* TODO: responsive images *@
   @for(img <- data.headshot ) {
-    <div class="atom--snippet__image">
-      <img src="@img" alt>
-    </div>
+    @fragments.atoms.html.snippetImage(img)
   }
 
   @for(item <- data.items) {
