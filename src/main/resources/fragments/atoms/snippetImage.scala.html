@@ -5,7 +5,7 @@
   @defining(img.assets.sortBy(_.dimensions.map(_.width).getOrElse(0))){ assets =>
     <img alt
       src="@assets.headOption.map(_.file).getOrElse("")"
-      srcset="@assets.collect{ case ImageAsset(_, file, Some(dims), _, _) => "@file @{dims.width}w" }.mkString(",")"
+      srcset="@assets.filter(_.dimensions.isDefined).map{ asset => "@asset.file @{asset.dimensions.map(_.width).get}w" }.mkString(",")"
       sizes="(min-width: 660px) 200px, 33%">
   }
 </div>
