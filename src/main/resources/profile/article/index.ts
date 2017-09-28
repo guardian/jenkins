@@ -1,4 +1,4 @@
-/// <reference path="../../typedefs.ts" />
+import { Action, Services, Coeval, ComponentType, Try } from "../../typedefs"
 
 import { Channel, map, filter, take, tap } from '../../channels';
 import { fromEvent } from '../../events';
@@ -25,8 +25,9 @@ export default function({ ophan, dom }: Services) {
 
     const start = (a: ProfileAtom): Promise<void> => {
       chan = fromEvent('click', a.question)
-      ['->'] (filter((e: UIEvent) => (e.target as Element).classList.contains('atom__button')))
-      ['->'] (map((e: UIEvent) => (e.target as HTMLButtonElement).value === 'like' ? Action.LIKE : Action.DISLIKE))
+      ['->'] (map((e: UIEvent) => (e.target as Element).closest('.atom__button')))
+      ['->'] (filter((e: HTMLButtonElement | null) => !!e))
+      ['->'] (map((e: HTMLButtonElement) => e.value === 'like' ? Action.LIKE : Action.DISLIKE))
       ['->'] (take(1));
       tap(onFeedback(a))(chan);
       return Promise.resolve();

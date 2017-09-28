@@ -1,3 +1,21 @@
+export 
+  { Product
+  , ComponentType
+  , ComponentV2
+  , Action
+  , AbTest
+  , ComponentEvent
+  , OphanRecord
+  , OphanService
+  , DomService
+  , ViewportService
+  , Services
+  , Coeval
+  , Try
+  , Success
+  , Failure
+  };
+
 enum Product {
   CONTRIBUTION          = 1,
   RECURRING_CONTRIBUTION= 2,
@@ -67,18 +85,24 @@ type OphanRecord = {
   componentEvent: ComponentEvent
 };
   
-type OphanService = {
-  record: (x: OphanRecord) => never
+interface OphanService {
+  record: (x: OphanRecord) => void;
 };
 
-type DomService = {
-  write: (f: () => void) => Promise<void>
-  read: <A>(f: () => A) => Promise<A>
-}
+interface DomService {
+  write: (f: () => void) => Promise<void>;
+  read: <A>(f: () => A) => Promise<A>;
+};
+
+interface ViewportService {
+  observe: (e: Element, t: number, c: (r: number) => void) => void;
+  unobserve: (e: Element, c: (r: number) => void) => void;
+};
   
 type Services = {
   ophan: OphanService,
-  dom: DomService
+  dom: DomService,
+  viewport: ViewportService
 };
 
 type Success<A> = A;
