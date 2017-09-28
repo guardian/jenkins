@@ -5,10 +5,9 @@
   @defining(img.assets.sortBy(_.dimensions.map(_.width).getOrElse(0))){ assets =>
     <img alt
       src="@assets.headOption.map(_.file).getOrElse("")"
-      srcset="@{assets
-        .filter(_.dimensions.isDefined)
-        .map(asset => s"$asset.file ${asset.dimensions.map(_.width).getOrElse("")}w")
-        .mkString(",")}"
-      sizes="(min-width: 660px) 200px, 33%">
+      srcset="@assets.filter(_.dimensions.isDefined).map{ asset => 
+        @asset.file @asset.dimensions.map{ dims => @{dims.width}w }
+      }.mkString(",")"
+      sizes="100px">
   }
 </div>

@@ -34,7 +34,7 @@
 }
 
 .atom--snippet__header {
-    margin: 0 0 @vars.get("baseline") * 4 / 3;
+    margin: 0 0 calc(@vars.get("baseline") * 4 / 3);
     font-weight: bold;
 }
 
@@ -49,10 +49,10 @@
 }
 
 .atom--snippet__handle {
+    font-size: 13px;
     position: absolute;
     bottom: 0;
     transform: translate(0, 50%);
-    border: 0;
     padding: 0 15px 0 7px;
 
     background: @vars.get("news-support-2");
@@ -64,9 +64,13 @@
     background-color: @vars.get("news-support-2");
 }
 
-.atom--snippet__handle .icon {
+.atom--snippet__handle span {
     display: inline-flex;
     align-items: center;
+}
+
+.atom--snippet__handle .icon {
+    fill: white;
     width: 20px;
     height: 20px;
     margin-right: calc(@vars.get("gutter") / 2);
@@ -92,9 +96,8 @@
     align-items: center;
 }
 
-.atom--snippet__feedback .button {
-    border: 0;
-    margin: 0 0 0 @vars.get("gutter") / 4;
+.atom--snippet__feedback .atom__button {
+    margin: 0 0 0 calc(@vars.get("gutter") / 4);
     padding: 0;
     width: 28px;
     height: 28px;
@@ -103,16 +106,16 @@
     color: #ffffff;
 }
 
-.atom--snippet__feedback .button:hover,
-.atom--snippet__feedback .button:focus {
+.atom--snippet__feedback .atom__button:hover,
+.atom--snippet__feedback .atom__button:focus {
     background: @vars.get("news-main-1");
 }
 
-.atom--snippet__feedback .button[value='dislike'] {
+.atom--snippet__feedback .atom__button[value='dislike'] {
     transform: rotate(180deg);
 }
 
-.atom--snippet__feedback .button,
+.atom--snippet__feedback .atom__button,
 .atom--snippet__feedback .icon {
     display: inline-flex;
     align-items: center;
@@ -133,14 +136,14 @@
 .atom--snippet__image {
     float: left;
     margin-right: calc(@vars.get("gutter") / 2);
+    margin-bottom: calc(@vars.get("baseline") / 2);
 
     display: inline-block;
     position: relative;
-    width: 33%;
-    height: 0;
+    width: 100px;
+    height: 100px;
     overflow: hidden;
     border-radius: 50%;
-    padding-top: 33%;
 }
 
 .atom--snippet__image img {
@@ -155,7 +158,7 @@
 .atom--snippet__item::before {
     content: '';
     display: flex;
-    width: 200px;
+    width: 100px;
     height: 0;
     border-top: 1px dotted @vars.get("neutral-2");
 }
