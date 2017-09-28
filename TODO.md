@@ -6,3 +6,4 @@ Some features that can be added later to the library:
 - [ ] Minify the CSS
 - [ ] Tree-shake the CSS
 - [ ] Replace Twirl -- definitely not a fan. I thought, being a very natural Scala extension (at least for Scala developers) would make it useful, but it proved to be more painful than anything. I may switch to JSX or a language of my own designing.
+- [ ] Explore Web Components as a valid output type ([Stencil](https://stenciljs.com/docs/intro))
