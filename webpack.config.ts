@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-// const Uglify = require('uglifyjs-webpack-plugin');
+const Uglify = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
 
 const isAtomType = (s: string): boolean => {
@@ -41,9 +41,9 @@ const commonSettings = {
   },
   context: path.resolve(__dirname, 'src', 'main', 'resources'),
   plugins: [
-    // new Uglify({
-    //   parallel: true
-    // }),
+    new Uglify({
+      parallel: true
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
