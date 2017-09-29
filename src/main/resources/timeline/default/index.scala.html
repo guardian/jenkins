@@ -1,13 +1,9 @@
+@import com.gu.contentatom.renderer.utils.GuardianDateFormatter
 @(atom: com.gu.contentatom.thrift.Atom
 , data: com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 )
 
-@import java.text.DateFormat
-@import java.util.Date
-
 @data.events.map { item =>
-  @defining(new Date(item.date)) { date =>
-    <p>(@{DateFormat.getDateInstance(DateFormat.MEDIUM).format(date)}) <strong>@item.title</strong></p>
-    @item.body.map { body => <p>@body</p> }
-  }
+  <p>(@GuardianDateFormatter(item.date)) <strong>@item.title</strong></p>
+  @item.body.map { body => <p>@body</p> }
 }

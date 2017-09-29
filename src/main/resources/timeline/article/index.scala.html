@@ -1,9 +1,7 @@
+@import com.gu.contentatom.renderer.utils.GuardianDateFormatter
 @(atom: com.gu.contentatom.thrift.Atom
 , data: com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 )
-
-@import java.time.{Instant, ZoneId}
-@import java.time.format.DateTimeFormatter
 
 @fragments.atoms.html.snippet(
   atom.id,
@@ -13,13 +11,11 @@
 ){
   @for(item <- data.events) {
     <div class="atom--snippet__item">
-      @defining(Instant.ofEpochSecond(item.date)) { date =>
-        <time class="atom--snippet__event-date" 
-          datetime="@DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.systemDefault()).format(date)"
-          >
-          @DateTimeFormatter.ofPattern("dd EEEE yyyy").withZone(ZoneId.systemDefault()).format(date)
-        </time>
-      }
+      <time class="atom--snippet__event-date" 
+        datetime="@GuardianDateFormatter.toMachineValue(item.date)"
+        >
+        @GuardianDateFormatter(item.date)
+      </time>
       <div class="atom--snippet__heading"><b>@item.title</b></div>
       @item.body.map { body => @Html(body) }
     </div>
