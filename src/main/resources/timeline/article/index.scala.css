@@ -10,7 +10,10 @@
 
 .atom--snippet--timeline .atom--snippet__item {
     padding-left: 17px;
-    border-left: 1px solid @vars.get("neutral-2")7f;
+}
+
+.atom--snippet--timeline .atom--snippet__item + .atom--snippet__item {
+    padding-top: 0;
 }
 
 .atom--snippet--timeline .atom--snippet__item:not(:last-child) {
