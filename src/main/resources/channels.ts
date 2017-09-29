@@ -34,7 +34,7 @@ type PutResult<A> = Resume<boolean>
 type TakeResult<A> = Resume<A | null>
                    | Park<null>;
 
-const chan = <A>(): Channel<A> => {
+const chan = <A>(onClose?: () => void): Channel<A> => {
   let isClosed = false;
   let val: A | null;
 
@@ -63,7 +63,14 @@ const chan = <A>(): Channel<A> => {
 
   const canPut = (): boolean => true;
   const canTake = (): boolean => !!val;
-  const close = (): void => { isClosed = true };
+  const close = (): void => { 
+    if (!isClosed) {
+      if (onClose) {
+        onClose();
+      }
+      isClosed = true;
+    }
+  };
 
   const andThen = <B>(f: Morphism<Channel<A>, Channel<B>>): Channel<B> =>
     f(c);
