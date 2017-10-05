@@ -1,4 +1,4 @@
-addSbtPlugin("com.typesafe.sbt" % "sbt-twirl" % "1.1.1")
+addSbtPlugin("com.typesafe.sbt" % "sbt-twirl" % "1.3.4")
 
 addSbtPlugin("name.de-vries" % "sbt-typescript" % "2.4.1-2")
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.6")
