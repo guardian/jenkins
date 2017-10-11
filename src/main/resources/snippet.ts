@@ -46,7 +46,7 @@ export default function(componentType: ComponentType) {
       const stop = () => {
         feedbackC.close();
         expandC.close();
-        viewport.unobserve(root, observer);
+        viewport.unobserve(root, 1, observer);
       };
       
       const emptySet = new Set();
@@ -66,7 +66,7 @@ export default function(componentType: ComponentType) {
       const onVisible = (p: Snippet) => (ratio: number): void => {
         if (ratio >= 1) {
           record(p.snippetId, Action.VIEW);
-          viewport.unobserve(root, observer);
+          viewport.unobserve(root, 1, observer);
         }
       }
 

@@ -96,7 +96,7 @@ interface DomService {
 
 interface ViewportService {
   observe: (e: Element, t: number, c: (r: number) => void) => void;
-  unobserve: (e: Element, c: (r: number) => void) => void;
+  unobserve: (e: Element, t: number, c: (r: number) => void) => void;
 };
   
 type Services = {
