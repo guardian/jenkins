@@ -8,7 +8,7 @@ scalaVersion := "2.11.11"
 val circeVersion = "0.8.0"
 
 libraryDependencies ++= Seq(
-  "com.gu"   %% "content-atom-model" % "2.4.47",
+  "com.gu"   %% "content-atom-model" % "2.4.51",
   "com.gu"   %% "fezziwig"           % "0.4",
   "io.circe" %% "circe-core"         % circeVersion,
   "io.circe" %% "circe-generic"      % circeVersion,
