@@ -15,6 +15,11 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-parser"       % circeVersion
 )
 
+/**
+ * WARNING - upgrading the following will break clients
+ */
+dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1"
+
 TwirlKeys.templateFormats += ("css" -> "com.gu.contentatom.renderer.twirl.CssFormat")
 
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
