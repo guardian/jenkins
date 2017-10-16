@@ -49,9 +49,9 @@ enum ComponentType {
 type ComponentV2 = {
   componentType : ComponentType;
   id           ?: string;
-  products      : Set<Product>;
+  products      : Product[];
   campaignCode ?: string;
-  labels        : Set<string>;
+  labels        : string[];
 }
 
 enum Action {
@@ -70,7 +70,7 @@ type AbTest = {
   name          : string;
   variant       : string;
   complete     ?: boolean;
-  campaignCodes?: Set<string>;
+  campaignCodes?: string[];
 };
 
 type ComponentEvent = {

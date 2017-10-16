@@ -49,8 +49,6 @@ export default function(componentType: ComponentType) {
         viewport.unobserve(root, 1, observer);
       };
       
-      const emptySet = new Set();
-
       const onFeedback = (p: Snippet) => (a: Action): void => {
         record(p.snippetId, a);
         dom.write(() => {
@@ -76,8 +74,8 @@ export default function(componentType: ComponentType) {
             component: {
               componentType,
               id,
-              products: emptySet,
-              labels: emptySet
+              products: [],
+              labels: []
             },
             action
           }
