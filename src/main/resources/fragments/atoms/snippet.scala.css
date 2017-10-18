@@ -19,7 +19,6 @@
     position: relative;
     padding: calc(@vars.get("baseline") / 3) calc(@vars.get("gutter") / 4) calc(@vars.get("baseline") / 2);
     margin: calc(@vars.get("baseline") * 4 / 3) 0 calc(@vars.get("baseline") * 3);
-Ï
     font-family: var(--f-sans-serif-text);
 }
 
