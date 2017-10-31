@@ -98,36 +98,6 @@ trait AtomRenderer {
 
   def getJS(atomTypes: Seq[AtomType]): Seq[String] =
     atomTypes.distinct.map(getJS).flatten
-
-  def getAllCSS: Seq[CSS] = Seq[CSS](
-    getCSS[CTAAtom],
-    getCSS[ExplainerAtom],
-    getCSS[GuideAtom],
-    getCSS[InteractiveAtom],
-    getCSS[MediaAtom],
-    getCSS[ProfileAtom],
-    getCSS[QAndAAtom],
-    getCSS[QuizAtom],
-    getCSS[RecipeAtom],
-    getCSS[ReviewAtom],
-    getCSS[StoryQuestionsAtom],
-    getCSS[TimelineAtom]
-  )
-
-  def getAllJS: Seq[JS] = Seq[JS](
-    getJS[CTAAtom],
-    getJS[ExplainerAtom],
-    getJS[GuideAtom],
-    getJS[InteractiveAtom],
-    getJS[MediaAtom],
-    getJS[ProfileAtom],
-    getJS[QAndAAtom],
-    getJS[QuizAtom],
-    getJS[RecipeAtom],
-    getJS[ReviewAtom],
-    getJS[StoryQuestionsAtom],
-    getJS[TimelineAtom]
-  )
 }
 
 object ArticleAtomRenderer extends AtomRenderer {
