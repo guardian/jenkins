@@ -20,8 +20,6 @@ libraryDependencies ++= Seq(
  */
 dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1"
 
-TwirlKeys.templateFormats += ("css" -> "com.gu.contentatom.renderer.twirl.CssFormat")
-
 lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
 sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value
