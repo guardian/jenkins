@@ -17,8 +17,6 @@ import io.circe._
 import io.circe.parser._
 import renderers.{Renderings, Rendering}
 
-import utils.CSSMinifier
-
 trait AtomRenderer {
   protected val renderings: Renderings
   import renderings._
@@ -56,7 +54,7 @@ trait AtomRenderer {
     parse(json).right.toOption.flatMap(getHTML)
 
   def getCSS[A](implicit reader: Rendering[A]): CSS =
-    reader.css.map(_.toString).map(CSSMinifier.apply)
+    reader.css.map(_.toString)
 
   def getJS[A](implicit reader: Rendering[A]): JS =
     reader.js.map(_.toString)
@@ -74,7 +72,7 @@ trait AtomRenderer {
     case AtomType.Review         => getCSS[ReviewAtom]
     case AtomType.Storyquestions => getCSS[StoryQuestionsAtom]
     case AtomType.Timeline       => getCSS[TimelineAtom]
-    case _                => None
+    case _                       => None
   }
 
   def getCSS(atomTypes: Seq[AtomType]): Seq[String] =
@@ -93,7 +91,7 @@ trait AtomRenderer {
     case AtomType.Review         => getJS[ReviewAtom]
     case AtomType.Storyquestions => getJS[StoryQuestionsAtom]
     case AtomType.Timeline       => getJS[TimelineAtom]
-    case _                => None
+    case _                       => None
   }
 
   def getJS(atomTypes: Seq[AtomType]): Seq[String] =
