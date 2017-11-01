@@ -1,7 +1,6 @@
-@()(implicit vars: Map[String, String])
-
-@fragments.atoms.css.buttons()
-@fragments.atoms.css.snippet()
+@import "vars";
+@import "buttons";
+@import "snippet";
 
 .atom--snippet--timeline .atom--snippet__body {
     margin-left: 8px;
@@ -28,7 +27,7 @@
     border-radius: 100%;
     float: left;
     margin-left: -26px;
-    background-color: @vars.get("news-main-2");
+    background-color: $news-main-2;
 }
 
 .atom--snippet--timeline .atom--snippet__event-date {

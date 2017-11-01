@@ -1,0 +1,16 @@
+$breakpoints: (
+  mobile          : 320px,
+  mobileMedium    : 360px,
+  mobileLandscape : 480px,
+  phablet         : 660px,
+  tablet          : 740px,
+  desktop         : 980px,
+  leftCol         : 1140px,
+  wide            : 1300px
+);
+
+@mixin mq($from, $until) {
+  @media (min-width: map-get($breakpoints, $from)) and (max-width: map-get($breakpoints, $until)) {
+    @content;
+  }
+}

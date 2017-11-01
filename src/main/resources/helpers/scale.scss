@@ -1,0 +1,45 @@
+/** Typographic scale */
+
+$m-headlineScale: (
+  1 : (14 18),
+  2 : (16 20),
+  3 : (20 24),
+  4 : (24 28),
+  5 : (28 32),
+  6 : (32 36),
+  7 : (36 40),
+  8 : (40 44),
+  9 : (44 48)
+);
+
+$m-textScale: (
+  1 : (14 20),
+  2 : (16 24),
+  3 : (18 28)
+);
+
+$m-textSansScale: (
+  1 : (12 16),
+  2 : (13 18),
+  3 : (14 20),
+  4 : (14 22),
+  5 : (16 22),
+  6 : (18 18)
+);
+
+@mixin headline($level) {
+  @include font-metrics(map-get($m-headlineScale, $level));
+}
+
+@mixin text($level) {
+  @include font-metrics(map-get($m-textScale, $level));
+}
+
+@mixin textSans($level) {
+  @include font-metrics(map-get($m-textSansScale, $level));
+}
+
+@mixin font-metrics($metrics) {
+  font-size: nth($metrics, 0)px;
+  line-height: nth($metrics, 1)px;
+}

@@ -1,0 +1,3 @@
+@function span($n) {
+  @return $n * 60px + $gs-gutter * ($n - 1);
+}
