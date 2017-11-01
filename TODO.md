@@ -5,6 +5,7 @@ In order of priority:
 - [ ] Add AB testing infrastructure
 - [ ] Add reader questions atom type
 - [ ] Use SASS for CSS
+- [ ] Substitute TypeScript for Flow in JS
 - [ ] Testing and linting
 - [ ] Dynamic resource bundles -- there may be a lot of redundancy between the JS/CSS of two different atom types
 - [ ] Autoprefix class names in the HTML with the `atom--` string
