@@ -7,6 +7,7 @@
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "sass-mq": "^3.3.2",
     "typescript": "^2.5.2",
     "webpack": "^3.5.6"
   },
