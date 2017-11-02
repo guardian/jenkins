@@ -1,3 +1,4 @@
+//@flow
 const webpack = require('webpack');
 const path = require('path');
 const Uglify = require('uglifyjs-webpack-plugin');
@@ -23,7 +24,7 @@ const isAtomType = (s: string): boolean => {
 
 const commonSettings = {
   resolve: {
-    extensions: [".ts"]
+    extensions: [".js"]
   },
   module: {
     rules: [{
@@ -32,9 +33,6 @@ const commonSettings = {
       use: [
         {
           loader: 'babel-loader'
-        },
-        {
-          loader: 'ts-loader'
         }
       ]
     }]
@@ -54,11 +52,11 @@ const commonSettings = {
 
 const guides = Object.assign({  
   entry: {
-    guide: './guide/article/index.ts',
+    guide: './guide/article/index.js',
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'src', 'main', 'resources', 'guide', 'article'),
+    path: path.resolve(__dirname, 'target', 'main', 'resources', 'guide', 'article'),
     libraryTarget: 'this',
     library: 'guide'
   },
@@ -66,11 +64,11 @@ const guides = Object.assign({
 
 const qandas = Object.assign({  
   entry: {
-    qanda: './qanda/article/index.ts',
+    qanda: './qanda/article/index.js',
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'src', 'main', 'resources', 'qanda', 'article'),
+    path: path.resolve(__dirname, 'target', 'main', 'resources', 'qanda', 'article'),
     libraryTarget: 'this',
     library: 'qanda'
   },
@@ -78,11 +76,11 @@ const qandas = Object.assign({
 
 const profiles = Object.assign({  
   entry: {
-    profile: './profile/article/index.ts',
+    profile: './profile/article/index.js',
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'src', 'main', 'resources', 'profile', 'article'),
+    path: path.resolve(__dirname, 'target', 'main', 'resources', 'profile', 'article'),
     libraryTarget: 'this',
     library: 'profile'
   },
@@ -90,11 +88,11 @@ const profiles = Object.assign({
 
 const timelines = Object.assign({  
   entry: {
-    timeline: './timeline/article/index.ts',
+    timeline: './timeline/article/index.js',
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'src', 'main', 'resources', 'timeline', 'article'),
+    path: path.resolve(__dirname, 'target', 'main', 'resources', 'timeline', 'article'),
     libraryTarget: 'this',
     library: 'timeline'
   },
