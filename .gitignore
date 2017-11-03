@@ -2,6 +2,5 @@ target
 .ensime*
 ensime-langserver.log
 pc.stdout.log
-src/main/resources/**/*.js
 node_modules
 .vscode
