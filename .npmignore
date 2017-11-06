@@ -1,0 +1,8 @@
+*
+!src/resources/*/*/*.scss
+!src/resources/*/*.scss
+!src/resources/*.scss
+!src/resources/*/*/*.js
+!src/resources/*/*.js
+!src/resources/*.js
+!webpack.config.js
