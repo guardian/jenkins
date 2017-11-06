@@ -10,6 +10,7 @@
     "webpack": "^3.5.6"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.6",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
@@ -17,6 +18,7 @@
     "eslint": "^4.10.0",
     "flow-bin": "^0.58.0",
     "node-sass": "^4.5.3",
+    "postcss-cli": "^4.1.1",
     "sass-loader": "^6.0.6",
     "uglifyjs-webpack-plugin": "^1.0.1"
   },
@@ -24,6 +26,7 @@
     "build": "babel src/main/resources",
     "flow": "flow",
     "sass": "node-sass --output-style compressed --include-path src/main/resources/css src/main/resources/ -o build/",
+    "postcss": "postcss build/*/*/*.css -u autoprefixer -d build/",
     "jvm": "NODE_ENV=production webpack --config webpack/jvm.config.js"
   }
 }
