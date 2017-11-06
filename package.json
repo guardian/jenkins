@@ -1,8 +1,7 @@
 {
-  "name": "atom-renderer",
-  "version": "0.2.0",
+  "name": "@guardian/atom-renderer",
+  "version": "0.0.2",
   "description": "Platform-agnostic rendering library for atoms",
-  "main": "index.js",
   "repository": "https://github.com/guardian/atom-renderer.git",
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
   "license": "Apache-2.0",
@@ -15,12 +14,15 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
+    "eslint": "^4.10.0",
     "flow-bin": "^0.58.0",
-    "sass": "^1.0.0-beta.2",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
     "uglifyjs-webpack-plugin": "^1.0.1"
   },
   "scripts": {
     "build": "babel src/main/resources",
-    "prepublish": "yarn run build"
+    "flow": "flow",
+    "sass": "node-sass --output-style expanded --indent-type spaces --ident-width 2 --include-path src/resources/css -o build/"
   }
 }

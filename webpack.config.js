@@ -2,25 +2,22 @@
 const webpack = require('webpack');
 const path = require('path');
 const Uglify = require('uglifyjs-webpack-plugin');
-const fs = require('fs');
 
-const isAtomType = (s: string): boolean => {
-  const atomTypes: string[] = [
-    'cta',
-    'explainer',
-    'guide',
-    'interactive',
-    'media',
-    'profile',
-    'qanda',
-    'quiz',
-    'recipe',
-    'review',
-    'storyquestions',
-    'timeline'
-  ];
-  return atomTypes.includes(s);
-}
+const css = {
+  module: {
+    rules: [{
+      test: /\.scss$/,
+      use: [{
+        loader: "sass-loader",
+        options: {
+          includePaths: [
+            path.resolve(__dirname, 'src', 'resources', 'css')
+          ]
+        }
+      }]
+    }]
+  }
+};
 
 const commonSettings = {
   resolve: {
@@ -28,13 +25,11 @@ const commonSettings = {
   },
   module: {
     rules: [{
-      test: /\.ts$/,
+      test: /\.js$/,
       exclude: /node_modules/,
-      use: [
-        {
-          loader: 'babel-loader'
-        }
-      ]
+      use: [{
+        loader: 'babel-loader'
+      }]
     }]
   },
   context: path.resolve(__dirname, 'src', 'main', 'resources'),
@@ -99,6 +94,7 @@ const timelines = Object.assign({
 }, commonSettings);
 
 module.exports = [
+  css,
   guides,
   qandas,
   profiles,
