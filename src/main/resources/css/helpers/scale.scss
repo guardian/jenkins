@@ -40,6 +40,6 @@ $m-textSansScale: (
 }
 
 @mixin font-metrics($metrics) {
-  font-size: nth($metrics, 0)px;
-  line-height: nth($metrics, 1)px;
+  font-size: nth($metrics, 1)px;
+  line-height: nth($metrics, 2)px;
 }

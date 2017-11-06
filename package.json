@@ -23,6 +23,7 @@
   "scripts": {
     "build": "babel src/main/resources",
     "flow": "flow",
+    "sass": "node-sass --output-style compressed --include-path src/main/resources/css src/main/resources/ -o build/",
     "jvm": "NODE_ENV=production webpack --config webpack/jvm.config.js"
   }
 }

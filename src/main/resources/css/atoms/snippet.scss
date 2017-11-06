@@ -1,5 +1,4 @@
 @import "vars";
-@import "helpers/mq";
 @import "helpers/scale";
 
 .atom--snippet > summary {
@@ -16,7 +15,7 @@
     position: relative;
     padding: ($baseline / 3) ($gutter / 4) ($baseline / 2);
     margin: ($baseline * 4 / 3) 0 ($baseline * 3);
-    font-family: $f-sans-serif-text;
+    font-family: var(--f-sans-serif-text);
 }
 
 .atom--snippet a {
