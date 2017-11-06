@@ -23,7 +23,6 @@
   "scripts": {
     "build": "babel src/main/resources",
     "flow": "flow",
-    "sass": "node-sass --output-style expanded --indent-type spaces --ident-width 2 --include-path src/resources/css -o build/",
     "jvm": "NODE_ENV=production webpack --config webpack/jvm.config.js"
   }
 }
