@@ -30,8 +30,6 @@ trait ArticleRendering[A] extends Rendering[A] {
 }
 
 object ArticleRenderings extends Renderings {
-  import config._
-  
   val ctaRendering = new ArticleRendering[CTAAtom] {
     val html_impl = (atom, data) => cta.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/cta/article/index.css")
@@ -47,7 +45,7 @@ object ArticleRenderings extends Renderings {
   val guideRendering = new ArticleRendering[GuideAtom] {
     val html_impl = (atom, data) => guide.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/guide/article/index.css")
-    val js_impl = () => LoadFromClasspath("/guide/article/guide.js")
+    val js_impl = () => LoadFromClasspath("/guide/article/index.js")
   }
 
   val interactiveRendering = new ArticleRendering[InteractiveAtom] {
@@ -65,13 +63,13 @@ object ArticleRenderings extends Renderings {
   val profileRendering = new ArticleRendering[ProfileAtom] {
     val html_impl = (atom, data) => profile.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/profile/article/index.css")
-    val js_impl = () => LoadFromClasspath("/profile/article/profile.js")
+    val js_impl = () => LoadFromClasspath("/profile/article/index.js")
   }
 
   val qandaRendering = new ArticleRendering[QAndAAtom] {
     val html_impl = (atom, data) => qanda.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/qanda/article/index.css")
-    val js_impl = () => LoadFromClasspath("/qanda/article/qanda.js")
+    val js_impl = () => LoadFromClasspath("/qanda/article/index.js")
   }
 
   val quizRendering = new ArticleRendering[QuizAtom] {
@@ -101,6 +99,6 @@ object ArticleRenderings extends Renderings {
   val timelineRendering = new ArticleRendering[TimelineAtom] {
     val html_impl = (atom, data) => timeline.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/timeline/article/index.css")
-    val js_impl = () => LoadFromClasspath("/timeline/article/timeline.js")
+    val js_impl = () => LoadFromClasspath("/timeline/article/index.js")
   }
 }

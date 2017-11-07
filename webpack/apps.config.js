@@ -6,14 +6,17 @@ const atomTypes = require('./atomTypes');
 
 const createJsSettings = (rendering) => (atomType) => ({
   entry: {
-    [atomType]: `./${atomType}/${rendering}/index.js`,
+    [atomType]: `./${atomType}/${rendering}/index.fjs`,
   },
   module: {
     rules: [{
-      test: /\.js$/,
+      test: /\.fjs$/,
       exclude: /node_modules/,
       loader: 'babel-loader'
     }]
+  },
+  resolve: {
+    extensions: [".fjs"]
   },
   context: path.resolve(__dirname, '..', 'src', 'main', 'resources'),
   plugins: [

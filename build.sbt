@@ -29,9 +29,11 @@ resolveFromWebjarsNodeModulesDir := true
 
 resolvers += Resolver.bintrayRepo("webjars","maven")
 
-// Exclude TypeScript files
-excludeFilter in unmanagedResourceDirectories := HiddenFileFilter || "*.ts"
-mappings in (Compile, packageBin) ~= { _.filterNot(_._1.getName.endsWith(".ts")) }
+// Add CSS and JS generated files
+unmanagedResourceDirectories in Compile += baseDirectory.value / "build"
+
+// Ignore JS and SASS files
+excludeFilter in Compile in managedResources := "*.fjs" || "*.scss"
 
 // Add sonatype repository settings
 publishTo := Some(
