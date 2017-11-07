@@ -1,0 +1,10 @@
+# This list is only used for assets delivered by the Scala version of the library
+
+Android >= 4.4
+ChromeAndroid >= 61
+ExplorerMobile >= 10
+FirefoxAndroid >= 56
+iOS >= 9
+OperaMobile >= 12.1
+QQAndroid >= 1.2
+UCAndroid >= 11.4
