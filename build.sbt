@@ -33,7 +33,7 @@ resolvers += Resolver.bintrayRepo("webjars","maven")
 unmanagedResourceDirectories in Compile += baseDirectory.value / "build"
 
 // Ignore JS and SASS files
-excludeFilter in Compile in managedResources := "*.fjs" || "*.scss"
+excludeFilter in Compile in unmanagedResources := "*.fjs" || "*.scss"
 
 // Add sonatype repository settings
 publishTo := Some(
