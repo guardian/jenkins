@@ -1,6 +1,7 @@
 build
 project
 target
+node_modules
 ensime*
 pc.stdout.log
 yarn.lock
