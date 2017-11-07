@@ -1,6 +1,6 @@
 //@flow
-import type { Channel } from './channels';
-import { chan } from './channels';
+import type { Channel } from 'channels';
+import { chan } from 'channels';
 
 const fromEvent = (e: string, t: EventTarget): Channel<Event> => {
   const h = (ev: Event) => {
