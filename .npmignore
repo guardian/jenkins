@@ -5,6 +5,8 @@ node_modules
 ensime*
 pc.stdout.log
 yarn.lock
+.ensime*
+.vscode*
 *.sbt
 *.html
 *.scala
