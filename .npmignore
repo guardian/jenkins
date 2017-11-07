@@ -5,6 +5,7 @@ node_modules
 ensime*
 pc.stdout.log
 yarn.lock
+TODO.md
 .ensime*
 .vscode*
 *.sbt
