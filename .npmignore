@@ -1,4 +1,9 @@
-*
-!src/resources/**/*.scss
-!src/resources/**/*.js
-!webpack/frontend.config.js
+build
+project
+target
+ensime*
+pc.stdout.log
+yarn.lock
+*.sbt
+*.html
+*.scala
