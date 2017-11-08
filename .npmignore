@@ -1,6 +1,7 @@
-build
+src
 project
 target
+webpack
 node_modules
 ensime*
 pc.stdout.log
