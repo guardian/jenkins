@@ -8,6 +8,7 @@ yarn.lock
 TODO.md
 .ensime*
 .vscode*
+.browserslistrc
 *.sbt
 *.html
 *.scala
