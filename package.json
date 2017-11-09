@@ -1,6 +1,6 @@
 {
   "name": "@guardian/atom-renderer",
-  "version": "0.0.11",
+  "version": "0.7.11",
   "description": "Platform-agnostic rendering library for atoms",
   "repository": "https://github.com/guardian/atom-renderer.git",
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
@@ -25,9 +25,14 @@
   "scripts": {
     "build": "babel src/main/resources",
     "flow": "flow",
-    "sass": "node-sass --output-style compressed --include-path src/main/resources/css src/main/resources/ -o build/",
-    "postcss": "postcss build/*/*/*.css -u autoprefixer -d build/",
-    "apps": "NODE_ENV=production webpack --config webpack/apps.config.js",
-    "frontend": "NODE_ENV=production webpack --config webpack/frontend.config.js"
+    "sass": "node-sass --output-style compressed --include-path src/main/resources/css src/main/resources/",
+    "postcss": "postcss build/*/*/*.css -u autoprefixer",
+    "js": "NODE_ENV=production webpack",
+    "apps": "yarn run appsJS; yarn run appsCSS",
+    "appsJS": "yarn run js --config webpack/apps.config.js",
+    "appsCSS": "yarn run sass -o build/; yarn run postcss --dir build/",
+    "frontend": "yarn run frontendJS; yarn run frontendCSS",
+    "frontendJS": "yarn run js --config webpack/frontend.config.js",
+    "frontendCSS": "yarn run sass -o dist/; yarn run postcss --dir dist/"
   }
 }
