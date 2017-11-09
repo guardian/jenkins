@@ -1,9 +1,9 @@
 //@flow
-import type { Action, Services, Coeval, ComponentType, Try } from 'typedefs'
-import { Actions } from 'typedefs';
+import type { Action, Services, Coeval, ComponentType, Try } from './typedefs'
+import { Actions } from './typedefs';
 
-import type { Channel } from 'channels';
-import { fromEvent } from 'events';
+import type { Channel } from './channels';
+import { fromEvent } from './events';
 
 type Atom = { atomId: string
             , start: (a: Atom) => Promise<void>
