@@ -5,3 +5,4 @@ pc.stdout.log
 node_modules
 .vscode
 build
+dist
