@@ -27,6 +27,7 @@
     "flow": "flow",
     "sass": "node-sass --output-style compressed --include-path src/main/resources/css src/main/resources/ -o build/",
     "postcss": "postcss build/*/*/*.css -u autoprefixer -d build/",
-    "apps": "NODE_ENV=production webpack --config webpack/apps.config.js"
+    "apps": "NODE_ENV=production webpack --config webpack/apps.config.js",
+    "frontend": "NODE_ENV=production webpack --config webpack/frontend.config.js"
   }
 }
