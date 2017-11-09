@@ -1,6 +1,7 @@
 //@flow
 const webpack = require('webpack');
 const path = require('path');
+const Uglify = require('uglifyjs-webpack-plugin');
 const atomTypes = require('./atomTypes');
 
 const createJsSettings = (rendering) => (atomType) => ({
@@ -19,10 +20,16 @@ const createJsSettings = (rendering) => (atomType) => ({
     modules: ["js"] 
   },
   context: path.resolve(__dirname, '..', 'src', 'main', 'resources'),
+  plugins: [
+    new Uglify({
+      parallel: true
+    }),
+    new webpack.EnvironmentPlugin(['NODE_ENV'])
+  ],
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, '..', 'build', atomType, rendering),
-    libraryTarget: 'this',
+    path: path.resolve(__dirname, '..', 'dist', atomType, rendering),
+    libraryTarget: 'commonjs',
     library: atomType
   }
 });
