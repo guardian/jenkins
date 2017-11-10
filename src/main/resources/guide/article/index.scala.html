@@ -20,4 +20,15 @@
       @Html(item.body)
     </div>
   }
+
+  @for(
+     img <- data.guideImage;
+     asset <- img.master;
+     credit <- asset.credit
+  ) {
+    <div class="atom--snippet__credit">
+      @fragments.icons.html.info()
+      @credit
+    </div>
+  }
 }

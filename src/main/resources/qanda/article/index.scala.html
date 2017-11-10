@@ -13,4 +13,15 @@
   }
 
   @Html(data.item.body)
+
+  @for( 
+    img <- data.eventImage; 
+    asset <- img.master; 
+    credit <- asset.credit 
+  ) { 
+    <div class="atom--snippet__credit">
+      @fragments.icons.html.info() 
+      @credit
+    </div>
+  }
 }
