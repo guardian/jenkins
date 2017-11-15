@@ -1,6 +1,6 @@
 {
   "name": "@guardian/atom-renderer",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "description": "Platform-agnostic rendering library for atoms",
   "repository": "https://github.com/guardian/atom-renderer.git",
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
@@ -9,6 +9,7 @@
     "autoprefixer": "^7.1.6",
     "postcss-loader": "^2.0.8",
     "postcss-css-variables": "^0.8.0",
+    "postcss-import": "^11.0.0",
     "sass-loader": "^6.0.6",
     "sass-mq": "^3.3.2",
     "webpack": "^3.5.6"
@@ -23,7 +24,6 @@
     "flow-bin": "^0.58.0",
     "node-sass": "^4.5.3",
     "postcss-cli": "^4.1.1",
-    "postcss-import": "^11.0.0",
     "postcss-variables-loader": "^4.0.0",
     "style-loader": "^0.19.0",
     "uglifyjs-webpack-plugin": "^1.0.1"
