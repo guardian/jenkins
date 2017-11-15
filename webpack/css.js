@@ -2,7 +2,7 @@ module.exports = (cssVarsPath) => [
   {
     test: /stylesheets\/atoms\.scss$/,
     use: [
-      'babel-loader'
+      'babel-loader',
       'postcss-variables-loader', 
       'sass-loader',
     ]
