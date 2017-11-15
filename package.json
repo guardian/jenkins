@@ -1,6 +1,6 @@
 {
   "name": "@guardian/atom-renderer",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "Platform-agnostic rendering library for atoms",
   "repository": "https://github.com/guardian/atom-renderer.git",
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
@@ -21,6 +21,7 @@
     "node-sass": "^4.5.3",
     "postcss-cli": "^4.1.1",
     "postcss-css-variables": "^0.8.0",
+    "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-variables-loader": "^4.0.0",
     "sass-loader": "^6.0.6",
