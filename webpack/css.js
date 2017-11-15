@@ -1,7 +1,13 @@
-module.exports = (varFile) => {
-  const variables = require(`postcss-variables-loader!sass-loader!${varFile}`)
-
+module.exports = (variables) => {
   return [
+    {
+      test: /stylesheets\/atoms\.scss$/,
+      use: [
+        'babel-loader'
+        'postcss-variables-loader', 
+        'sass-loader',
+      ]
+    },
     {
         test: /@guardian\/atom-renderer\/dist\/.+\.css$/,
         use: [
