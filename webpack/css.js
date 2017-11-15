@@ -1,5 +1,4 @@
-const app = '@guardian/atom-renderer';
-export default (varFile) => {
+module.exports = (varFile) => {
   const variables = require(`babel-loader!postcss-variables-loader!sass-loader!$varFile`)
 
   return [
