@@ -1,6 +1,6 @@
 {
   "name": "@guardian/atom-renderer",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Platform-agnostic rendering library for atoms",
   "repository": "https://github.com/guardian/atom-renderer.git",
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
@@ -15,24 +15,28 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
+    "css-loader": "^0.28.7",
     "eslint": "^4.10.0",
     "flow-bin": "^0.58.0",
     "node-sass": "^4.5.3",
     "postcss-cli": "^4.1.1",
+    "postcss-css-variables": "^0.8.0",
+    "postcss-loader": "^2.0.8",
+    "postcss-variables-loader": "^4.0.0",
     "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
     "uglifyjs-webpack-plugin": "^1.0.1"
   },
   "scripts": {
     "build": "babel src/main/resources",
     "flow": "flow",
-    "sass": "node-sass --output-style compressed --include-path src/main/resources/css src/main/resources/",
     "postcss": "postcss build/*/*/*.css -u autoprefixer",
     "js": "NODE_ENV=production webpack",
     "apps": "yarn run appsJS; yarn run appsCSS",
     "appsJS": "yarn run js --config webpack/apps.config.js",
-    "appsCSS": "yarn run sass -o build/; yarn run postcss --dir build/",
+    "appsCSS": "node-sass --output-style compressed --include-path src/main/resources/css --output build/ src/main/resources/; yarn run postcss --dir build/",
     "frontend": "yarn run frontendJS; yarn run frontendCSS",
     "frontendJS": "yarn run js --config webpack/frontend.config.js",
-    "frontendCSS": "yarn run sass -o dist/; yarn run postcss --dir dist/"
+    "frontendCSS": "node-sass --output-style compressed --include-path src/main/resources/css --output dist/ src/main/resources/"
   }
 }

@@ -3,6 +3,7 @@ build
 project
 target
 webpack
+!webpack/css.js
 node_modules
 ensime*
 pc.stdout.log
