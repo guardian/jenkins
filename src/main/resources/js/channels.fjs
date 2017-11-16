@@ -82,8 +82,10 @@ const putAsync = (a: A): Promise<boolean> =>
         const res: TakeResult<A> = take();
         if( res[0] === 'resume' )
           resolve((res: any)[1]);
+        else if( 'requestIdleCallback' in window )
+          window.requestIdleCallback(tryTake)
         else
-          setTimeout(tryTake, 0);
+          setTimeout(tryTake, 25);
       }
       tryTake();
     });

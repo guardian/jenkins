@@ -1,4 +1,4 @@
-module.exports = (cssVarsPath) => [
+module.exports = ({ cssVarsPath }) => [
   {
     test: /stylesheets\/atoms\.scss$/,
     use: [
