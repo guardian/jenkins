@@ -1,0 +1,10 @@
+// @flow
+
+declare type Atom = { atomId: string
+                    , start: (a: Atom) => Promise<void>
+                    , stop: () => void
+                    };
+
+declare type AtomBuilder<A> = HTMLElement => Coeval<Atom & A>;
+
+declare type AtomMaker<A> = Services => AtomBuilder<A>;

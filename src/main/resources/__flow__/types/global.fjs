@@ -1,0 +1,16 @@
+// @flow
+
+declare type Services = { ophan: OphanService
+                        , dom: DomService
+                        , viewport: ViewportService
+                        };
+
+declare type Success<A> = A;
+
+declare type Failure = string;
+
+declare type Try<A> = Success<A> | Failure;
+
+declare type Coeval<A> = {
+  runTry: () => Try<A>
+};

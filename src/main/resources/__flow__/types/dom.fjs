@@ -1,0 +1,6 @@
+// @flow
+
+declare interface DomService {
+  write: (f: () => void) => Promise<void>;
+  read: <A>(f: () => A) => Promise<A>;
+};

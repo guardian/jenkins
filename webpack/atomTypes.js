@@ -1,6 +1,1 @@
-module.exports = [
-  'guide', 
-  'qanda', 
-  'profile', 
-  'timeline'
-];
+module.exports = ['guide', 'qanda', 'profile', 'timeline'];

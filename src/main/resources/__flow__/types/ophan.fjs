@@ -1,0 +1,32 @@
+declare type Product = 1 | 2 | 3 | 4 | 5 | 6 | 11;
+
+declare type ComponentType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17;
+
+declare type ComponentV2 = {
+  componentType : ComponentType;
+  id           ?: string;
+  products      : Product[];
+  campaignCode ?: string;
+  labels        : string[];
+}
+
+declare type Action = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+declare type AbTest = { name          : string
+              , variant       : string
+              , complete     ?: boolean
+              , campaignCodes?: string[]
+              };
+
+declare type ComponentEvent = { component : ComponentV2
+                      , action    : Action
+                      , value    ?: string
+                      , id       ?: string
+                      , abTest   ?: AbTest
+                      };
+
+declare type OphanRecord = { componentEvent: ComponentEvent };
+  
+declare interface OphanService {
+  record: (x: OphanRecord) => void;
+};

@@ -1,23 +1,18 @@
 //@flow
-import type { Action, Services, Coeval, ComponentType, Try } from './typedefs'
-import { Actions } from './typedefs';
 
+import { Actions } from 'ophan';
 import type { Channel } from './channels';
 import { fromEvent } from './events';
 
-type Atom = { atomId: string
-            , start: (a: Atom) => Promise<void>
-            , stop: () => void
-            };
+type SnippetF = { snippetId: string
+                , snippetType: string
+                , header: HTMLElement
+                , question: HTMLElement
+                , ack: HTMLElement
+                };
+type Snippet = SnippetF & Atom;
 
-type Snippet = { snippetId: string
-               , snippetType: string
-               , header: HTMLElement
-               , question: HTMLElement
-               , ack: HTMLElement
-               } & Atom;
-
-export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services) => (root: Element): Coeval<Snippet> => {
+export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<SnippetF> => (root: HTMLElement): Coeval<Snippet> => {
   let feedbackC: Channel<Action>;
   let expandC: Channel<Action>;
   let observer: (x: number) => void;

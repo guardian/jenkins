@@ -1,5 +1,5 @@
 //@flow
 import snippet from 'snippet';
-import { ComponentTypes } from 'typedefs';
+import { ComponentTypes } from 'ophan';
 
 export default snippet(ComponentTypes.QANDA_ATOM);

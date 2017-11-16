@@ -1,23 +1,25 @@
-//@flow
+// @flow
 const webpack = require('webpack');
 const path = require('path');
 const Uglify = require('uglifyjs-webpack-plugin');
 const atomTypes = require('./atomTypes');
 
-const createJsSettings = (rendering) => (atomType) => ({
+const createJsSettings = rendering => atomType => ({
   entry: {
-    [atomType]: `./${atomType}/${rendering}/index.fjs`,
+    [atomType]: `./${atomType}/${rendering}/index.fjs`
   },
   module: {
-    rules: [{
-      test: /\.fjs$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
-    }]
+    rules: [
+      {
+        test: /\.fjs$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ]
   },
   resolve: {
-    extensions: [".fjs"],
-    modules: ["js"] 
+    extensions: ['.fjs'],
+    modules: ['lib']
   },
   context: path.resolve(__dirname, '..', 'src', 'main', 'resources'),
   plugins: [
@@ -35,5 +37,3 @@ const createJsSettings = (rendering) => (atomType) => ({
 });
 
 module.exports = atomTypes.map(createJsSettings('article'));
-
-
