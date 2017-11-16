@@ -1,11 +1,7 @@
 module.exports = ({ cssVarsPath }) => [
   {
     test: /stylesheets\/atoms\.scss$/,
-    use: [
-      'babel-loader',
-      'postcss-variables-loader', 
-      'sass-loader',
-    ]
+    use: ['babel-loader', 'postcss-variables-loader', 'sass-loader']
   },
   {
     test: /@guardian\/atom-renderer\/dist\/.+\.css$/,
@@ -28,7 +24,7 @@ module.exports = ({ cssVarsPath }) => [
         options: {
           data: `@import '${cssVarsPath}';`
         }
-      },
+      }
     ]
   }
 ];
