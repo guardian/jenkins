@@ -22,7 +22,10 @@ object GuardianDateFormatter {
   def apply(date: LocalDateTime): String =
     date.format(guardianFormat)
 
-  def toMachineValue(date: Long): String =
+  def toMachineValue(date: Long): String = 
     machineFormat.format(longToDate(date))
+
+  def toCustomFormat(date: Long, format: String): String =
+    DateTimeFormatter.ofPattern(format).format(longToDate(date))
 
 }
