@@ -1,0 +1,83 @@
+@import "vars";
+@import "atoms/buttons";
+@import "helpers/scale";
+
+.atom--readerquestions {
+  background: $neutral-7;
+  font-family: var(--f-sans-serif-text);
+  padding: $baseline / 3 $gutter / 4 $baseline;
+}
+
+.atom--readerquestions__heading {
+  color: $news-support-2;
+  font-size: 21px;
+  font-weight: 900;
+  line-height: 22px;
+}
+
+.atom--readerquestions__rows {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.atom--readerquestions__question {
+  padding: $baseline / 3 $gutter / 4 $baseline / 2;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+
+  background: $neutral-6;
+  border: 0;
+  border-top: 1px solid $news-main-2;
+
+  & + & {
+    margin-top: $baseline / 2;
+  }
+
+  &:hover, 
+  &:active {
+    background: $news-support-1;
+
+    .atom__button {
+      background: darken($news-main-2, 10);
+    }
+  }
+}
+
+.atom--readerquestions__questionlabel {
+  flex: 1;
+  margin-bottom: $baseline / 2;
+
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 900;
+}
+
+.atom--readerquestions__questionask {
+  margin-left: $gutter / 4;
+  align-self: flex-end;
+}
+
+.atom--readerquestions__notification,
+.atom--readerquestions__notification > .atom__button {
+  margin-top: $baseline;
+}
+
+.atom--readerquestions__notification > .atom__button {
+  border-color: rgba($news-main-1, 0.5);
+  color: $news-main-1;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 18px;
+  height: 36px;
+
+  align-content: center;
+
+  &:hover,
+  &:active {
+    background: $news-main-1;
+    border-color: $news-main-1;
+    color: white;
+  }
+}
