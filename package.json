@@ -43,7 +43,7 @@
     "copy": "node ./tools/copy.js",
     "postcss": "postcss build/*/*/*.css -u autoprefixer",
     "apps": "yarn run appsJS; yarn run appsCSS",
-    "appsJS": "yarn run NODE_ENV=production webpack --config webpack/apps.config.js",
+    "appsJS": "NODE_ENV=production webpack --config webpack/apps.config.js",
     "appsCSS": "node-sass --output-style compressed --include-path src/main/resources/css --output build/ src/main/resources/; yarn run postcss --dir build/",
     "frontend": "yarn run frontendJS; yarn run copy; yarn run frontendCSS",
     "frontendJS": "NODE_ENV=production webpack --config webpack/frontend.config.js",
