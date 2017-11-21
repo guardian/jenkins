@@ -1,1 +1,33 @@
 //@flow
+
+import { Actions, ComponentTypes } from 'ophan';
+import type { Channel } from './channels';
+import { fromEvent } from './events';
+
+export default ({ ophan, dom, viewport }: Services): AtomBuilder<StoryQuestionsF> => (root: HTMLElement): Coeval<StoryQuestions> => {
+
+  const start = (a: StoryQuestions): Promise<void> => {
+  };
+
+  const stop = () => {
+  };
+
+  const record = (id: string, action: Action) => {
+    ophan.record({
+      componentEvent: {
+        component: {
+          ComponentTypes.READERS_QUESTIONS_ATOM,
+          id,
+          products: [],
+          labels: []
+        },
+        action
+      }
+    });
+  }
+
+  const runTry = (): Try<StoryQuestions> => {
+  }
+
+  return Object.freeze({ runTry });
+}
