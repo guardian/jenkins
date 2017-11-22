@@ -1,6 +1,36 @@
-declare type Product = 1 | 2 | 3 | 4 | 5 | 6 | 11;
+declare type Product = 'CONTRIBUTION'
+                    | 'RECURRING_CONTRIBUTION'
+                    | 'MEMBERSHIP_SUPPORTER'
+                    | 'MEMBERSHIP_PATRON'
+                    | 'MEMBERSHIP_PARTNER'
+                    | 'DIGITAL_SUBSCRIPTION'
+                    | 'PAPER_SUBSCRIPTION_EVERYDAY'
+                    | 'PAPER_SUBSCRIPTION_SIXDAY'
+                    | 'PAPER_SUBSCRIPTION_WEEKEND'
+                    | 'PAPER_SUBSCRIPTION_SUNDAY'
+                    | 'PRINT_SUBSCRIPTION'
+                    | 'APP_PREMIUM_TIER';
 
-declare type ComponentType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17;
+declare type ComponentType = 'READERS_QUESTIONS_ATOM'
+                          | 'QANDA_ATOM'
+                          | 'PROFILE_ATOM'
+                          | 'GUIDE_ATOM'
+                          | 'TIMELINE_ATOM'
+                          | 'NEWSLETTER_SUBSCRIPTION'
+                          | 'SURVEYS_QUESTIONS'
+                          | 'ACQUISITIONS_EPIC'
+                          | 'ACQUISITIONS_ENGAGEMENT_BANNER'
+                          | 'ACQUISITIONS_THANK_YOU_EPIC'
+                          | 'ACQUISITIONS_HEADER'
+                          | 'ACQUISITIONS_FOOTER'
+                          | 'ACQUISITIONS_INTERACTIVE_SLICE'
+                          | 'ACQUISITIONS_NUGGET'
+                          | 'ACQUISITIONS_STANDFIRST'
+                          | 'ACQUISITIONS_THRASHER'
+                          | 'ACQUISITIONS_EDITORIAL_LINK'
+                          | 'ACQUISITIONS_MANAGE_MY_ACCOUNT'
+                          | 'ACQUISITIONS_BUTTON'
+                          | 'ACQUISITIONS_OTHER';
 
 declare type ComponentV2 = {
   componentType : ComponentType;
@@ -10,20 +40,28 @@ declare type ComponentV2 = {
   labels        : string[];
 }
 
-declare type Action = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+declare type Action = 'INSERT'
+                    | 'VIEW'
+                    | 'EXPAND'
+                    | 'LIKE'
+                    | 'DISLIKE'
+                    | 'SUBSCRIBE'
+                    | 'ANSWER'
+                    | 'VOTE'
+                    | 'CLICK';
 
 declare type AbTest = { name          : string
-              , variant       : string
-              , complete     ?: boolean
-              , campaignCodes?: string[]
-              };
+                      , variant       : string
+                      , complete     ?: boolean
+                      , campaignCodes?: string[]
+                      };
 
 declare type ComponentEvent = { component : ComponentV2
-                      , action    : Action
-                      , value    ?: string
-                      , id       ?: string
-                      , abTest   ?: AbTest
-                      };
+                              , action    : Action
+                              , value    ?: string
+                              , id       ?: string
+                              , abTest   ?: AbTest
+                              };
 
 declare type OphanRecord = { componentEvent: ComponentEvent };
   
