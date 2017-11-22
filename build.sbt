@@ -4,6 +4,7 @@ name := "atom-renderer"
 organization := "com.gu"
 scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8")
 scalaVersion := "2.12.4"
+releaseCrossBuild := true
 crossScalaVersions := Seq("2.11.11", "2.12.4")
 
 val circeVersion = "0.8.0"
