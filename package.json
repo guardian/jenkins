@@ -1,6 +1,6 @@
 {
   "name": "@guardian/atom-renderer",
-  "version": "0.9.0-alpha.4",
+  "version": "0.9.0-alpha.15",
   "description": "Platform-agnostic rendering library for atoms",
   "repository": "https://github.com/guardian/atom-renderer.git",
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
@@ -21,6 +21,7 @@
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
     "eslint": "^4.10.0",
@@ -45,10 +46,10 @@
     "copy": "node ./tools/copy.js",
     "postcss": "postcss build/*/*/*.css -u autoprefixer",
     "apps": "yarn run appsJS; yarn run appsCSS",
-    "appsJS": "NODE_ENV=production webpack --config webpack/apps.config.js",
+    "appsJS": "NODE_ENV=production webpack --config apps.config.js",
     "appsCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path src/main/resources/css --output build/ src/main/resources/; yarn run postcss --dir build/",
     "frontend": "yarn run frontendJS; yarn run copy; yarn run frontendCSS",
-    "frontendJS": "NODE_ENV=production webpack --config webpack/frontend.config.js",
+    "frontendJS": "NODE_ENV=production webpack --config frontend.config.js",
     "frontendCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path src/main/resources/css --output dist/ src/main/resources/"
   }
 }
