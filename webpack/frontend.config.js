@@ -19,7 +19,9 @@ const createJsSettings = rendering => atomType => ({
   },
   resolve: {
     extensions: ['.fjs'],
-    modules: ['lib']
+    modules: [
+      path.join(__dirname, '..', 'src', 'main', 'resources')
+    ]
   },
   context: path.resolve(__dirname, '..', 'src', 'main', 'resources'),
   plugins: [
