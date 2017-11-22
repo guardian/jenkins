@@ -3,17 +3,17 @@
 )
 
 <div class="atom atom--readerquestions">
-  <div id="">
+  <div class="atom__view">
     <p class="atom--readerquestions__heading"><strong>Need something explained?</strong></p>
     <p class="atom--readerquestions__description">Pick a question: We’ll answer the one that generates the most interest shortly</p>
 
-    <div class="atom--readerquestions__questions atom--readerquestions__rows">
+    <div class="js-questions atom--readerquestions__questions atom--readerquestions__rows">
       @for(
         editorialQuestions <- data.editorialQuestions.toSeq;
         questionSet <- editorialQuestions.take(1);
         question <- questionSet.questions
       ) {
-        <button class="clear atom--readerquestions__question">
+        <button class="clear js-question atom--readerquestions__question" data-question-id="@question.questionId" data-question-text="@question.questionText">
           <span class="atom--readerquestions__questionlabel">@question.questionText</span>
           <span class="atom--readerquestions__questionask atom__button atom__button--rounded" aria-hidden="true">Ask</span>
         </button>
@@ -21,17 +21,17 @@
     </div>
   </div>
 
-  <div id="" hidden>
+  <div class="atom__view" hidden>
     <p class="atom--readerquestions__heading"><strong>Thank you for participating</strong></p>
     <p class="atom--readerquestions__description">We’ll answer the one that generates the most interest shortly. How would you like to get notified when it’s ready?</p>
-    <div class="atom--readerquestions__notification atom--readerquestions__rows">
-      <button class="atom__button atom__button--rounded atom__button--bordered">Email</button>
-      <button class="atom__button atom__button--rounded atom__button--bordered">Onsite notification</button>
-      <button class="atom__button atom__button--rounded atom__button--bordered">Facebook Messenger</button>
+    <div class="js-notifications atom--readerquestions__notification atom--readerquestions__rows">
+      <button class="js-notification atom__button atom__button--rounded atom__button--bordered" data-method="email">Email</button>
+      <button class="js-notification atom__button atom__button--rounded atom__button--bordered" data-method="notification">Onsite notification</button>
+      <button class="js-notification atom__button atom__button--rounded atom__button--bordered" data-method="facebook-messenger">Facebook Messenger</button>
     </div>
   </div>
 
-  <div id="" hidden>
+  <div class="atom__view" hidden>
     <p class="atom--readerquestions__heading"><strong>Thank you for your interest</strong></p>
     <p class="atom--readerquestions__description">We’re actively developing these notification features but they are not yet built. We’re using your feedback to understand how you would like to be notified of the answers. Thanks again.</p>
   </div>

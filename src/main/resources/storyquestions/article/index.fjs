@@ -1,33 +1,101 @@
 //@flow
 
-import { Actions, ComponentTypes } from 'ophan';
-import type { Channel } from './channels';
-import { fromEvent } from './events';
+import { Actions, ComponentTypes } from 'lib/ophan';
+import { fromEvent } from 'lib/events';
+import type { Channel } from 'channels';
 
-export default ({ ophan, dom, viewport }: Services): AtomBuilder<StoryQuestionsF> => (root: HTMLElement): Coeval<StoryQuestions> => {
+type QuestionId = string;
+type QuestionText = string;
+type Question = [?QuestionId, ?QuestionText];
 
-  const start = (a: StoryQuestions): Promise<void> => {
+type StoryQuestionsF = {
+  questions: HTMLElement,
+  notifications: HTMLElement,
+  views: HTMLElement[]
+};
+
+type StoryQuestions = StoryQuestionsF & Atom;
+
+export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
+  root: HTMLElement
+): Coeval<StoryQuestions> => {
+  let voteC: Channel<Action>;
+
+  const start = (s: StoryQuestions): Promise<void> => {
+    console.log('starting storyquestions')
+    console.dir(s)
+    voteC = fromEvent('click', s.questions)
+      .map(
+        (e: Event) => {
+          console.log('click click click')
+        return ((e.target: any).closest('.js-question'): ?HTMLButtonElement)
+        }
+          
+      )
+      .filter((e: ?HTMLButtonElement) => !!e)
+      .map(
+        (e: ?HTMLButtonElement) =>
+          e && [e.getAttribute('data-question-id'), e.getAttribute('data-question-text')]
+      )
+      .takeN(1);
+    console.log('arjiba')
+    voteC.tap(onVote(s));
+    console.log('arjiba§')
+    return Promise.resolve();
   };
 
   const stop = () => {
+    voteC.close();
   };
 
-  const record = (id: string, action: Action) => {
+  const onVote = (p: StoryQuestions) => (q: Question): void => {
+    console.dir(q);
+    record(p.atomId, Actions.VOTE, q[0], q[1]);
+  };
+
+  const record = (
+    id: string,
+    action: Action,
+    optId: ?string,
+    optValue: ?string
+  ) => {
+    const options = {};
+    if (optId) options.id = optId;
+    if (optValue) options.value = optValue;
+
     ophan.record({
       componentEvent: {
         component: {
-          ComponentTypes.READERS_QUESTIONS_ATOM,
+          componentType: ComponentTypes.READERS_QUESTIONS_ATOM,
           id,
           products: [],
           labels: []
         },
-        action
+        action,
+        ...options
       }
     });
-  }
+  };
 
   const runTry = (): Try<StoryQuestions> => {
-  }
+    const atomId = root.getAttribute('data-atom-id');
+    const views = Array.from(root.querySelectorAll('.atom__view'));
+    const questions = (root.querySelector('.js-questions'): ?HTMLElement);
+    const notifications = (root.querySelector('.js-notifications'): ?HTMLElement);
+
+    return views && questions && notifications
+      ? Object.freeze({
+          atomId,
+          views,
+          questions,
+          notifications,
+          stop,
+          start(): Promise<void> {
+            return start(this);
+          }
+        })
+      : 'Some elements were missing when initialising atom';
+  };
 
   return Object.freeze({ runTry });
-}
+};
