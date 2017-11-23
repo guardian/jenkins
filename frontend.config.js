@@ -32,7 +32,7 @@ const createJsSettings = rendering => atomType => ({
   ],
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, '..', 'dist', atomType, rendering),
+    path: path.resolve(__dirname, 'dist', atomType, rendering),
     libraryTarget: 'commonjs',
     library: atomType
   }
