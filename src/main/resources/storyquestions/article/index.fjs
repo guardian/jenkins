@@ -18,7 +18,6 @@ type StoryQuestionsF = {
 
 type StoryQuestions = StoryQuestionsF & Atom;
 
-//<button class="js-notification atom__button atom__button--rounded atom__button--bordered" data-method="email">Email</button>
 const notificationMethods = [
   { id: 'email', text: 'Email' },
   { id: 'notification', text: 'Onsite notification' },
@@ -35,11 +34,16 @@ const shuffle = <A>(arr: A[]): A[] => {
   return newArr;
 };
 
-export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
+export default ({
+  ophan,
+  dom,
+  viewport
+}: Services): AtomBuilder<StoryQuestionsF> => (
   root: HTMLElement
 ): Coeval<StoryQuestions> => {
   let voteC: Channel<Question>;
   let subscribeC: Channel<Notification>;
+  let observer: (x: number) => void;
 
   const start = (s: StoryQuestions): Promise<void> => {
     const notifs = shuffle(notificationMethods);
@@ -91,11 +95,17 @@ export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
       onSubscribe(s)(n);
       updateFn();
     });
+
+    observer = onVisible(s);
+    viewport.observe(root, 1, observer);
+
     return Promise.resolve();
   };
 
   const stop = () => {
     voteC.close();
+    subscribeC.close();
+    viewport.unobserve(observer);
   };
 
   const onVote = (s: StoryQuestions) => (q: Question): void => {
@@ -112,6 +122,13 @@ export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
       i += 1;
       s.views[i].hidden = false;
     });
+  };
+
+  const onVisible = (s: StoryQuestions) => (ratio: number): void => {
+    if (ratio >= 1) {
+      record(s.atomId, Actions.VIEW);
+      viewport.unobserve(root, 1, observer);
+    }
   };
 
   const record = (
