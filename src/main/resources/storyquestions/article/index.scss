@@ -14,6 +14,11 @@
   font-size: 21px;
   font-weight: 900;
   line-height: 22px;
+  margin-bottom: 0;
+}
+
+.atom--readerquestions__description + * {
+  margin-top: $baseline * 2;
 }
 
 .atom--readerquestions__rows {
@@ -65,8 +70,6 @@
   flex: 1;
   margin-bottom: $baseline / 2;
 
-  font-size: 14px;
-  line-height: 18px;
   font-weight: 900;
 }
 
