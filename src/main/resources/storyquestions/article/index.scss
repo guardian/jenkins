@@ -9,7 +9,7 @@
   padding: $baseline / 3 $gutter / 4 $baseline;
 }
 
-.atom--readerquestions__heading {
+.atom--readerquestions .atom--readerquestions__heading {
   color: $news-support-2;
   font-size: 21px;
   font-weight: 900;
@@ -17,8 +17,8 @@
   margin-bottom: 0;
 }
 
-.atom--readerquestions__description {
-  margin-bottom: 0;
+.atom--readerquestions .atom--readerquestions__description {
+  margin: 0;
 }
 
 .atom--readerquestions__description + * {
@@ -96,6 +96,10 @@
 .atom--readerquestions__notification,
 .atom--readerquestions__notification > .atom__button {
   margin-top: $baseline;
+
+  @include mq(phablet) {
+    margin-top: 0;
+  }
 }
 
 .atom--readerquestions__notification > .atom__button {
