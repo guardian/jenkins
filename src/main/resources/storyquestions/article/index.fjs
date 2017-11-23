@@ -8,6 +8,8 @@ type QuestionId = string;
 type QuestionText = string;
 type Question = [?QuestionId, ?QuestionText];
 
+type Notification = 'email' | 'notification' | 'facebook-messenger';
+
 type StoryQuestionsF = {
   questions: HTMLElement,
   notifications: HTMLElement,
@@ -19,28 +21,40 @@ type StoryQuestions = StoryQuestionsF & Atom;
 export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
   root: HTMLElement
 ): Coeval<StoryQuestions> => {
-  let voteC: Channel<Action>;
+  let voteC: Channel<Question>;
+  let subscribeC: Channel<Notification>;
 
   const start = (s: StoryQuestions): Promise<void> => {
-    console.log('starting storyquestions')
-    console.dir(s)
+    const updateFn = onUpdateView(s, 0);
     voteC = fromEvent('click', s.questions)
       .map(
-        (e: Event) => {
-          console.log('click click click')
-        return ((e.target: any).closest('.js-question'): ?HTMLButtonElement)
-        }
-          
+        (e: Event) =>
+          ((e.target: any).closest('.js-question'): ?HTMLButtonElement)
       )
       .filter((e: ?HTMLButtonElement) => !!e)
       .map(
         (e: ?HTMLButtonElement) =>
-          e && [e.getAttribute('data-question-id'), e.getAttribute('data-question-text')]
+          e && [
+            e.getAttribute('data-question-id'),
+            e.getAttribute('data-question-text')
+          ]
       )
       .takeN(1);
-    console.log('arjiba')
-    voteC.tap(onVote(s));
-    console.log('arjiba§')
+    subscribeC = fromEvent('click', s.notifications)
+      .map((e: Event) =>
+          ((e.target: any).closest('.js-notification'): ?HTMLButtonElement)
+      )
+      .filter((e: ?HTMLButtonElement) => !!e)
+      .map((e: ?HTMLButtonElement) => e && e.getAttribute('data-method'))
+      .takeN(1);
+    voteC.tap((q: Question) => {
+      onVote(s)(q);
+      updateFn();
+    });
+    subscribeC.tap((n: Notification) => {
+      onSubscribe(s)(n);
+      updateFn();
+    });
     return Promise.resolve();
   };
 
@@ -48,9 +62,20 @@ export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
     voteC.close();
   };
 
-  const onVote = (p: StoryQuestions) => (q: Question): void => {
-    console.dir(q);
-    record(p.atomId, Actions.VOTE, q[0], q[1]);
+  const onVote = (s: StoryQuestions) => (q: Question): void => {
+    record(s.atomId, Actions.VOTE, q[0], q[1]);
+  };
+
+  const onSubscribe = (s: StoryQuestions) => (n: Notification): void => {
+    record(s.atomId, Actions.SUBSCRIBE, null, n);
+  };
+
+  const onUpdateView = (s: StoryQuestions, i: number) => (): void => {
+    dom.write(() => {
+      s.views[i].hidden = true;
+      i += 1;
+      s.views[i].hidden = false;
+    });
   };
 
   const record = (
@@ -83,7 +108,7 @@ export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
     const questions = (root.querySelector('.js-questions'): ?HTMLElement);
     const notifications = (root.querySelector('.js-notifications'): ?HTMLElement);
 
-    return views && questions && notifications
+    return atomId && views && questions && notifications
       ? Object.freeze({
           atomId,
           views,
