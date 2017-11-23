@@ -17,6 +17,10 @@
   margin-bottom: 0;
 }
 
+.atom--readerquestions__description {
+  margin-bottom: 0;
+}
+
 .atom--readerquestions__description + * {
   margin-top: $baseline * 2;
 }
