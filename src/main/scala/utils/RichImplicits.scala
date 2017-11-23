@@ -1,6 +1,6 @@
+package com.gu.contentatom.renderer
 package utils
 
-import com.gu.contentatom.renderer.utils.GuardianDateFormatter
 import com.gu.contentatom.thrift.atom.timeline.TimelineItem
 
 object Implicits {
