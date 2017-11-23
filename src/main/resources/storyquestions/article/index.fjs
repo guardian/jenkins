@@ -18,6 +18,23 @@ type StoryQuestionsF = {
 
 type StoryQuestions = StoryQuestionsF & Atom;
 
+//<button class="js-notification atom__button atom__button--rounded atom__button--bordered" data-method="email">Email</button>
+const notificationMethods = [
+  { id: 'email', text: 'Email' },
+  { id: 'notification', text: 'Onsite notification' },
+  { id: 'facebook-messenger', text: 'Facebook Messenger' }
+];
+
+const shuffle = <A>(arr: A[]): A[] => {
+  const newArr = [];
+  while( arr.length ) {
+    const idx = Math.floor(Math.random() * arr.length);
+    newArr.push(arr[idx]);
+    arr.splice(idx, 1);
+  }
+  return newArr;
+};
+
 export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
   root: HTMLElement
 ): Coeval<StoryQuestions> => {
@@ -25,6 +42,24 @@ export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
   let subscribeC: Channel<Notification>;
 
   const start = (s: StoryQuestions): Promise<void> => {
+    const notifs = shuffle(notificationMethods);
+    const skeleton = document.createElement('button');
+    [
+      'js-notification',
+      'atom__button',
+      'atom__button--rounded',
+      'atom__button--bordered'
+    ].forEach(k => skeleton.classList.add(k));
+
+    dom.write(() => {
+      notifs.forEach(notif => {
+        const button = skeleton.cloneNode(false);
+        button.setAttribute('data-method', notif.id);
+        button.textContent = notif.text;
+        s.notifications.appendChild(button);
+      });
+    });
+
     const updateFn = onUpdateView(s, 0);
     voteC = fromEvent('click', s.questions)
       .map(
@@ -41,7 +76,8 @@ export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
       )
       .takeN(1);
     subscribeC = fromEvent('click', s.notifications)
-      .map((e: Event) =>
+      .map(
+        (e: Event) =>
           ((e.target: any).closest('.js-notification'): ?HTMLButtonElement)
       )
       .filter((e: ?HTMLButtonElement) => !!e)
@@ -106,7 +142,9 @@ export default ({ ophan, dom }: Services): AtomBuilder<StoryQuestionsF> => (
     const atomId = root.getAttribute('data-atom-id');
     const views = Array.from(root.querySelectorAll('.atom__view'));
     const questions = (root.querySelector('.js-questions'): ?HTMLElement);
-    const notifications = (root.querySelector('.js-notifications'): ?HTMLElement);
+    const notifications = (root.querySelector(
+      '.js-notifications'
+    ): ?HTMLElement);
 
     return atomId && views && questions && notifications
       ? Object.freeze({
