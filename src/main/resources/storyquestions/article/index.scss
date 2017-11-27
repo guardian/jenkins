@@ -1,0 +1,121 @@
+@import "vars";
+@import "mq";
+@import "atoms/buttons";
+@import "helpers/scale";
+
+.atom--readerquestions {
+  background: $neutral-7;
+  font-family: var(--f-sans-serif-text);
+  padding: $baseline / 3 $gutter / 4 $baseline;
+}
+
+.atom--readerquestions .atom--readerquestions__heading {
+  color: $news-support-2;
+  font-size: 21px;
+  font-weight: 900;
+  line-height: 22px;
+  margin-bottom: 0;
+}
+
+.atom--readerquestions .atom--readerquestions__description {
+  margin: 0;
+}
+
+.atom--readerquestions__description + * {
+  margin-top: $baseline * 2;
+}
+
+.atom--readerquestions__rows {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.atom--readerquestions__question {
+  padding: $baseline / 3 $gutter / 4 $baseline / 2;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+
+  background: $neutral-8;
+  border: 0;
+  border-top: 1px solid $news-main-2;
+
+  & + & {
+    margin-top: $baseline / 2;
+  }
+
+  .atom__button {
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 18px;
+    height: 28px;
+    padding: 0 $gutter / 2;
+
+    background: $news-main-1;
+    color: white;
+  }
+
+  &:hover, 
+  &:active {
+    background: $news-support-1;
+
+    .atom__button {
+      background: darken($news-main-1, 10);
+    }
+  }
+
+  @include mq(phablet) {
+    min-height: 48px;
+  }
+}
+
+.atom--readerquestions__questionlabel {
+  flex: 1;
+  margin-bottom: $baseline / 2;
+
+  font-weight: 900;
+}
+
+.atom--readerquestions__questionask {
+  margin-left: $gutter / 4;
+  align-self: flex-end;
+}
+
+.atom--readerquestions__notification {
+  @include mq(phablet) {
+    flex-direction: row;
+
+    .atom__button {
+      flex: 1;
+      margin: 0 $gutter / 4;
+    }
+  }
+}
+
+.atom--readerquestions__notification,
+.atom--readerquestions__notification > .atom__button {
+  margin-top: $baseline;
+
+  @include mq(phablet) {
+    margin-top: 0;
+  }
+}
+
+.atom--readerquestions__notification > .atom__button {
+  border-color: rgba($news-main-1, 0.5);
+  color: $news-main-1;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 18px;
+  height: 36px;
+
+  justify-content: center;
+
+  &:hover,
+  &:active {
+    background: $news-main-1;
+    border-color: $news-main-1;
+    color: white;
+  }
+}

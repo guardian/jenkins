@@ -9,6 +9,11 @@
   height: 2.25em;
 }
 
+.atom__button--bordered {
+  border-width: 1px;
+  border-style: solid;
+}
+
 .atom__button--round {
   border-radius: 100%;
 }

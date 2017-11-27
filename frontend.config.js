@@ -2,7 +2,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const Uglify = require('uglifyjs-webpack-plugin');
-const atomTypes = require('./atomTypes');
+const atomTypes = require('./webpack/atomTypes');
 
 const createJsSettings = rendering => atomType => ({
   entry: {
@@ -19,9 +19,11 @@ const createJsSettings = rendering => atomType => ({
   },
   resolve: {
     extensions: ['.fjs'],
-    modules: ['lib']
+    modules: [
+      path.join(__dirname, 'src', 'main', 'resources')
+    ]
   },
-  context: path.resolve(__dirname, '..', 'src', 'main', 'resources'),
+  context: path.resolve(__dirname, 'src', 'main', 'resources'),
   plugins: [
     new Uglify({
       parallel: true
@@ -30,8 +32,8 @@ const createJsSettings = rendering => atomType => ({
   ],
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, '..', 'build', atomType, rendering),
-    libraryTarget: 'this',
+    path: path.resolve(__dirname, 'dist', atomType, rendering),
+    libraryTarget: 'commonjs',
     library: atomType
   }
 });

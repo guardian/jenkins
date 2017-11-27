@@ -1,1 +1,181 @@
 //@flow
+
+import { Actions, ComponentTypes } from 'lib/ophan';
+import { fromEvent } from 'lib/events';
+import type { Channel } from 'channels';
+
+type QuestionId = string;
+type QuestionText = string;
+type Question = [?QuestionId, ?QuestionText];
+
+type Notification = 'email' | 'notification' | 'facebook-messenger';
+
+type StoryQuestionsF = {
+  questions: HTMLElement,
+  notifications: HTMLElement,
+  views: HTMLElement[]
+};
+
+type StoryQuestions = StoryQuestionsF & Atom;
+
+const notificationMethods = [
+  { id: 'email', text: 'Email' },
+  { id: 'notification', text: 'Notification' },
+  { id: 'facebook-messenger', text: 'Facebook Messenger' }
+];
+
+const shuffle = <A>(arr: A[]): A[] => {
+  const newArr = [];
+  while( arr.length ) {
+    const idx = Math.floor(Math.random() * arr.length);
+    newArr.push(arr[idx]);
+    arr.splice(idx, 1);
+  }
+  return newArr;
+};
+
+export default ({
+  ophan,
+  dom,
+  viewport
+}: Services): AtomBuilder<StoryQuestionsF> => (
+  root: HTMLElement
+): Coeval<StoryQuestions> => {
+  let voteC: Channel<Question>;
+  let subscribeC: Channel<Notification>;
+  let observer: (x: number) => void;
+
+  const start = (s: StoryQuestions): Promise<void> => {
+    const notifs = shuffle(notificationMethods);
+    const skeleton = document.createElement('button');
+    [
+      'js-notification',
+      'atom__button',
+      'atom__button--rounded',
+      'atom__button--bordered'
+    ].forEach(k => skeleton.classList.add(k));
+
+    dom.write(() => {
+      notifs.forEach(notif => {
+        const button = skeleton.cloneNode(false);
+        button.setAttribute('data-method', notif.id);
+        button.textContent = notif.text;
+        s.notifications.appendChild(button);
+      });
+    });
+
+    const updateFn = onUpdateView(s, 0);
+    voteC = fromEvent('click', s.questions)
+      .map(
+        (e: Event) =>
+          ((e.target: any).closest('.js-question'): ?HTMLButtonElement)
+      )
+      .filter((e: ?HTMLButtonElement) => !!e)
+      .map(
+        (e: ?HTMLButtonElement) =>
+          e && [
+            e.getAttribute('data-question-id'),
+            e.getAttribute('data-question-text')
+          ]
+      )
+      .takeN(1);
+    subscribeC = fromEvent('click', s.notifications)
+      .map(
+        (e: Event) =>
+          ((e.target: any).closest('.js-notification'): ?HTMLButtonElement)
+      )
+      .filter((e: ?HTMLButtonElement) => !!e)
+      .map((e: ?HTMLButtonElement) => e && e.getAttribute('data-method'))
+      .takeN(1);
+    voteC.tap((q: Question) => {
+      onVote(s)(q);
+      updateFn();
+    });
+    subscribeC.tap((n: Notification) => {
+      onSubscribe(s)(n);
+      updateFn();
+    });
+
+    observer = onVisible(s);
+    viewport.observe(root, 1, observer);
+
+    return Promise.resolve();
+  };
+
+  const stop = () => {
+    voteC.close();
+    subscribeC.close();
+    viewport.unobserve(observer);
+  };
+
+  const onVote = (s: StoryQuestions) => (q: Question): void => {
+    record(s.atomId, Actions.VOTE, q[0], q[1]);
+  };
+
+  const onSubscribe = (s: StoryQuestions) => (n: Notification): void => {
+    record(s.atomId, Actions.SUBSCRIBE, null, n);
+  };
+
+  const onUpdateView = (s: StoryQuestions, i: number) => (): void => {
+    dom.write(() => {
+      s.views[i].hidden = true;
+      i += 1;
+      s.views[i].hidden = false;
+    });
+  };
+
+  const onVisible = (s: StoryQuestions) => (ratio: number): void => {
+    if (ratio >= 1) {
+      record(s.atomId, Actions.VIEW);
+      viewport.unobserve(root, 1, observer);
+    }
+  };
+
+  const record = (
+    id: string,
+    action: Action,
+    optId: ?string,
+    optValue: ?string
+  ) => {
+    const options = {};
+    if (optId) options.id = optId;
+    if (optValue) options.value = optValue;
+
+    ophan.record({
+      componentEvent: {
+        component: {
+          componentType: ComponentTypes.READERS_QUESTIONS_ATOM,
+          id,
+          products: [],
+          labels: []
+        },
+        action,
+        ...options
+      }
+    });
+  };
+
+  const runTry = (): Try<StoryQuestions> => {
+    const atomId = root.getAttribute('data-atom-id');
+    const views = Array.from(root.querySelectorAll('.atom__view'));
+    const questions = (root.querySelector('.js-questions'): ?HTMLElement);
+    const notifications = (root.querySelector(
+      '.js-notifications'
+    ): ?HTMLElement);
+
+    return atomId && views && questions && notifications
+      ? Object.freeze({
+          atomId,
+          views,
+          questions,
+          notifications,
+          stop,
+          start(): Promise<void> {
+            return start(this);
+          }
+        })
+      : 'Some elements were missing when initialising atom';
+  };
+
+  return Object.freeze({ runTry });
+};

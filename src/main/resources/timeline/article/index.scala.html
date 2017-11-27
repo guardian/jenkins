@@ -1,20 +1,9 @@
 @import com.gu.contentatom.renderer.utils.GuardianDateFormatter
-@import com.gu.contentatom.thrift.atom.timeline.TimelineItem
+@import com.gu.contentatom.renderer.utils.Implicits._
+
 @(atom: com.gu.contentatom.thrift.Atom,
         data: com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 )
-
-@renderFormattedDate(item: TimelineItem, format: String) = @{
-
-  item.toDate match {
-    case Some(date) => {
-      val beginRange = GuardianDateFormatter.toCustomFormat(item.date, format)
-      val endRange = GuardianDateFormatter.toCustomFormat(date, format)
-      s"$beginRange–$endRange"
-    }
-    case None => GuardianDateFormatter.toCustomFormat(item.date, format)
-  }
-}
 
 @fragments.atoms.html.snippet(
   atom.id,
@@ -27,13 +16,14 @@
   }
   @for(item <- data.events) {
     <div class="atom--snippet__item">
-      <time class="atom--snippet__event-date" datetime="">
-      @item.dateFormat match {
-        case Some("month-year") => { @renderFormattedDate(item , "MMMM uuuu") }
-        case Some("year") => { @renderFormattedDate(item, "uuuu") }
-        case _ => { @renderFormattedDate(item, "d MMMM uuuu") }
-      }
+      <time class="atom--snippet__event-date" datetime="@{GuardianDateFormatter.toMachineValue(item.date)}">
+        @item.renderFormattedDate(item.date, item.dateFormat)
       </time>
+      @item.toDate.map { maybeDate =>
+        –<time class="atom--snippet__event-date" datetime="@{GuardianDateFormatter.toMachineValue(maybeDate)}">
+          @item.renderFormattedDate(maybeDate, item.dateFormat)
+        </time>
+      }
       <div class="atom--snippet__heading"><b>@item.title</b></div>
       @item.body.map { body => @Html(body) }
     </div>
