@@ -1,6 +1,6 @@
 //@flow
 
-import { Actions } from 'ophan';
+import { Actions } from './ophan';
 import type { Channel } from './channels';
 import { fromEvent } from './events';
 

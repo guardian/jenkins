@@ -1,6 +1,11 @@
 // @flow
 
-declare type AtomType = 'guide' | 'profile' | 'qanda' | 'timeline';
+declare type AtomType =
+  | 'guide'
+  | 'profile'
+  | 'qanda'
+  | 'timeline'
+  | 'storyquestions';
 
 declare type Atom = { atomId: string
                     , start: (a: Atom) => Promise<void>

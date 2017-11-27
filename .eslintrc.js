@@ -1,8 +1,11 @@
 module.exports = {
+    parser: 'babel-eslint',
     extends: ['airbnb', 'prettier'],
-    plugins: ['prettier'],
+    plugins: ['flowtype', 'prettier'],
     rules: {
         'import/no-extraneous-dependencies': 'off',
+        'no-use-before-define': 'off',
+
         // prettier settings
         'prettier/prettier': [
             'error',
@@ -16,8 +19,6 @@ module.exports = {
         ],
         'no-extend-native': 'error',
         'func-style': ['error', 'expression', { allowArrowFunctions: true }],
-
-        'prefer-destructuring': 'off',
     },
     // don't look for eslintrcs above here
     root: true,
