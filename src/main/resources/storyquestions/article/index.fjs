@@ -20,7 +20,7 @@ type StoryQuestions = StoryQuestionsF & Atom;
 
 const notificationMethods = [
   { id: 'email', text: 'Email' },
-  { id: 'notification', text: 'Onsite notification' },
+  { id: 'notification', text: 'Notification' },
   { id: 'facebook-messenger', text: 'Facebook Messenger' }
 ];
 
