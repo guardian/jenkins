@@ -16,11 +16,13 @@
 - [ ] recipe
 - [ ] cta
 
-## Build improvements
+## Improvements
 
 - [x] Use SASS for CSS
 - [x] Substitute TypeScript for Flow in JS
 - [ ] Testing and linting
+- [ ] Tweak snippet styling
+- [ ] Use ImgX for responsive images
 - [ ] Dynamic resource bundles -- there may be a lot of redundancy between the JS/CSS of two different atom types
 - [ ] Autoprefix class names in the HTML with the `atom--` string
 - [x] Minify the CSS
