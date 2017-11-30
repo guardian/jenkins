@@ -56,7 +56,7 @@
 
 .atom--snippet__handle:hover,
 .atom--snippet__handle:focus {
-    background-color: $news-support-2;
+    background-color: darken($news-support-2, 10);
 }
 
 .atom--snippet__handle span {
@@ -103,7 +103,7 @@
 
 .atom--snippet__feedback .atom__button:hover,
 .atom--snippet__feedback .atom__button:focus {
-    background: $news-main-1;
+    background: darken($news-main-1, 10);
 }
 
 .atom--snippet__feedback .atom__button[value='dislike'] {
