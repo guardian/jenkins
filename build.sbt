@@ -27,11 +27,6 @@ lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
 
 sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value
 
-JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
-resolveFromWebjarsNodeModulesDir := true
-
-resolvers += Resolver.bintrayRepo("webjars","maven")
-
 // Add CSS and JS generated files
 unmanagedResourceDirectories in Compile += baseDirectory.value / "build"
 
