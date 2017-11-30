@@ -34,7 +34,7 @@
 }
 
 .atom--snippet__label {
-    @include text(1);
+    @include headline(3);
     color: $news-support-2;
     display: block;
 }
