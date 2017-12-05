@@ -102,6 +102,10 @@ object ArticleAtomRenderer extends AtomRenderer {
   val renderings = renderers.ArticleRenderings
 }
 
+object EmailAtomRenderer extends AtomRenderer {
+  val renderings = renderers.EmailRenderings
+}
+
 object DefaultAtomRenderer extends AtomRenderer {
   val renderings = renderers.DefaultRenderings
 }
