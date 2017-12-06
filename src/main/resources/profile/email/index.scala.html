@@ -2,3 +2,47 @@
 , data: com.gu.contentatom.thrift.atom.profile.ProfileAtom
 )
 
+@fragments.email.html.snippet( 
+  atom.id, 
+  className = "profile", 
+  label = data.typeLabel.getOrElse("Profile"), 
+  headline = atom.title.getOrElse("")
+){ 
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tr>
+      <td>
+        @for(
+          img <- data.headshot 
+        ) { 
+          @fragments.atoms.html.snippetImage(img) 
+        }
+  
+        @for(
+          item <- data.items
+        ) { 
+          <div class="atom--snippet__item">
+            @item.title.map { t =>
+              <div class="atom--snippet__heading">
+                <b>@t</b>
+              </div>
+            } 
+            @Html(item.body)
+          </div>
+        } 
+      </td>
+    </tr>
+  
+    @for( 
+      img <- data.headshot; 
+      asset <- img.master; 
+      credit <- asset.credit 
+    ) {
+      <tr> 
+        <td class="atom--snippet__credit">
+          <span class="inline-icon">@fragments.icons.html.info()</span>
+          @credit
+        </td>
+      </tr>
+    } 
+  </table>
+}

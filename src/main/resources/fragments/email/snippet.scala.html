@@ -1,0 +1,14 @@
+@(id: String, className: String, label: String, headline: String)(body: Html)
+
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr><td class="atom--snippet__label">@label</td></tr>
+  <tr><td class="atom--snippet__headline">@headline</td></tr>
+  <tr class="atom--snippet__body"><td>@body</td></tr>
+  <tr class="atom--snippet__footer">
+    <td class="atom--snippet__feedback">
+      <span>Was this helpful?</span>
+      <a href="#" class="atom__button atom__button--round" value="like" aria-label="Yes">@fragments.icons.html.thumb()</a>
+      <a href="#" class="atom__button atom__button--round" value="dislike" aria-label="No">@fragments.icons.html.thumb()</a>
+    </td>
+  </tr>
+</details>

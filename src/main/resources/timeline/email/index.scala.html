@@ -2,3 +2,32 @@
 , data: com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 )
 
+@fragments.email.atoms.html.snippet(
+  atom.id, 
+  className = "timeline", 
+  label = data.typeLabel.getOrElse("Timeline"), 
+  headline = atom.title.getOrElse("") 
+){
+  <table cellspacing="0" cellpadding="0" border="0">
+    @for(
+      description <- data.description
+    ) {
+      <tr><td class="atom--snippet__description">@Html(description)</td></tr>      
+    } 
+    
+    @for(
+      item <- data.events
+    ) { 
+      <tr class="atom--snippet__item">
+        <td><span class="atom--snippet__event-date">@item.renderFormattedDate(item.date, item.dateFormat)</span>
+        @item.toDate.map { maybeDate => –
+          <span class="atom--snippet__event-date">@item.renderFormattedDate(maybeDate, item.dateFormat)</span>
+        }</td>
+      </tr>
+      <tr><td class="atom--snippet__heading"><b>@item.title</b></td></tr>
+      @item.body.map { body =>
+        <tr><td class="atom--snippet__body">@Html(body)</td></tr>
+      }
+    } 
+  </table>
+}

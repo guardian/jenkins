@@ -1,3 +1,36 @@
 @(atom: com.gu.contentatom.thrift.Atom
 , data: com.gu.contentatom.thrift.atom.qanda.QAndAAtom
 )
+
+@fragments.email.html.snippet( 
+  atom.id, 
+  className = "qanda", 
+  label = data.typeLabel.getOrElse("Q&amp;A"), 
+  headline = atom.title.getOrElse("")
+){ 
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tr>
+      <td>
+        @for(
+          img <- data.eventImage 
+        ) { 
+          @fragments.atoms.html.snippetImage(img)
+        } 
+        @Html(data.item.body) 
+      </td>
+    </tr>
+    
+    @for( 
+      img <- data.eventImage;
+      asset <- img.master; 
+      credit <- asset.credit 
+    ) { 
+      <tr>
+        <td class="atom--snippet__credit">
+          <span class="inline-icon">@fragments.icons.html.info()</span>
+          @credit
+        </td>
+      </tr>
+    }
+  </table>
+}
