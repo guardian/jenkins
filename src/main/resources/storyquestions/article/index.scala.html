@@ -2,6 +2,10 @@
 , data: com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 )
 
+import java.time.Instant
+
+@if(data.closeDate.exists { closeDate => closeDate < Instant.now().toEpochMilli() } ) {
+
 <div class="atom atom--readerquestions">
   <div class="atom__view">
     <p class="atom--readerquestions__heading"><strong>Need something explained?</strong></p>
@@ -33,3 +37,4 @@
     <p class="atom--readerquestions__description">We’re actively developing these notification features but they are not yet built. We’re using your feedback to understand how you would like to be notified of the answers. Thanks again.</p>
   </div>
 </div>
+}
