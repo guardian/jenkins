@@ -1,4 +1,4 @@
-//@flow
+// @flow
 
 import { Actions, ComponentTypes } from 'lib/ophan';
 import { fromEvent } from 'lib/events';
@@ -10,7 +10,8 @@ type Question = [?QuestionId, ?QuestionText];
 
 type StoryQuestionsF = {
   questions: HTMLElement,
-  views: HTMLElement[]
+  views: HTMLElement[],
+  form: HTMLFormElement
 };
 
 type StoryQuestions = StoryQuestionsF & Atom;
@@ -23,6 +24,7 @@ export default ({
   root: HTMLElement
 ): Coeval<StoryQuestions> => {
   let voteC: Channel<Question>;
+  let subscribeC: Channel<String>;
   let observer: (x: number) => void;
 
   const start = (s: StoryQuestions): Promise<void> => {
@@ -45,7 +47,13 @@ export default ({
     voteC.tap((q: Question) => {
       onVote(s)(q);
       updateFn();
+      subscribeC.tap((e: Event) => {
+        onSubmit(s, q, new FormData(s.form));
+        updateFn();
+      });
     });
+
+    subscribeC = fromEvent('submit', s.form, { preventDefault: true }).takeN(1);
 
     observer = onVisible(s);
     viewport.observe(root, 1, observer);
@@ -60,6 +68,14 @@ export default ({
 
   const onVote = (s: StoryQuestions) => (q: Question): void => {
     record(s.atomId, Actions.VOTE, q[0], q[1]);
+  };
+
+  const onSubmit = (s: StoryQuestions, q: Question, d: FormData): void => {
+    record(s.atomId, Actions.SUBSCRIBE, q[0], q[1]);
+    const req = new XMLHttpRequest();
+    req.withCredentials = true;
+    req.open('POST', s.form.action);
+    req.send(d);
   };
 
   const onUpdateView = (s: StoryQuestions, i: number) => (): void => {
@@ -105,12 +121,16 @@ export default ({
     const atomId = root.getAttribute('data-atom-id');
     const views = Array.from(root.querySelectorAll('.atom__view'));
     const questions = (root.querySelector('.js-questions'): ?HTMLElement);
+    const form = (document.getElementById(
+      'js-atom--readerquestions__subscribe'
+    ): ?HTMLFormElement);
 
-    return atomId && views && questions
+    return atomId && views && questions && form
       ? Object.freeze({
           atomId,
           views,
           questions,
+          form,
           stop,
           start(): Promise<void> {
             return start(this);
