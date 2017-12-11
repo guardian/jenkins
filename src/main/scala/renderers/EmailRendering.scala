@@ -30,62 +30,62 @@ trait EmailRendering[A] extends Rendering[A] {
 
 object EmailRenderings extends Renderings {
   val ctaRendering = new EmailRendering[CTAAtom] {
-    val html_impl = (atom, data) => cta.article.html.index(atom, data)
+    val html_impl = (atom, data) => cta.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/cta/email/index.css")
   }
 
   val explainerRendering = new EmailRendering[ExplainerAtom] {
-    val html_impl = (atom, data) => explainer.article.html.index(atom, data)
+    val html_impl = (atom, data) => explainer.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/explainer/email/index.css")
   }
 
   val guideRendering = new EmailRendering[GuideAtom] {
-    val html_impl = (atom, data) => guide.article.html.index(atom, data)
+    val html_impl = (atom, data) => guide.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/guide/email/index.css")
   }
 
   val interactiveRendering = new EmailRendering[InteractiveAtom] {
-    val html_impl = (atom, data) => interactive.article.html.index(atom, data)
+    val html_impl = (atom, data) => interactive.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/interactive/email/index.css")
   }
 
   val mediaRendering = new EmailRendering[MediaAtom] {
-    val html_impl = (atom, data) => media.article.html.index(atom, data)
+    val html_impl = (atom, data) => media.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/media/email/index.css")
   }
 
   val profileRendering = new EmailRendering[ProfileAtom] {
-    val html_impl = (atom, data) => profile.article.html.index(atom, data)
+    val html_impl = (atom, data) => profile.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/profile/email/index.css")
   }
 
   val qandaRendering = new EmailRendering[QAndAAtom] {
-    val html_impl = (atom, data) => qanda.article.html.index(atom, data)
+    val html_impl = (atom, data) => qanda.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/qanda/email/index.css")
   }
 
   val quizRendering = new EmailRendering[QuizAtom] {
-    val html_impl = (atom, data) => quiz.article.html.index(atom, data)
+    val html_impl = (atom, data) => quiz.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/quiz/email/index.css")
   }
 
   val recipeRendering = new EmailRendering[RecipeAtom] {
-    val html_impl = (atom, data) => recipe.article.html.index(atom, data)
+    val html_impl = (atom, data) => recipe.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/recipe/email/index.css")
   }
 
   val reviewRendering = new EmailRendering[ReviewAtom] {
-    val html_impl = (atom, data) => review.article.html.index(atom, data)
+    val html_impl = (atom, data) => review.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/review/email/index.css")
   }
 
   val storyquestionsRendering = new EmailRendering[StoryQuestionsAtom] {
-    val html_impl = (atom, data) => storyquestions.article.html.index(atom, data)
+    val html_impl = (atom, data) => storyquestions.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/storyquestions/email/index.css")
   }
 
   val timelineRendering = new EmailRendering[TimelineAtom] {
-    val html_impl = (atom, data) => timeline.article.html.index(atom, data)
+    val html_impl = (atom, data) => timeline.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/timeline/email/index.css")
   }
 }
