@@ -1,3 +1,4 @@
+@import com.gu.contentatom.renderer.utils.Implicits._
 @(atom: com.gu.contentatom.thrift.Atom
 , data: com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 )
@@ -24,12 +25,17 @@
   <div class="atom__view" hidden>
     <p class="atom--readerquestions__heading"><strong>Thank you for participating</strong></p>
     <p class="atom--readerquestions__description">We’ll answer the one that generates the most interest shortly. How would you like to get notified when it’s ready?</p>
-    <div class="js-notifications atom--readerquestions__notification atom--readerquestions__rows">
-    </div>
-  </div>
 
-  <div class="atom__view" hidden>
-    <p class="atom--readerquestions__heading"><strong>Thank you for your interest</strong></p>
-    <p class="atom--readerquestions__description">We’re actively developing these notification features but they are not yet built. We’re using your feedback to understand how you would like to be notified of the answers. Thanks again.</p>
+    @for(
+      listId <- data.listId
+    ) { 
+      <form class="atom--readerquestions__form">
+        <div class="atom__form-field atom__form-field--inline">
+          <input class="text-input js-storyquestion-email-signup-input" type="email" name="email" placeholder="Email address" required>
+          <input class="" type="hidden" name="listId" value="@listId" />
+          <button type="submit" class="atom__button">@fragments.icons.html.envelope() Sign up</button>
+        </div>
+      </form>
+    }
   </div>
 </div>
