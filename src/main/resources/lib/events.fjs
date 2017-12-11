@@ -2,17 +2,26 @@
 import type { Channel } from './channels';
 import { chan } from './channels';
 
-const fromEvent = (e: string, t: EventTarget): Channel<Event> => {
+type Options = {
+  preventDefault?: boolean,
+  stopPropagation?: boolean
+};
+
+const fromEvent = (
+  e: string,
+  t: EventTarget,
+  { preventDefault = false, stopPropagation = false }: Options = {}
+): Channel<Event> => {
   const h = (ev: Event) => {
+    if (preventDefault) ev.preventDefault();
+    if (stopPropagation) ev.stopPropagation();
     c.putAsync(ev);
   };
   const c: Channel<Event> = chan(() => {
     t.removeEventListener(e, h);
-  }); 
+  });
   t.addEventListener(e, h);
   return c;
-}
-
-export {
-  fromEvent
 };
+
+export { fromEvent };
