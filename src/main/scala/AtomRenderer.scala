@@ -101,15 +101,8 @@ trait AtomRenderer {
 }
 
 object ArticleAtomRenderer extends AtomRenderer {
-  type Conf = NilConfiguration
+  type Conf = ArticleConfiguration
   val renderings = renderers.ArticleRenderings
-
-  @deprecated("will be removed", "atom-renderer 0.10")
-  def getHTML(atom: Atom): HTML = getHTML(atom, NilConfiguration)
-  @deprecated("will be removed", "atom-renderer 0.10")
-  def getHTML(json: Json): Option[HTML] = getHTML(json, NilConfiguration)
-  @deprecated("will be removed", "atom-renderer 0.10")
-  def getHTML(json: String): Option[HTML] = getHTML(json, NilConfiguration)
 }
 
 object DefaultAtomRenderer extends AtomRenderer {
