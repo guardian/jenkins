@@ -22,36 +22,38 @@ trait AtomRenderer {
   import renderings._
   import json._
 
+  type Conf <: Configuration
+
   type HTML = String
   type CSS = Option[String]
   type JS = Option[String]
 
-  def getHTML[A](atom: Atom, data: A)(implicit reader: Rendering[A]): HTML =
+  def getHTML[A](atom: Atom, data: A, conf: Conf)(implicit reader: Rendering[A]): HTML =
     reader.html(atom, data).toString
   
-  def getHTML(atom: Atom): HTML = atom.data match {
-    case AtomData.Cta(data)            => getHTML(atom, data)
-    case AtomData.Explainer(data)      => getHTML(atom, data)
-    case AtomData.Guide(data)          => getHTML(atom, data)
-    case AtomData.Interactive(data)    => getHTML(atom, data)
-    case AtomData.Media(data)          => getHTML(atom, data)
-    case AtomData.Profile (data)       => getHTML(atom, data)
-    case AtomData.Qanda(data)          => getHTML(atom, data)
-    case AtomData.Quiz(data)           => getHTML(atom, data)
-    case AtomData.Recipe(data)         => getHTML(atom, data)
-    case AtomData.Review(data)         => getHTML(atom, data)
-    case AtomData.Storyquestions(data) => getHTML(atom, data)
-    case AtomData.Timeline(data)       => getHTML(atom, data)
+  def getHTML(atom: Atom, conf: Conf): HTML = atom.data match {
+    case AtomData.Cta(data)            => getHTML(atom, data, conf)
+    case AtomData.Explainer(data)      => getHTML(atom, data, conf)
+    case AtomData.Guide(data)          => getHTML(atom, data, conf)
+    case AtomData.Interactive(data)    => getHTML(atom, data, conf)
+    case AtomData.Media(data)          => getHTML(atom, data, conf)
+    case AtomData.Profile (data)       => getHTML(atom, data, conf)
+    case AtomData.Qanda(data)          => getHTML(atom, data, conf)
+    case AtomData.Quiz(data)           => getHTML(atom, data, conf)
+    case AtomData.Recipe(data)         => getHTML(atom, data, conf)
+    case AtomData.Review(data)         => getHTML(atom, data, conf)
+    case AtomData.Storyquestions(data) => getHTML(atom, data, conf)
+    case AtomData.Timeline(data)       => getHTML(atom, data, conf)
     case _                             => atom.defaultHtml
   }
 
-  def getHTML(json: Json): Option[HTML] = json.as[Atom] match {
+  def getHTML(json: Json, conf: Conf): Option[HTML] = json.as[Atom] match {
     case Left(_) => None
-    case Right(atom) => Some(getHTML(atom))
+    case Right(atom) => Some(getHTML(atom, conf))
   }
 
-  def getHTML(json: String): Option[HTML] =
-    parse(json).right.toOption.flatMap(getHTML)
+  def getHTML(json: String, conf: Conf): Option[HTML] =
+    parse(json).right.toOption.flatMap(getHTML(_, conf))
 
   def getCSS[A](implicit reader: Rendering[A]): CSS =
     reader.css.map(_.toString)
@@ -99,7 +101,15 @@ trait AtomRenderer {
 }
 
 object ArticleAtomRenderer extends AtomRenderer {
+  type Conf = NilConfiguration
   val renderings = renderers.ArticleRenderings
+
+  @deprecated("will be removed", "atom-renderer 0.10")
+  def getHTML(atom: Atom): HTML = getHTML(atom, NilConfiguration)
+  @deprecated("will be removed", "atom-renderer 0.10")
+  def getHTML(json: Json): Option[HTML] = getHTML(json, NilConfiguration)
+  @deprecated("will be removed", "atom-renderer 0.10")
+  def getHTML(json: String): Option[HTML] = getHTML(json, NilConfiguration)
 }
 
 object EmailAtomRenderer extends AtomRenderer {
@@ -107,5 +117,13 @@ object EmailAtomRenderer extends AtomRenderer {
 }
 
 object DefaultAtomRenderer extends AtomRenderer {
+  type Conf = NilConfiguration
   val renderings = renderers.DefaultRenderings
+
+  @deprecated("will be removed", "atom-renderer 0.10")
+  def getHTML(atom: Atom): HTML = getHTML(atom, NilConfiguration)
+  @deprecated("will be removed", "atom-renderer 0.10")
+  def getHTML(json: Json): Option[HTML] = getHTML(json, NilConfiguration)
+  @deprecated("will be removed", "atom-renderer 0.10")
+  def getHTML(json: String): Option[HTML] = getHTML(json, NilConfiguration)
 }
