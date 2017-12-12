@@ -6,13 +6,9 @@ import com.gu.contentatom.thrift.Atom
 import play.twirl.api.Html
 
 trait Rendering[A] {
-  type Conf <: Configuration
+  type Conf
 
-  def html(atom: Atom, data: A)(implicit conf: Conf): Html
+  def html[C <: Conf](atom: Atom, data: A)(implicit conf: C): Html
   def css: Option[String]
   def js: Option[String]
-}
-
-object Rendering {
-  type Aux[A, C] = Rendering[A] { type Conf = C }
 }
