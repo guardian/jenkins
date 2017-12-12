@@ -63,6 +63,7 @@ export default ({
 
   const stop = () => {
     voteC.close();
+    subscribeC.close();
     viewport.unobserve(observer);
   };
 
