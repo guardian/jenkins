@@ -24,7 +24,7 @@ export default ({
   root: HTMLElement
 ): Coeval<StoryQuestions> => {
   let voteC: Channel<Question>;
-  let subscribeC: Channel<String>;
+  let subscribeC: Channel<Event>;
   let observer: (x: number) => void;
 
   const start = (s: StoryQuestions): Promise<void> => {
