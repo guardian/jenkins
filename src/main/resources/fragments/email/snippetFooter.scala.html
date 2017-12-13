@@ -1,11 +1,11 @@
-@()
+@(atom: com.gu.contentatom.thrift.Atom)(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
 
 <table class="atom--snippet__footer" cellspacing="0" cellpadding="0" border="0">
   <tr>
     <td width="10"></td>
     <td width="580">
-      @* TODO | URLs for subscriptions and view in browser *@
-      <a href="#">Manage your emails</a> | <a href="#">Trouble viewing?</a>
+      <a href="@conf.userProfileUrl">Manage your emails</a> | 
+      <a href="@conf.viewInBrowserUrl(atom)">Trouble viewing?</a>
     </td>
     <td width="10"></td>
   </tr>

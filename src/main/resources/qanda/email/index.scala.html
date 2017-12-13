@@ -1,9 +1,9 @@
 @(atom: com.gu.contentatom.thrift.Atom
 , data: com.gu.contentatom.thrift.atom.qanda.QAndAAtom
-)
+)(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
 
 @fragments.email.html.snippet( 
-  atom.id, 
+  atom, 
   className = "qanda", 
   label = data.typeLabel.getOrElse("Q&amp;A"), 
   headline = atom.title.getOrElse("")

@@ -1,6 +1,6 @@
-@(id: String, className: String, label: String, headline: String)(body: Html)
+@(atom: com.gu.contentatom.thrift.Atom, className: String, label: String, headline: String)(body: Html)(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
 
-@snippetHeader
+@snippetHeader(atom)
 
 <table cellspacing="0" cellpadding="0" border="0">
   <tr>
@@ -31,4 +31,4 @@
   </tr>
 </table>
 
-@snippetFooter
+@snippetFooter(atom)
