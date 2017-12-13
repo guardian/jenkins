@@ -15,7 +15,8 @@ libraryDependencies ++= Seq(
   "com.gu"   %% "fezziwig"           % "0.7",
   "io.circe" %% "circe-core"         % circeVersion,
   "io.circe" %% "circe-generic"      % circeVersion,
-  "io.circe" %% "circe-parser"       % circeVersion
+  "io.circe" %% "circe-parser"       % circeVersion,
+  "org.jsoup" % "jsoup"              % "1.11.2"
 )
 
 /**
