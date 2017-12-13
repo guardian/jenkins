@@ -20,72 +20,85 @@ import play.twirl.api.Html
 import utils.LoadFromClasspath
 
 trait EmailRendering[A] extends Rendering[A] {
-  def html(atom: Atom, data: A) = html_impl(atom, data)
+  type Conf = EmailConfiguration
+
   def css = css_impl()
   def js = None
 
-  def html_impl: (Atom, A) => Html
   def css_impl: () => Option[String]
 }
 
 object EmailRenderings extends Renderings {
   val ctaRendering = new EmailRendering[CTAAtom] {
-    val html_impl = (atom, data) => cta.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: CTAAtom)(implicit conf: C) =
+      cta.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/cta/email/index.css")
   }
 
   val explainerRendering = new EmailRendering[ExplainerAtom] {
-    val html_impl = (atom, data) => explainer.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: ExplainerAtom)(implicit conf: C) =
+      explainer.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/explainer/email/index.css")
   }
 
   val guideRendering = new EmailRendering[GuideAtom] {
-    val html_impl = (atom, data) => guide.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: GuideAtom)(implicit conf: C) =
+      guide.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/guide/email/index.css")
   }
 
   val interactiveRendering = new EmailRendering[InteractiveAtom] {
-    val html_impl = (atom, data) => interactive.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: InteractiveAtom)(implicit conf: C) =
+      interactive.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/interactive/email/index.css")
   }
 
   val mediaRendering = new EmailRendering[MediaAtom] {
-    val html_impl = (atom, data) => media.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: MediaAtom)(implicit conf: C) =
+      media.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/media/email/index.css")
   }
 
   val profileRendering = new EmailRendering[ProfileAtom] {
-    val html_impl = (atom, data) => profile.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: ProfileAtom)(implicit conf: C) =
+      profile.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/profile/email/index.css")
   }
 
   val qandaRendering = new EmailRendering[QAndAAtom] {
-    val html_impl = (atom, data) => qanda.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: QAndAAtom)(implicit conf: C) =
+      qanda.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/qanda/email/index.css")
   }
 
   val quizRendering = new EmailRendering[QuizAtom] {
-    val html_impl = (atom, data) => quiz.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: QuizAtom)(implicit conf: C) =
+      quiz.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/quiz/email/index.css")
   }
 
   val recipeRendering = new EmailRendering[RecipeAtom] {
-    val html_impl = (atom, data) => recipe.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: RecipeAtom)(implicit conf: C) =
+      recipe.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/recipe/email/index.css")
   }
 
   val reviewRendering = new EmailRendering[ReviewAtom] {
-    val html_impl = (atom, data) => review.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: ReviewAtom)(implicit conf: C) =
+      review.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/review/email/index.css")
   }
 
   val storyquestionsRendering = new EmailRendering[StoryQuestionsAtom] {
-    val html_impl = (atom, data) => storyquestions.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: StoryQuestionsAtom)(implicit conf: C) =
+      storyquestions.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/storyquestions/email/index.css")
   }
 
   val timelineRendering = new EmailRendering[TimelineAtom] {
-    val html_impl = (atom, data) => timeline.email.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: TimelineAtom)(implicit conf: C) =
+      timeline.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/timeline/email/index.css")
   }
 }
+    

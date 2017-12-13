@@ -29,7 +29,7 @@ trait AtomRenderer {
   type JS = Option[String]
 
   def getHTML[A](atom: Atom, data: A, conf: Conf)(implicit reader: Rendering[A]): HTML =
-    reader.html(atom, data).toString
+    reader.html(atom, data)(conf.asInstanceOf[reader.Conf]).toString
   
   def getHTML(atom: Atom, conf: Conf): HTML = atom.data match {
     case AtomData.Cta(data)            => getHTML(atom, data, conf)
@@ -113,6 +113,7 @@ object ArticleAtomRenderer extends AtomRenderer {
 }
 
 object EmailAtomRenderer extends AtomRenderer {
+  type Conf = EmailConfiguration
   val renderings = renderers.EmailRenderings
 }
 
