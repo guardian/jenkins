@@ -75,6 +75,3 @@ lazy val utils = (project in file("utils"))
       import com.gu.contentatom.renderer.utils._
     """
   )
-
-
-

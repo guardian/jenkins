@@ -2,6 +2,7 @@ package com.gu.contentatom.renderer
 package renderers
 
 import com.gu.contentatom.thrift.Atom
+import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
 import com.gu.contentatom.thrift.atom.guide.GuideAtom
@@ -14,9 +15,7 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
-
 import play.twirl.api.Html
-
 import utils.LoadFromClasspath
 
 trait ArticleRendering[A] extends Rendering[A] {
@@ -112,5 +111,11 @@ object ArticleRenderings extends Renderings {
       timeline.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/timeline/article/index.css")
     val js_impl = () => LoadFromClasspath("/timeline/article/index.js")
+  }
+
+  val commonsdivisionRendering = new ArticleRendering[CommonsDivision] {
+    val html_impl = (atom, data) => commonsdivision.article.html.index(atom, data)
+    val css_impl = () => LoadFromClasspath("/commonsdivision/article/index.css")
+    val js_impl = () => LoadFromClasspath("/commonsdivision/article/index.js")
   }
 }

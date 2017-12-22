@@ -1,6 +1,7 @@
 package com.gu.contentatom.renderer
 package renderers
 
+import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
 import com.gu.contentatom.thrift.atom.guide.GuideAtom
@@ -27,4 +28,5 @@ trait Renderings {
   implicit val reviewRendering: Rendering[ReviewAtom]
   implicit val storyquestionsRendering: Rendering[StoryQuestionsAtom]
   implicit val timelineRendering: Rendering[TimelineAtom]
+  implicit val commonsdivisionRendering: Rendering[CommonsDivision]
 }

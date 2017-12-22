@@ -1,0 +1,146 @@
+@import "vars";
+@import "atoms/buttons";
+@import "atoms/snippet";
+
+.atom--commonsdivision__header {
+  &.atom--snippet__header {
+    margin-bottom: 0;
+  }
+}
+
+.atom--commonsdivision__body {
+  &.atom--snippet__body {
+    margin-bottom: 15px;
+  }
+}
+
+.atom--commonsdivision__date {
+  font-size: 11px;
+}
+
+.atom--commonsdivision__count-header {
+  padding: 0 0 5px 0;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--c-pillar-news);
+}
+
+.atom--commonsdivision__count {
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+.atom--commonsdivision__count-header, .atom--commonsdivision__count {
+  text-align: center;
+}
+
+.atom--commonsdivision__grid {
+  display: flex;
+  flex-direction: row;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  & > div:nth-child(1) {
+    border-right: 1px solid $neutral-4;
+  }
+}
+.atom--commonsdivision__description {
+  font-weight: normal;
+  padding-top: 8px;
+  display: block;
+}
+
+.atom--commonsdivision__date {
+  font-weight: normal;
+  font-size: 11px;
+}
+
+.atom--commonsdivision__party-list {
+  width: 50%;
+}
+
+.atom--commonsdivision__mps-list ul {
+  margin: 0 0 5px 5px;
+}
+
+.from-content-api .atom--commonsdivision__mps-list ul li::before {
+  content: none;
+}
+
+.atom--commonsdivision__party {
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.atom--commonsdivision__party[open] .atom--commonsdivision__party-handle > :nth-child(1),
+.atom--commonsdivision__party:not([open]) .atom--commonsdivision__party-handle > :nth-child(2) {
+  display: none;
+}
+
+.atom--commonsdivision__party-handle {
+  padding: 0;
+  width: 100%;
+}
+
+.atom--commonsdivision__party-button .icon {
+  width: 9px;
+  height: 9px;
+}
+
+.atom--commonsdivision__party-button {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 14px;
+
+  border-radius: 5px;
+  padding: 4px 6px 4px 4px;
+
+  color: white;
+  svg {
+    fill: white;
+  }
+}
+
+.atom--commonsdivision__party-default {
+  background-color: #B3B3B4;
+}
+
+.atom--commonsdivision__party-tory {
+  background-color: #005789;
+}
+
+.atom--commonsdivision__party-labour {
+  background-color: #E31F26;
+}
+
+.atom--commonsdivision__party-dup {
+  background-color: #7D0069;
+}
+
+.atom--commonsdivision__party-green {
+  background-color: #33A22B;
+}
+
+.atom--commonsdivision__party-libdem {
+  background-color: #FFB900;
+  color: black;
+  svg {
+    fill: black;
+  }
+}
+
+.atom--commonsdivision__party-snp {
+  background-color: #FCDD03;
+  color: black;
+  svg {
+    fill: black;
+  }
+}
+
+.atom--commonsdivision__party-plaid {
+  background-color: #4a7801;
+}

@@ -1,0 +1,97 @@
+@import com.gu.contentatom.renderer.utils.GuardianDateFormatter
+@import com.gu.contentatom.thrift.atom.commonsdivision.Mp
+
+@(atom: com.gu.contentatom.thrift.Atom
+, data: com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
+)
+
+@partyClassName(name: String) = @{
+  val shortName = name match {
+    case "Conservative" => "tory"
+    case "Labour" => "labour"
+    case "Democratic Unionist Party" => "dup"
+    case "Liberal Democrat" => "libdem"
+    case "Green Party" => "green"
+    case "Plaid Cymru" => "plaid"
+    case "Scottish National Party" => "snp"
+    case _ => "default"
+  }
+  s"atom--commonsdivision__party-$shortName"
+}
+
+@partyDisplayName(name: String) = @{
+  name match {
+    case "Democratic Unionist Party" => "DUP"
+    case "Scottish National Party" => "SNP"
+    case "Liberal Democrat" => "Lib Dem"
+    case "Green Party" => "Green"
+    case other => other
+  }
+}
+
+@mpsByParty(mps: Seq[Mp]) = {
+  <div class="atom--commonsdivision__party-list">
+  @mps.groupBy(_.party).map { case (partyName, partyMps) =>
+    <div>
+      <details class="atom--commonsdivision__party">
+        <summary>
+          <button class="atom__button atom--commonsdivision__party-handle atom__button--large atom__button--rounded division-party__handle">
+            <span class="atom--commonsdivision__party-button @partyClassName(partyName) is-on">
+              @fragments.icons.html.plus()
+              <span>
+                @partyDisplayName(partyName) - @partyMps.length
+              </span>
+            </span>
+            <span class="atom--commonsdivision__party-button @partyClassName(partyName) is-on">
+              @fragments.icons.html.minus()
+              <span>
+                @partyDisplayName(partyName) - @partyMps.length
+              </span>
+            </span>
+          </button>
+        </summary>
+        <div class="atom--commonsdivision__mps-list">
+          <ul>@partyMps.map { mp => <li>@mp.name</li>}</ul>
+        </div>
+      </details>
+    </div>
+  }
+  </div>
+}
+
+@for(title <- atom.title; description <- data.description) {
+
+  <details class="atom atom--snippet">
+    <summary class="atom--snippet__header atom--commonsdivision__header">
+      <span class="atom--snippet__label">Commons vote</span>
+      <h4 class="atom--snippet__headline">'@Html(title)'</h4>
+      <span class="atom--commonsdivision__description">@Html(description)</span>
+      <time class="atom--commonsdivision__date" datetime="@{GuardianDateFormatter.toMachineValue(data.date)}">
+        @GuardianDateFormatter.toCustomFormat(data.date, "dd MMMM yyyy")
+      </time>
+
+      <div class="atom--commonsdivision__grid">
+        <div>
+          <div class="atom--commonsdivision__count-header">Ayes</div>
+          <div class="atom--commonsdivision__count">@data.votes.ayes.length</div>
+        </div>
+        <div>
+          <div class="atom--commonsdivision__count-header">Noes</div>
+          <div class="atom--commonsdivision__count">@data.votes.noes.length</div>
+        </div>
+      </div>
+
+      <button class="atom__button atom__button--large atom__button--rounded atom--snippet__handle" aria-hidden="true">
+        <span class="is-on">@{fragments.icons.html.plus()} Show MPs</span>
+        <span class="is-off">@{fragments.icons.html.minus()} Hide MPs</span>
+      </button>
+    </summary>
+
+    <div class="atom--snippet__body atom--commonsdivision__body">
+      <div class="atom--commonsdivision__grid">
+        @{mpsByParty(data.votes.ayes)}
+        @{mpsByParty(data.votes.noes)}
+      </div>
+    </div>
+  </details>
+}
