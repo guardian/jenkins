@@ -1,0 +1,7 @@
+@(atom: com.gu.contentatom.thrift.Atom
+, data: com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
+)
+
+@for(description <- data.description) {
+  <div>@description</div>
+}
