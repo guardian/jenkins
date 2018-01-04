@@ -1,7 +1,7 @@
 //@flow
 
-import { Actions, ComponentTypes } from 'lib/ophan';
-import { fromEvent } from 'lib/events';
+import { Actions, ComponentTypes } from 'ophan';
+import { fromEvent } from 'events-getter';
 import type { Channel } from 'channels';
 
 type QuestionId = string;

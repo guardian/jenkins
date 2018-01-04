@@ -1,8 +1,8 @@
 //@flow
 
-import { Actions } from './ophan';
-import type { Channel } from './channels';
-import { fromEvent } from './events';
+import { Actions } from 'ophan';
+import type { Channel } from 'channels';
+import { fromEvent } from 'events-getter';
 
 type SnippetF = { snippetId: string
                 , snippetType: string

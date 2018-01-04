@@ -1,5 +1,5 @@
 //@flow
-import snippet from 'lib/snippet';
-import { ComponentTypes } from 'lib/ophan';
+import snippet from 'snippet';
+import { ComponentTypes } from 'ophan';
 
 export default snippet(ComponentTypes.GUIDE_ATOM);
