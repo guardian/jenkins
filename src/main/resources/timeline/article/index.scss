@@ -3,12 +3,12 @@
 @import "atoms/snippet";
 
 .atom--snippet--timeline .atom--snippet__body {
-    margin-left: 8px;
     overflow: visible;
 }
 
 .atom--snippet--timeline .atom--snippet__item {
     padding-left: 17px;
+    margin-left: 8px;
 }
 
 .atom--snippet--timeline .atom--snippet__item + .atom--snippet__item {
@@ -41,5 +41,5 @@
 }
     
 .atom--snippet--timeline .atom--snippet__description {
-    margin: 12px 5px;
+    margin: $baseline 0;
 }
