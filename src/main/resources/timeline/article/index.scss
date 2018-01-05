@@ -27,14 +27,19 @@
     border-radius: 100%;
     float: left;
     margin-left: -26px;
-    background-color: $news-main-2;
+    background-color: $neutral-1;
 }
 
 .atom--snippet--timeline .atom--snippet__event-date {
-    font-size: 18px;
+    background-color: $garnett-highlight;
 }
 
+.atom--snippet--timeline .atom--snippet__event-date,
 .atom--snippet--timeline .atom--snippet__description {
-    font-weight: bold;
-    margin: 16px 5px;
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
+}
+    
+.atom--snippet--timeline .atom--snippet__description {
+    margin: 12px 5px;
 }

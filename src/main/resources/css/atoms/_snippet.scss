@@ -15,7 +15,6 @@
     position: relative;
     padding: ($baseline / 3) ($gutter / 4) ($baseline / 2);
     margin: ($baseline * 4 / 3) 0 ($baseline * 3);
-    font-family: var(--f-sans-serif-text);
 }
 
 .atom--snippet a {
@@ -39,8 +38,11 @@
     display: block;
 }
 
+.atom--snippet__label,
 .atom--snippet__headline {
     @include headline(3);
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
 }
 
 .atom--snippet__handle {
@@ -140,24 +142,13 @@
     border-radius: 50%;
 }
 
-.atom--snippet__item::before {
-    content: '';
-    display: flex;
-    width: 100px;
-    height: 0;
-    border-top: 1px dotted $neutral-2;
-}
-
-.atom--snippet__item+.atom--snippet__item {
-    padding-top: $baseline;
-}
-
 .atom--snippet__heading {
-    font-size: 18px;
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
 }
 
 .atom--snippet__credit {
-    @include textSans(1);
+    @include textSans(2);
     color: $neutral-1;
     margin: $baseline 0;
     
