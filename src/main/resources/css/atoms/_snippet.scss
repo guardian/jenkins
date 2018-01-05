@@ -45,6 +45,11 @@
     font-weight: 500;
 }
 
+.atom--snippet__handle,
+.atom--snippet__feedback {
+    font-family: var(--f-sans-serif-ctext);
+}
+
 .atom--snippet__handle {
     font-size: 13px;
     position: absolute;
