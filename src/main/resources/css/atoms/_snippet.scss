@@ -1,6 +1,20 @@
 @import "vars";
 @import "helpers/scale";
 
+@mixin multiline($n, $lc, $bc, $p : top) {
+    $size: ($n - 1) * 4px + 1px;
+
+    background-image: repeating-linear-gradient(to bottom,
+                                                $lc,
+                                                $lc 1px,
+                                                transparent 1px,
+                                                transparent 4px);
+    background-color: $bc;
+    background-repeat: repeat-x;
+    background-position: $p;
+    background-size: 1px #{$size};
+}
+
 .atom--snippet > summary {
     outline: none;
 }
@@ -10,10 +24,9 @@
 }
 
 .atom--snippet {
-    background: #f1f1f1;
-    color: $neutral-1;
+    @include multiline(4, $neutral-4, $neutral-7);
     position: relative;
-    padding: ($baseline / 3) ($gutter / 4) ($baseline / 2);
+    padding: ($baseline + 1px) ($gutter / 4) ($baseline / 2);
     margin: ($baseline * 4 / 3) 0 ($baseline * 3);
 }
 
@@ -33,9 +46,13 @@
 }
 
 .atom--snippet__label {
-    @include headline(3);
-    color: $news-support-2;
     display: block;
+
+    .content--pillar-news      & { color: var(--c-pillar-news); }
+    .content--pillar-arts      & { color: var(--c-pillar-arts); }
+    .content--pillar-sport     & { color: var(--c-pillar-sport); }
+    .content--pillar-opinion   & { color: var(--c-pillar-opinion); }
+    .content--pillar-lifestyle & { color: var(--c-pillar-lifestyle); }
 }
 
 .atom--snippet__label,
@@ -46,8 +63,9 @@
 }
 
 .atom--snippet__handle,
-.atom--snippet__feedback {
-    font-family: var(--f-sans-serif-ctext);
+.atom--snippet__feedback,
+.atom--snippet__credit {
+    font-family: var(--f-sans-serif-text);
 }
 
 .atom--snippet__handle {
@@ -56,14 +74,23 @@
     bottom: 0;
     transform: translate(0, 50%);
     padding: 0 15px 0 7px;
+}
 
-    background: $news-support-2;
+.atom--snippet__handle,
+.atom--snippet__feedback .atom__button {
+    background: $neutral-1;
     color: #ffffff;
 }
 
+.atom--snippet__feedback .atom__button:hover,
+.atom--snippet__feedback .atom__button:focus,
 .atom--snippet__handle:hover,
 .atom--snippet__handle:focus {
-    background-color: darken($news-support-2, 10);
+    .content--pillar-news      & { background-color: var(--c-pillar-news); }
+    .content--pillar-arts      & { background-color: var(--c-pillar-arts); }
+    .content--pillar-sport     & { background-color: var(--c-pillar-sport); }
+    .content--pillar-opinion   & { background-color: var(--c-pillar-opinion); }
+    .content--pillar-lifestyle & { background-color: var(--c-pillar-lifestyle); }    
 }
 
 .atom--snippet__handle span {
@@ -103,14 +130,6 @@
     padding: 0;
     width: 28px;
     height: 28px;
-
-    background: $news-main-1;
-    color: #ffffff;
-}
-
-.atom--snippet__feedback .atom__button:hover,
-.atom--snippet__feedback .atom__button:focus {
-    background: darken($news-main-1, 10);
 }
 
 .atom--snippet__feedback .atom__button[value='dislike'] {
@@ -154,7 +173,6 @@
 
 .atom--snippet__credit {
     @include textSans(2);
-    color: $neutral-1;
     margin: $baseline 0;
     
     > .inline-icon {
