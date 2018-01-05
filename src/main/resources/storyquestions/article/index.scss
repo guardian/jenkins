@@ -5,8 +5,9 @@
 @import "helpers/scale";
 
 .atom--readerquestions {
-  @include multiline(4, $neutral-4, $neutral-7);
-  padding: ($baseline + 1px) $gutter / 4 0;
+  @include multiline(4, $neutral-4);
+  background: $neutral-7;
+  padding: 0 $gutter / 4;
 }
 
 .atom--readerquestions .atom--readerquestions__heading {

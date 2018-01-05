@@ -1,14 +1,11 @@
-@mixin multiline($n, $lc, $bc, $p : top) {
-    $size: ($n - 1) * 4px + 1px;
+@mixin multiline($n, $lc, $p : top) {
+  $size: ($n - 1) * 4 + 1;
 
-    background-image: repeating-linear-gradient(to bottom,
-                                                $lc,
-                                                $lc 1px,
-                                                transparent 1px,
-                                                transparent 4px);
-    background-color: $bc;
-    background-repeat: repeat-x;
-    background-position: $p;
-    background-size: 1px #{$size};
+  border-image: repeating-linear-gradient(to bottom,
+                                          $lc,
+                                          $lc 1px,
+                                          transparent 1px,
+                                          transparent 4px) $size;
+  border-#{$p}: #{$size}px solid transparent;
 }
 

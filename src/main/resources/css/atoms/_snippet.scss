@@ -11,9 +11,10 @@
 }
 
 .atom--snippet {
-    @include multiline(4, $neutral-4, $neutral-7);
+    @include multiline(4, $neutral-4);
+    background: $neutral-7;
     position: relative;
-    padding: ($baseline + 1px) ($gutter / 4) ($baseline / 2);
+    padding: 0 ($gutter / 4) ($baseline / 2);
     margin: ($baseline * 4 / 3) 0 ($baseline * 3);
 }
 
