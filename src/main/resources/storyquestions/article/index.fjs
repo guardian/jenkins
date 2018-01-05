@@ -48,12 +48,9 @@ export default ({
   const start = (s: StoryQuestions): Promise<void> => {
     const notifs = shuffle(notificationMethods);
     const skeleton = document.createElement('button');
-    [
-      'js-notification',
-      'atom__button',
-      'atom__button--rounded',
-      'atom__button--bordered'
-    ].forEach(k => skeleton.classList.add(k));
+    ['js-notification', 'atom__button', 'atom__button--rounded'].forEach(k =>
+      skeleton.classList.add(k)
+    );
 
     dom.write(() => {
       notifs.forEach(notif => {
