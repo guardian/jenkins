@@ -1,28 +1,29 @@
 @import "vars";
 @import "mq";
 @import "atoms/buttons";
+@import "helpers/multiline";
 @import "helpers/scale";
 
 .atom--readerquestions {
-  background: $neutral-7;
-  font-family: var(--f-sans-serif-text);
-  padding: $baseline / 3 $gutter / 4 $baseline;
+  @include multiline(4, $neutral-4, $neutral-7);
+  padding: ($baseline + 1px) $gutter / 4 0;
 }
 
 .atom--readerquestions .atom--readerquestions__heading {
-  color: $news-support-2;
-  font-size: 21px;
-  font-weight: 900;
-  line-height: 22px;
+  @include headline(3);
+  font-family: var(--f-serif-headline);
+  font-weight: 500;
   margin-bottom: 0;
+
+  .content--pillar-news      & { color: var(--c-pillar-news); }
+  .content--pillar-arts      & { color: var(--c-pillar-arts); }
+  .content--pillar-sport     & { color: var(--c-pillar-sport); }
+  .content--pillar-opinion   & { color: var(--c-pillar-opinion); }
+  .content--pillar-lifestyle & { color: var(--c-pillar-lifestyle); }
 }
 
 .atom--readerquestions .atom--readerquestions__description {
-  margin: 0;
-}
-
-.atom--readerquestions__description + * {
-  margin-top: $baseline * 2;
+  margin: $baseline / 2 0;
 }
 
 .atom--readerquestions__rows {
@@ -32,49 +33,49 @@
 }
 
 .atom--readerquestions__question {
-  padding: $baseline / 3 $gutter / 4 $baseline / 2;
+  padding: $baseline / 2 $gutter / 4;
+  margin: 0 (-$gutter / 4);
   display: flex;
   justify-content: space-between;
   text-align: left;
 
-  background: $neutral-8;
   border: 0;
-  border-top: 1px solid $news-main-2;
+  border-top: 1px solid $neutral-3;
 
-  & + & {
-    margin-top: $baseline / 2;
+  &:last-child {
+    border-bottom: 1px solid $neutral-4;
   }
 
   .atom__button {
+    font-family: var(--f-sans-serif-text);
     font-size: 14px;
     font-weight: 900;
     line-height: 18px;
     height: 28px;
     padding: 0 $gutter / 2;
 
-    background: $news-main-1;
+    background: $neutral-1;
     color: white;
   }
 
   &:hover, 
+  &:focus, 
   &:active {
-    background: $news-support-1;
-
+    background: #fcfcfc;
+    
     .atom__button {
-      background: darken($news-main-1, 10);
+      .content--pillar-news      & { background-color: var(--c-pillar-news); }
+      .content--pillar-arts      & { background-color: var(--c-pillar-arts); }
+      .content--pillar-sport     & { background-color: var(--c-pillar-sport); }
+      .content--pillar-opinion   & { background-color: var(--c-pillar-opinion); }
+      .content--pillar-lifestyle & { background-color: var(--c-pillar-lifestyle); }
     }
-  }
-
-  @include mq(phablet) {
-    min-height: 48px;
   }
 }
 
 .atom--readerquestions__questionlabel {
   flex: 1;
-  margin-bottom: $baseline / 2;
-
-  font-weight: 900;
+  font-weight: bold;
 }
 
 .atom--readerquestions__questionask {
@@ -83,12 +84,17 @@
 }
 
 .atom--readerquestions__notification {
+  padding-bottom: $baseline;
+  
   @include mq(phablet) {
     flex-direction: row;
 
     .atom__button {
       flex: 1;
-      margin: 0 $gutter / 4;
+
+      & + & {
+        margin-left: $gutter / 2;
+      }
     }
   }
 }
@@ -103,8 +109,9 @@
 }
 
 .atom--readerquestions__notification > .atom__button {
-  border-color: rgba($news-main-1, 0.5);
-  color: $news-main-1;
+  background: $neutral-1;
+  color: white;
+  font-family: var(--f-sans-serif-text);
   font-weight: 900;
   font-size: 14px;
   line-height: 18px;
@@ -114,8 +121,18 @@
 
   &:hover,
   &:active {
-    background: $news-main-1;
-    border-color: $news-main-1;
-    color: white;
+    .content--pillar-news      & { background-color: var(--c-pillar-news); }
+    .content--pillar-arts      & { background-color: var(--c-pillar-arts); }
+    .content--pillar-sport     & { background-color: var(--c-pillar-sport); }
+    .content--pillar-opinion   & { background-color: var(--c-pillar-opinion); }
+    .content--pillar-lifestyle & { background-color: var(--c-pillar-lifestyle); }    
+  }
+}
+
+.atom__view--thankyou {
+  padding-bottom: $baseline;
+
+  .atom--readerquestions__description {
+    margin-bottom: 0;
   }
 }
