@@ -24,11 +24,6 @@ const createJsSettings = rendering => atomType => ({
     ]
   },
   context: path.resolve(__dirname, 'src', 'main', 'resources'),
-  devServer: {
-    contentBase: path.join(__dirname, "dist", atomType),
-    compress: true,
-    port: 9000
-  },
   plugins: [
     new Uglify({
       parallel: true

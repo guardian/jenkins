@@ -8,6 +8,7 @@
   "dependencies": {
     "autoprefixer": "^7.1.6",
     "css-loader": "^0.28.7",
+    "express": "^4.16.2",
     "postcss-css-variables": "^0.8.0",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
@@ -37,11 +38,10 @@
     "postcss-cli": "^4.1.1",
     "postcss-variables-loader": "^4.0.0",
     "prettier": "^1.8.2",
-    "uglifyjs-webpack-plugin": "^1.0.1",
-    "webpack-dev-server": "^2.10.1"
+    "uglifyjs-webpack-plugin": "^1.0.1"
   },
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --open --config frontend.config.js",
+    "preview": "node app.js",
     "build": "babel src/main/resources",
     "flow": "flow",
     "lint": "eslint --ext .fjs src/main/resources",

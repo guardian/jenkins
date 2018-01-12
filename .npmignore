@@ -3,6 +3,7 @@ build
 project
 target
 webpack
+harness
 !webpack/css.js
 node_modules
 ensime*
