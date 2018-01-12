@@ -1,0 +1,136 @@
+{
+  "id": "70cb7d6c-e3d7-4e62-903a-a675825c160f",
+  "atomType": "qanda",
+  "labels": [
+
+  ],
+  "defaultHtml": "<div class=\"atom-Qanda\"><p><p>Divestment is the opposite of investment. It's the shifting of stocks, bonds or funds from certain businesses or sectors.<\/p><p>Individual people invest in various ways to generate money, but large institutions such as cities, universities and religious organizations do this on a huge scale. Traditionally, fund managers put together investment portfolios that will provide the best returns for these institutions, regardless of where the money is invested.<\/p><p>The divestment movement, primarily consisting of climate activists, is urging private and public institutions to rid their portfolios of all oil, gas and coal stocks to send a financial and ethical message that fossil fuels are harmful and shouldn't be tolerated. So far, it's estimated that funds totalling $6tn have committed to divesting from fossil fuels.<\/p><p>Activists hope this momentum will deprive fossil fuels of a social license, similar to tobacco, and help accelerate the deployment of cleaner energy, such as wind and solar.<\/p><\/p><\/div>",
+  "data": {
+    "qanda": {
+      "typeLabel": "Q&A",
+      "eventImage": {
+        "assets": [
+          {
+            "mimeType": "image\/jpeg",
+            "file": "https:\/\/media.guim.co.uk\/8911415ae3529b23c880d090c118de04e4a40dc4\/0_133_4000_2400\/140.jpg",
+            "dimensions": {
+              "height": 84,
+              "width": 140
+            },
+            "size": 5439,
+            "credit": "Photograph: Bloomberg",
+            "copyright": "2015 Bloomberg Finance LP",
+            "source": "Bloomberg",
+            "photographer": "Bloomberg",
+            "suppliersReference": "589494195"
+          },
+          {
+            "mimeType": "image\/jpeg",
+            "file": "https:\/\/media.guim.co.uk\/8911415ae3529b23c880d090c118de04e4a40dc4\/0_133_4000_2400\/500.jpg",
+            "dimensions": {
+              "height": 300,
+              "width": 500
+            },
+            "size": 16197,
+            "credit": "Photograph: Bloomberg",
+            "copyright": "2015 Bloomberg Finance LP",
+            "source": "Bloomberg",
+            "photographer": "Bloomberg",
+            "suppliersReference": "589494195"
+          },
+          {
+            "mimeType": "image\/jpeg",
+            "file": "https:\/\/media.guim.co.uk\/8911415ae3529b23c880d090c118de04e4a40dc4\/0_133_4000_2400\/1000.jpg",
+            "dimensions": {
+              "height": 600,
+              "width": 1000
+            },
+            "size": 41465,
+            "credit": "Photograph: Bloomberg",
+            "copyright": "2015 Bloomberg Finance LP",
+            "source": "Bloomberg",
+            "photographer": "Bloomberg",
+            "suppliersReference": "589494195"
+          },
+          {
+            "mimeType": "image\/jpeg",
+            "file": "https:\/\/media.guim.co.uk\/8911415ae3529b23c880d090c118de04e4a40dc4\/0_133_4000_2400\/2000.jpg",
+            "dimensions": {
+              "height": 1200,
+              "width": 2000
+            },
+            "size": 121234,
+            "credit": "Photograph: Bloomberg",
+            "copyright": "2015 Bloomberg Finance LP",
+            "source": "Bloomberg",
+            "photographer": "Bloomberg",
+            "suppliersReference": "589494195"
+          },
+          {
+            "mimeType": "image\/jpeg",
+            "file": "https:\/\/media.guim.co.uk\/8911415ae3529b23c880d090c118de04e4a40dc4\/0_133_4000_2400\/4000.jpg",
+            "dimensions": {
+              "height": 2400,
+              "width": 4000
+            },
+            "size": 403914,
+            "credit": "Photograph: Bloomberg",
+            "copyright": "2015 Bloomberg Finance LP",
+            "source": "Bloomberg",
+            "photographer": "Bloomberg",
+            "suppliersReference": "589494195"
+          }
+        ],
+        "master": {
+          "mimeType": "image\/jpeg",
+          "file": "https:\/\/media.guim.co.uk\/8911415ae3529b23c880d090c118de04e4a40dc4\/0_133_4000_2400\/master\/4000.jpg",
+          "dimensions": {
+            "height": 2400,
+            "width": 4000
+          },
+          "size": 5123474,
+          "credit": "Photograph: Bloomberg",
+          "copyright": "2015 Bloomberg Finance LP",
+          "source": "Bloomberg",
+          "photographer": "Bloomberg",
+          "suppliersReference": "589494195"
+        },
+        "mediaId": "https:\/\/api.media.gutools.co.uk\/images\/8911415ae3529b23c880d090c118de04e4a40dc4"
+      },
+      "item": {
+        "body": "<p>Divestment is the opposite of investment. It's the shifting of stocks, bonds or funds from certain businesses or sectors.<\/p><p>Individual people invest in various ways to generate money, but large institutions such as cities, universities and religious organizations do this on a huge scale. Traditionally, fund managers put together investment portfolios that will provide the best returns for these institutions, regardless of where the money is invested.<\/p><p>The divestment movement, primarily consisting of climate activists, is urging private and public institutions to rid their portfolios of all oil, gas and coal stocks to send a financial and ethical message that fossil fuels are harmful and shouldn't be tolerated. So far, it's estimated that funds totalling $6tn have committed to divesting from fossil fuels.<\/p><p>Activists hope this momentum will deprive fossil fuels of a social license, similar to tobacco, and help accelerate the deployment of cleaner energy, such as wind and solar.<\/p>"
+      }
+    }
+  },
+  "contentChangeDetails": {
+    "lastModified": {
+      "date": 1515750656000,
+      "user": {
+        "email": "alan.evans@guardian.co.uk",
+        "firstName": "Alan",
+        "lastName": "Evans"
+      }
+    },
+    "created": {
+      "date": 1515696455000,
+      "user": {
+        "email": "tim.hill@guardian.co.uk",
+        "firstName": "Tim",
+        "lastName": "Hill"
+      }
+    },
+    "published": {
+      "date": 1515750656000,
+      "user": {
+        "email": "alan.evans@guardian.co.uk",
+        "firstName": "Alan",
+        "lastName": "Evans"
+      }
+    },
+    "revision": 23
+  },
+  "title": "What is divestment?",
+  "commissioningDesks": [
+    "tracking\/commissioningdesk\/us-news"
+  ]
+}

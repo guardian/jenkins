@@ -2,17 +2,19 @@
 <html>
   <head>
     <meta title="Test page for previewing atom renderer" viewport="">
-    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <div class="container">
       <h1> Quick preview tool for Atom renderer</h1>
-      <p> This should make quick changes easier to preview, but do test properly 
-        in Frontend before merging changes to prod!</p>
-        
-        
-      <script src="../dist/guide/article/index.js"></script>
-      <link rel="stylsheet" href="../dist/guide/article/index.css">
+      <p> This makes changes easier to preview, but test
+        in Frontend before merging to prod.</p>
+
+        <div class="atom">
+          <link rel="stylesheet" href="/qanda/article/index.css">
+          <script src="/data/qanda.json"></script>
+          <script src="/qanda/article/index.js"></script>
+        </div>
     </div>
   </body>
 </html>

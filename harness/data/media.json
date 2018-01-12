@@ -1,0 +1,197 @@
+{
+  "id": "8bc2d5f6-d597-4cd6-a227-8e789d61f78d",
+  "atomType": "media",
+  "labels": [
+
+  ],
+  "defaultHtml": "<iframe frameborder=\"0\" allowfullscreen=\"true\" src=\"https:\/\/www.youtube.com\/embed\/W4xHpDHNFds?showinfo=0&rel=0\"><\/iframe>",
+  "data": {
+    "media": {
+      "assets": [
+        {
+          "assetType": "video",
+          "version": 1,
+          "id": "W4xHpDHNFds",
+          "platform": "youtube"
+        }
+      ],
+      "activeVersion": 1,
+      "title": "Truck crashes through finish line at Tour Down Under \u00e2\u20ac\u201c video",
+      "category": "news",
+      "duration": 46,
+      "source": "ABC Australia",
+      "posterUrl": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/0_0_1920_1080\/master\/1920.png",
+      "description": "<p>A truck carrying hay bales disrupts the Tour Down Under cycling event in Santos after crashing through and carrying the inflatable finish line down the road. With no one injured including the inflatable line ; it was erected again for race winner Annette Edmondson to cross home.&nbsp;<\/p>",
+      "metadata": {
+        "tags": [
+          "cycling",
+          "sport",
+          "Tour down Under",
+          "Australia",
+          "tour down under 2018",
+          "cycling 2018",
+          "cycling news",
+          "cycling events",
+          "truck"
+        ],
+        "categoryId": "17",
+        "channelId": "UCwD9E_QNwFwrQC7OnPnrg2Q"
+      },
+      "posterImage": {
+        "assets": [
+          {
+            "mimeType": "image\/png",
+            "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/0_0_1920_1080\/1000.png",
+            "dimensions": {
+              "height": 563,
+              "width": 1000
+            },
+            "size": 251057,
+            "aspectRatio": "16:9"
+          },
+          {
+            "mimeType": "image\/png",
+            "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/0_0_1920_1080\/500.png",
+            "dimensions": {
+              "height": 281,
+              "width": 500
+            },
+            "size": 77839,
+            "aspectRatio": "16:9"
+          },
+          {
+            "mimeType": "image\/png",
+            "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/0_0_1920_1080\/140.png",
+            "dimensions": {
+              "height": 79,
+              "width": 140
+            },
+            "size": 9570,
+            "aspectRatio": "16:9"
+          },
+          {
+            "mimeType": "image\/png",
+            "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/0_0_1920_1080\/1920.png",
+            "dimensions": {
+              "height": 1080,
+              "width": 1920
+            },
+            "size": 742274,
+            "aspectRatio": "16:9"
+          }
+        ],
+        "master": {
+          "mimeType": "image\/png",
+          "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/0_0_1920_1080\/master\/1920.png",
+          "dimensions": {
+            "height": 1080,
+            "width": 1920
+          },
+          "size": 4015422,
+          "aspectRatio": "16:9"
+        },
+        "mediaId": "https:\/\/api.media.gutools.co.uk\/images\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81",
+        "source": "Tour Down Under"
+      },
+      "trailText": "<p>A truck carrying hay bales disrupts the Tour Down Under cycling event in Santos after crashing through and carrying the inflatable finish line down the road.&nbsp;<\/p>",
+      "byline": [
+
+      ],
+      "commissioningDesks": [
+        "tracking\/commissioningdesk\/uk-video"
+      ],
+      "keywords": [
+        "sport\/series\/amazing-world-of-sport",
+        "sport\/cycling",
+        "sport\/sport"
+      ],
+      "trailImage": {
+        "assets": [
+          {
+            "mimeType": "image\/png",
+            "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/62_0_1800_1080\/1000.png",
+            "dimensions": {
+              "height": 600,
+              "width": 1000
+            },
+            "size": 264275,
+            "aspectRatio": "5:3"
+          },
+          {
+            "mimeType": "image\/png",
+            "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/62_0_1800_1080\/500.png",
+            "dimensions": {
+              "height": 300,
+              "width": 500
+            },
+            "size": 82748,
+            "aspectRatio": "5:3"
+          },
+          {
+            "mimeType": "image\/png",
+            "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/62_0_1800_1080\/140.png",
+            "dimensions": {
+              "height": 84,
+              "width": 140
+            },
+            "size": 10062,
+            "aspectRatio": "5:3"
+          },
+          {
+            "mimeType": "image\/png",
+            "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/62_0_1800_1080\/1800.png",
+            "dimensions": {
+              "height": 1080,
+              "width": 1800
+            },
+            "size": 695634,
+            "aspectRatio": "5:3"
+          }
+        ],
+        "master": {
+          "mimeType": "image\/png",
+          "file": "https:\/\/media.guim.co.uk\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81\/62_0_1800_1080\/master\/1800.png",
+          "dimensions": {
+            "height": 1080,
+            "width": 1800
+          },
+          "size": 3783452,
+          "aspectRatio": "5:3"
+        },
+        "mediaId": "https:\/\/api.media.gutools.co.uk\/images\/bbada77f0e351e87c6eff9e4537c66fb6ddd2b81",
+        "source": "Tour Down Under"
+      }
+    }
+  },
+  "contentChangeDetails": {
+    "lastModified": {
+      "date": 1515753789000,
+      "user": {
+        "email": "joseph.mainland.casual@guardian.co.uk",
+        "firstName": "Joseph",
+        "lastName": "Mainland"
+      }
+    },
+    "created": {
+      "date": 1515753272000,
+      "user": {
+        "email": "joseph.mainland.casual@guardian.co.uk",
+        "firstName": "Joseph",
+        "lastName": "Mainland"
+      }
+    },
+    "published": {
+      "date": 1515753789000,
+      "user": {
+        "email": "joseph.mainland.casual@guardian.co.uk",
+        "firstName": "Joseph",
+        "lastName": "Mainland"
+      }
+    },
+    "revision": 7
+  },
+  "title": "Truck crashes through finish line at Tour Down Under \u00e2\u20ac\u201c video",
+  "commissioningDesks": [
+
+  ]
+}

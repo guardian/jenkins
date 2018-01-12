@@ -30,7 +30,7 @@ trait AtomRenderer {
 
   def getHTML[A](atom: Atom, data: A, conf: Conf)(implicit reader: Rendering[A]): HTML =
     reader.html(atom, data).toString
-  
+
   def getHTML(atom: Atom, conf: Conf): HTML = atom.data match {
     case AtomData.Cta(data)            => getHTML(atom, data, conf)
     case AtomData.Explainer(data)      => getHTML(atom, data, conf)
@@ -60,7 +60,7 @@ trait AtomRenderer {
 
   def getJS[A](implicit reader: Rendering[A]): JS =
     reader.js.map(_.toString)
-  
+
   def getCSS(atomType: AtomType): CSS = atomType match {
     case AtomType.Cta            => getCSS[CTAAtom]
     case AtomType.Explainer      => getCSS[ExplainerAtom]
@@ -79,7 +79,7 @@ trait AtomRenderer {
 
   def getCSS(atomTypes: Seq[AtomType]): Seq[String] =
     atomTypes.distinct.map(getCSS).flatten
-  
+
   def getJS(atomType: AtomType): JS = atomType match {
     case AtomType.Cta            => getJS[CTAAtom]
     case AtomType.Explainer      => getJS[ExplainerAtom]

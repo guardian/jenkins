@@ -33,7 +33,8 @@ const createJsSettings = rendering => atomType => ({
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist', atomType, rendering),
-    libraryTarget: 'commonjs',
+    // libraryTarget: 'commonjs',
+    libraryTarget: 'var', // for previewing to work, this needs to be like this. Does it break production 
     library: atomType
   },
 });
