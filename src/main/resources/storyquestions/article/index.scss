@@ -17,7 +17,7 @@
   margin-bottom: 0;
 
   .content--pillar-news      & { color: var(--c-pillar-news); }
-  .content--pillar-arts      & { color: var(--c-pillar-arts); }
+  .content--pillar-culture   & { color: var(--c-pillar-culture); }
   .content--pillar-sport     & { color: var(--c-pillar-sport); }
   .content--pillar-opinion   & { color: var(--c-pillar-opinion); }
   .content--pillar-lifestyle & { color: var(--c-pillar-lifestyle); }
@@ -66,7 +66,7 @@
     
     .atom__button {
       .content--pillar-news      & { background-color: var(--c-pillar-news); }
-      .content--pillar-arts      & { background-color: var(--c-pillar-arts); }
+      .content--pillar-culture   & { background-color: var(--c-pillar-culture); }
       .content--pillar-sport     & { background-color: var(--c-pillar-sport); }
       .content--pillar-opinion   & { background-color: var(--c-pillar-opinion); }
       .content--pillar-lifestyle & { background-color: var(--c-pillar-lifestyle); }
@@ -123,7 +123,7 @@
   &:hover,
   &:active {
     .content--pillar-news      & { background-color: var(--c-pillar-news); }
-    .content--pillar-arts      & { background-color: var(--c-pillar-arts); }
+    .content--pillar-culture   & { background-color: var(--c-pillar-culture); }
     .content--pillar-sport     & { background-color: var(--c-pillar-sport); }
     .content--pillar-opinion   & { background-color: var(--c-pillar-opinion); }
     .content--pillar-lifestyle & { background-color: var(--c-pillar-lifestyle); }    
