@@ -24,6 +24,11 @@ const createJsSettings = rendering => atomType => ({
     ]
   },
   context: path.resolve(__dirname, 'src', 'main', 'resources'),
+  devServer: {
+    contentBase: path.join(__dirname, "dist", atomType),
+    compress: true,
+    port: 9000
+  },
   plugins: [
     new Uglify({
       parallel: true
@@ -35,7 +40,7 @@ const createJsSettings = rendering => atomType => ({
     path: path.resolve(__dirname, 'dist', atomType, rendering),
     libraryTarget: 'commonjs',
     library: atomType
-  }
+  },
 });
 
 module.exports = atomTypes.map(createJsSettings('article'));
