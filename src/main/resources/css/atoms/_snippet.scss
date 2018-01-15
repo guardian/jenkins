@@ -12,6 +12,9 @@
 
 .atom--snippet {
     @include multiline(4, $neutral-4);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
     background: $neutral-7;
     position: relative;
     padding: 0 ($gutter / 4) ($baseline / 2);
@@ -36,10 +39,15 @@
 .atom--snippet__label {
     display: block;
 
+    .garnett--pillar-news      &,
     .content--pillar-news      & { color: var(--c-pillar-news); }
-    .content--pillar-culture   & { color: var(--c-pillar-culture); }
+    .garnett--pillar-arts      &,
+    .content--pillar-arts      & { color: var(--c-pillar-arts); }
+    .garnett--pillar-sport     &,
     .content--pillar-sport     & { color: var(--c-pillar-sport); }
+    .garnett--pillar-opinion   &,
     .content--pillar-opinion   & { color: var(--c-pillar-opinion); }
+    .garnett--pillar-lifestyle &,
     .content--pillar-lifestyle & { color: var(--c-pillar-lifestyle); }
 }
 
@@ -74,10 +82,15 @@
 .atom--snippet__feedback .atom__button:focus,
 .atom--snippet__handle:hover,
 .atom--snippet__handle:focus {
+    .garnett--pillar-news      &,
     .content--pillar-news      & { background-color: var(--c-pillar-news); }
-    .content--pillar-culture   & { background-color: var(--c-pillar-culture); }
+    .garnett--pillar-arts      &,
+    .content--pillar-arts      & { background-color: var(--c-pillar-arts); }
+    .garnett--pillar-sport     &,
     .content--pillar-sport     & { background-color: var(--c-pillar-sport); }
+    .garnett--pillar-opinion   &,
     .content--pillar-opinion   & { background-color: var(--c-pillar-opinion); }
+    .garnett--pillar-lifestyle &,
     .content--pillar-lifestyle & { background-color: var(--c-pillar-lifestyle); }    
 }
 
