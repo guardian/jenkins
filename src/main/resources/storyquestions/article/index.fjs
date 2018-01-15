@@ -1,7 +1,7 @@
 //@flow
 
-import { Actions, ComponentTypes } from 'lib/ophan';
-import { fromEvent } from 'lib/events';
+import { Actions, ComponentTypes } from 'ophan';
+import { fromEvent } from 'events-getter';
 import type { Channel } from 'channels';
 
 type QuestionId = string;
@@ -73,7 +73,7 @@ export default ({
           e && [
             e.getAttribute('data-question-id'),
             e.getAttribute('data-question-text')
-          ]
+          ] || [null, null]
       )
       .takeN(1);
     subscribeC = fromEvent('click', s.notifications)
@@ -82,7 +82,15 @@ export default ({
           ((e.target: any).closest('.js-notification'): ?HTMLButtonElement)
       )
       .filter((e: ?HTMLButtonElement) => !!e)
-      .map((e: ?HTMLButtonElement) => e && e.getAttribute('data-method'))
+      .map((e: ?HTMLButtonElement) => { 
+        let v = e && e.getAttribute('data-method')
+          switch (v) {
+            case 'notification': return 'notification';
+            case 'facebook-messenger': return 'facebook-messenger';
+            case 'email': return 'email';
+            default: return 'email';
+          }
+        })
       .takeN(1);
     voteC.tap((q: Question) => {
       onVote(s)(q);
@@ -102,7 +110,7 @@ export default ({
   const stop = () => {
     voteC.close();
     subscribeC.close();
-    viewport.unobserve(observer);
+    viewport.unobserve(root, 1, observer); 
   };
 
   const onVote = (s: StoryQuestions) => (q: Question): void => {
