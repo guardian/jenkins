@@ -23,7 +23,7 @@ More information on [Getting Started with Flow](https://flow.org/en/docs/getting
 
 1. Build the JS code: `yarn build`
 
-2. Build the Scala code: `sbt run` 
+2. Build the Scala code: `sbt compile` 
 
 ## Preview your changes
 
@@ -36,14 +36,16 @@ and run Frontend.
 *In Atom-Renderer:*
 
 1. Update `version` in `package.json` to something like `X.X.X-yourname.test.1` Use the [semver 
-convention](http://nodesource.com/blog/semver-a-primer/) to increment the version number. The '-yourname.test.1' part on the end indicates that this is a version to be used for testing purposes, not for actual use.)
+convention](http://nodesource.com/blog/semver-a-primer/) to increment the version number. The '-yourname.test.1' part on the end indicates that this is a version to be used for testing purposes, not for actual use.). Commit these changes. 
 
-2. Build the frontend: `yarn frontend` and commit these changes. 
+2. Build the frontend: `yarn frontend` 
 
-3. Make sure you a) have an account on NPMjs. and b) it is added to the Guardian group on npm. 
+3. Build the apps: `yarn apps`
+
+4. Make sure you a) have an account on NPMjs. and b) it is added to the Guardian group on npm. 
 Ensure your machine is logged into this account. If not, run: `npm adduser` and sign in 
 
-4. Publish your version to NPM:  `npm publish`
+5. Publish your version to NPM:  `npm publish`
 The version you just pushed should appear here: https://www.npmjs.com/package/@guardian/atom-renderer
 
 
