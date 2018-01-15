@@ -1,0 +1,22 @@
+@import "vars";
+
+.explainer {
+    padding: $baseline / 2 $gutter / 4;
+    background-color: $guardian-brand;
+    color: #ffffff;
+    position: relative;
+}
+
+.explainer__header {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 900;
+    min-height: 24px;
+    padding-bottom: $baseline * 1.5;
+}
+
+ol, p, ul {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 0 $baseline / 2;
+}
