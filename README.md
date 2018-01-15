@@ -31,15 +31,14 @@ In future we may add a dummy atom so the results of your change can be previewed
 
 For now, you need to publish your changes to NPM as a new version of the Atom Renderer package. Then, you need to open
 the Guardian's Frontend app on your local machine, require the updated Atom Renderer package 
-and run Frontend. Previewing a page on Frontend with the right atom in it should allow you to see the effects 
-of your changes. 
+and run Frontend. 
 
 *In Atom-Renderer:*
 
-1. Build the frontend: `yarn frontend`
+1. Update `version` in `package.json` to something like `X.X.X-yourname.test.1` Use the [semver 
+convention](http://nodesource.com/blog/semver-a-primer/) to increment the version number. The '-yourname.test.1' part on the end indicates that this is a version to be used for testing purposes, not for actual use.)
 
-2. Update `version` in `package.json` to something like `0.9.X-yourname.import.1` Use the [semver 
-convention](http://nodesource.com/blog/semver-a-primer/) to increment the version number. The '-yourname.import.1' part on the end indicates that this is a version to be used for testing purposes, not for actual use.)
+2. Build the frontend: `yarn frontend` and commit these changes. 
 
 3. Make sure you a) have an account on NPMjs. and b) it is added to the Guardian group on npm. 
 Ensure your machine is logged into this account. If not, run: `npm adduser` and sign in 
@@ -56,7 +55,7 @@ See how to do that [here](https://github.com/guardian/frontend/blob/master/docs/
 
 2. In a local branch, tell the app to use the latest version of the atom-renderer:
 
-`yarn add @guardian/atom-renderer@0.9.X-yourname.import.1 -W`
+`yarn add @guardian/atom-renderer@X.X.X-yourname.test.1 -W`
 
 3. Recompile the frontend with the new version of Atom Renderer added: `make compile-dev`
 
@@ -73,11 +72,15 @@ Here live: https://www.theguardian.com/open-platform/blog/related-content
 
 ## To Deploy
 
-Publish the library to NPM using a classic semver version number and update frontend
-to reference the new version. 
+* Publish the library to NPM 
+
+* Publish the library to Maven
+
+Update Frontend to reference the new versions. 
 
 *Contact us in #journalism-team if you have problems with the repo / readme.* 
 
 --
-* Yarn is used in these instructions, but you can use npm if you prefer 
+
+\* Yarn is used in these instructions, but you can use npm if you prefer 
 
