@@ -81,5 +81,6 @@ Update Frontend to reference the new versions.
 *Contact us in #journalism-team if you have problems with the repo / readme.* 
 
 --
-/* Yarn is used in these instructions, but you can use npm if you prefer 
+
+\* Yarn is used in these instructions, but you can use npm if you prefer 
 
