@@ -16,10 +16,15 @@
   font-weight: 500;
   margin-bottom: 0;
 
+  .garnett--pillar-news      &,
   .content--pillar-news      & { color: var(--c-pillar-news); }
+  .garnett--pillar-arts      &,
   .content--pillar-arts      & { color: var(--c-pillar-arts); }
+  .garnett--pillar-sport     &,
   .content--pillar-sport     & { color: var(--c-pillar-sport); }
+  .garnett--pillar-opinion   &,
   .content--pillar-opinion   & { color: var(--c-pillar-opinion); }
+  .garnett--pillar-lifestyle &,
   .content--pillar-lifestyle & { color: var(--c-pillar-lifestyle); }
 }
 
@@ -65,10 +70,15 @@
     background: #fcfcfc;
     
     .atom__button {
+      .garnett--pillar-news      &,
       .content--pillar-news      & { background-color: var(--c-pillar-news); }
+      .garnett--pillar-arts      &,
       .content--pillar-arts      & { background-color: var(--c-pillar-arts); }
+      .garnett--pillar-sport     &,
       .content--pillar-sport     & { background-color: var(--c-pillar-sport); }
+      .garnett--pillar-opinion   &,
       .content--pillar-opinion   & { background-color: var(--c-pillar-opinion); }
+      .garnett--pillar-lifestyle &,
       .content--pillar-lifestyle & { background-color: var(--c-pillar-lifestyle); }
     }
   }
@@ -122,10 +132,15 @@
 
   &:hover,
   &:active {
+    .garnett--pillar-news      &,
     .content--pillar-news      & { background-color: var(--c-pillar-news); }
+    .garnett--pillar-arts      &,
     .content--pillar-arts      & { background-color: var(--c-pillar-arts); }
+    .garnett--pillar-sport     &,
     .content--pillar-sport     & { background-color: var(--c-pillar-sport); }
+    .garnett--pillar-opinion   &,
     .content--pillar-opinion   & { background-color: var(--c-pillar-opinion); }
+    .garnett--pillar-lifestyle &,
     .content--pillar-lifestyle & { background-color: var(--c-pillar-lifestyle); }    
   }
 }
