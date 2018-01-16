@@ -21,7 +21,7 @@ More information on [Getting Started with Flow](https://flow.org/en/docs/getting
 
 ## Build the app 
 
-1. Build the JS code: `yarn build`
+1. Build the JS code: `yarn frontend` & `yarn apps`
 
 2. Build the Scala code: `sbt compile` 
 
@@ -72,13 +72,36 @@ See how to do that [here](https://github.com/guardian/frontend/blob/master/docs/
 8. You should be able to preview all atoms on this page: http://localhost:9000/open-platform/blog/related-content 
 Here live: https://www.theguardian.com/open-platform/blog/related-content
 
+
 ## To Deploy
 
-* Publish the library to NPM 
+1. Publish the library to NPM 
 
-* Publish the library to Maven
+2. Publish the library to Maven
 
-Update Frontend to reference the new versions. 
+3. Update Frontend to reference the new versions. 
+
+
+*To publish to Maven*
+
+1. Open the sbt interactive shell: `sbt`
+
+2. Compile the code `compile`
+
+3. Release `release`
+
+4. Once the version has [updated on Maven](https://search.maven.org/#search%7Cga%7C1%7Catom-renderer), 
+go to the Frontend app, find the Dependencies.scala file and update the version number for Atom-Renderer. Run
+`./sbt` to open the interactive console and then `compile` to pull in the new dependency. 
+
+
+## Adding a new Atom? 
+
+Make sure to add your new atom type in these two files in Atom-Renderer:
+
+* `src/main/resources/__flow__/types/atoms.fjs`
+
+* `webpack/atomTypes.js` 
 
 *Contact us in #journalism-team if you have problems with the repo / readme.* 
 
