@@ -1,1 +1,11 @@
 //@flow
+// mock atom type for explainers 
+
+export default (services: Services) =>  (html: HTMLElement): Coeval<Atom> => ({ 
+  runTry: () => ({
+    start: () => Promise.resolve(),
+    stop: () => {},
+    atomId: ""
+  })
+})
+
