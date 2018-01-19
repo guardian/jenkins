@@ -3,6 +3,10 @@
   align-items: center;
   border: 0;
   margin: 0;
+
+  > .icon {
+    fill: currentColor;
+  }
 }
 
 .atom__button--large {
