@@ -31,7 +31,7 @@
     ) { 
       <form action="@{conf.ajaxUrl}/story-questions/answers/signup" id="js-atom--readerquestions__subscribe" class="atom--readerquestions__form">
         <div class="atom__form-field atom__form-field--inline">
-          <input type="email" name="email" placeholder="Email address" required>
+          <input class="ui" type="email" name="email" placeholder="Email address" required>
           <input type="hidden" name="listId" value="@listId">
           <button type="submit" class="ui atom__button atom__button--rounded">@fragments.icons.html.envelope() Sign up</button>
         </div>
