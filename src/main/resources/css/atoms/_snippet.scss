@@ -1,4 +1,5 @@
 @import "vars";
+@import "helpers/multiline";
 @import "helpers/scale";
 
 .atom--snippet > summary {
@@ -10,12 +11,14 @@
 }
 
 .atom--snippet {
-    background: #f1f1f1;
-    color: $neutral-1;
+    @include multiline(4, $neutral-4);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    background: $neutral-7;
     position: relative;
-    padding: ($baseline / 3) ($gutter / 4) ($baseline / 2);
+    padding: 0 ($gutter / 4) ($baseline / 2);
     margin: ($baseline * 4 / 3) 0 ($baseline * 3);
-    font-family: var(--f-sans-serif-text);
 }
 
 .atom--snippet a {
@@ -34,13 +37,31 @@
 }
 
 .atom--snippet__label {
-    @include headline(3);
-    color: $news-support-2;
     display: block;
+
+    .garnett--pillar-news      &,
+    .content--pillar-news      & { color: $c-pillar--news; }
+    .garnett--pillar-arts      &,
+    .content--pillar-arts      & { color: $c-pillar--arts; }
+    .garnett--pillar-sport     &,
+    .content--pillar-sport     & { color: $c-pillar--sport; }
+    .garnett--pillar-opinion   &,
+    .content--pillar-opinion   & { color: $c-pillar--opinion; }
+    .garnett--pillar-lifestyle &,
+    .content--pillar-lifestyle & { color: $c-pillar--lifestyle; }
 }
 
+.atom--snippet__label,
 .atom--snippet__headline {
     @include headline(3);
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
+}
+
+.atom--snippet__handle,
+.atom--snippet__feedback,
+.atom--snippet__credit {
+    font-family: var(--f-sans-serif-text);
 }
 
 .atom--snippet__handle {
@@ -49,14 +70,28 @@
     bottom: 0;
     transform: translate(0, 50%);
     padding: 0 15px 0 7px;
+}
 
-    background: $news-support-2;
+.atom--snippet__handle,
+.atom--snippet__feedback .atom__button {
+    background: $neutral-1;
     color: #ffffff;
 }
 
+.atom--snippet__feedback .atom__button:hover,
+.atom--snippet__feedback .atom__button:focus,
 .atom--snippet__handle:hover,
 .atom--snippet__handle:focus {
-    background-color: darken($news-support-2, 10);
+    .garnett--pillar-news      &,
+    .content--pillar-news      & { background-color: $c-pillar--news; }
+    .garnett--pillar-arts      &,
+    .content--pillar-arts      & { background-color: $c-pillar--arts; }
+    .garnett--pillar-sport     &,
+    .content--pillar-sport     & { background-color: $c-pillar--sport; }
+    .garnett--pillar-opinion   &,
+    .content--pillar-opinion   & { background-color: $c-pillar--opinion; }
+    .garnett--pillar-lifestyle &,
+    .content--pillar-lifestyle & { background-color: $c-pillar--lifestyle; }    
 }
 
 .atom--snippet__handle span {
@@ -96,14 +131,6 @@
     padding: 0;
     width: 28px;
     height: 28px;
-
-    background: $news-main-1;
-    color: #ffffff;
-}
-
-.atom--snippet__feedback .atom__button:hover,
-.atom--snippet__feedback .atom__button:focus {
-    background: darken($news-main-1, 10);
 }
 
 .atom--snippet__feedback .atom__button[value='dislike'] {
@@ -140,25 +167,13 @@
     border-radius: 50%;
 }
 
-.atom--snippet__item::before {
-    content: '';
-    display: flex;
-    width: 100px;
-    height: 0;
-    border-top: 1px dotted $neutral-2;
-}
-
-.atom--snippet__item+.atom--snippet__item {
-    padding-top: $baseline;
-}
-
 .atom--snippet__heading {
-    font-size: 18px;
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
 }
 
 .atom--snippet__credit {
-    @include textSans(1);
-    color: $neutral-1;
+    @include textSans(2);
     margin: $baseline 0;
     
     > .inline-icon {
