@@ -5,7 +5,8 @@ declare type AtomType =
   | 'profile'
   | 'qanda'
   | 'timeline'
-  | 'storyquestions';
+  | 'storyquestions'
+  | 'explainer';
 
 declare type Atom = { atomId: string
                     , start: (a: Atom) => Promise<void>

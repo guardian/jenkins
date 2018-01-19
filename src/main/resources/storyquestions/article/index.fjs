@@ -1,7 +1,7 @@
 // @flow
 
-import { Actions, ComponentTypes } from 'lib/ophan';
-import { fromEvent } from 'lib/events';
+import { Actions, ComponentTypes } from 'ophan';
+import { fromEvent } from 'events-getter';
 import type { Channel } from 'channels';
 
 type QuestionId = string;
@@ -40,7 +40,7 @@ export default ({
           e && [
             e.getAttribute('data-question-id'),
             e.getAttribute('data-question-text')
-          ]
+          ] || [null, null]
       )
       .takeN(1);
 
@@ -64,7 +64,7 @@ export default ({
   const stop = () => {
     voteC.close();
     subscribeC.close();
-    viewport.unobserve(observer);
+    viewport.unobserve(root, 1, observer);
   };
 
   const onVote = (s: StoryQuestions) => (q: Question): void => {

@@ -1,1 +1,1 @@
-module.exports = ['guide', 'qanda', 'profile', 'timeline', 'storyquestions'];
+module.exports = ['guide', 'qanda', 'profile', 'timeline', 'storyquestions', 'explainer'];
