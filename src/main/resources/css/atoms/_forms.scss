@@ -1,0 +1,8 @@
+.atom__form-field {
+  display: flex;
+  flex-direction: row;
+  
+  &--inline {
+    flex-direction: column;
+  }
+}

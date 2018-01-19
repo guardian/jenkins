@@ -1,6 +1,8 @@
 @import "vars";
 @import "mq";
 @import "atoms/buttons";
+@import "atoms/forms";
+@import "atoms/ui";
 @import "helpers/multiline";
 @import "helpers/scale";
 
@@ -45,6 +47,7 @@
   justify-content: space-between;
   text-align: left;
 
+  background: transparent;
   border: 0;
   border-top: 1px solid $neutral-3;
 
