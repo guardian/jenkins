@@ -20,7 +20,7 @@ import play.twirl.api.Html
 import utils.LoadFromClasspath
 
 trait ArticleRendering[A] extends Rendering[A] {
-  type Conf = SimpleArticleConfiguration
+  type Conf = ArticleConfiguration
 
   def css = css_impl()
   def js = js_impl()
