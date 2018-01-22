@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div class="atom__view" hidden>
+  <div class="atom__view atom__view--padded" hidden>
     <p class="atom--readerquestions__heading"><strong>Thank you for participating</strong></p>
     <p class="atom--readerquestions__description">We’ll answer the one that generates the most interest shortly. Would you like to get notified when it’s ready?</p>
 
@@ -33,17 +33,14 @@
         <div class="atom__form-field atom__form-field--inline">
           <input class="ui" type="email" name="email" placeholder="Email address" required>
           <input type="hidden" name="listId" value="@listId">
-          <button type="submit" class="ui atom__button atom__button--rounded">@fragments.icons.html.envelope() Sign up</button>
+          <button type="submit" class="ui atom__button atom__button--rounded-right">@fragments.icons.html.envelope() Sign up</button>
         </div>
       </form>
     }
   </div>
 
-  <div class="atom__view atom__view--thankyou" hidden>
+  <div class="atom__view atom__view--padded" hidden>
     <p class="atom--readerquestions__heading"><strong>Thank you for your interest</strong></p>
-    <p class="atom--readerquestions__description">
-      We’re actively developing these notification features but they are not yet built. We’re using your feedback to understand
-      how you would like to be notified of the answers. Thanks again.
-    </p>
+    <p class="atom--readerquestions__description">We’ll send you the answer soon.</p>
   </div>
 </div>
