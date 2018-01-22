@@ -126,7 +126,7 @@ export default ({
       'js-atom--readerquestions__subscribe'
     ): ?HTMLFormElement);
 
-    return atomId && views && questions && form
+    return atomId && views.length && questions && form
       ? Object.freeze({
           atomId,
           views,
