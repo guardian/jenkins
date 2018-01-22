@@ -25,3 +25,13 @@
 .atom__button--rounded {
   border-radius: 100em;
 }
+
+.atom__button--rounded-left {
+  border-top-left-radius: 100em;
+  border-bottom-left-radius: 100em;
+}
+
+.atom__button--rounded-right {
+  border-top-right-radius: 100em;
+  border-bottom-right-radius: 100em;
+}
