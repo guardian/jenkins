@@ -14,64 +14,98 @@
   }
 }
 
-.atom--commonsdivision__date {
-  font-size: 11px;
-}
-
-.atom--commonsdivision__count-header {
-  padding: 0 0 5px 0;
-  font-size: 20px;
-  line-height: 24px;
-  color: var(--c-pillar-news);
-}
-
-.atom--commonsdivision__count {
-  font-size: 18px;
-  padding-bottom: 5px;
-}
-
-.atom--commonsdivision__count-header, .atom--commonsdivision__count {
-  text-align: center;
-}
-
-.atom--commonsdivision__grid {
-  display: flex;
-  flex-direction: row;
-
-  & > * {
-    flex: 1;
-  }
-
-  & > *:nth-child(1) {
-    border-right: 1px solid $neutral-4;
-  }
-}
 .atom--commonsdivision__description {
   font-weight: normal;
   padding-top: 8px;
   display: block;
+  margin-bottom: 6px;
 }
 
 .atom--commonsdivision__date {
   font-weight: normal;
   font-size: 11px;
+  color: $neutral-2;
+}
+
+.from-content-api .atom--commonsdivision__count-header {
+  color: var(--c-pillar-news);
+  border-bottom: 1px solid #767676;
+}
+
+.from-content-api .atom--commonsdivision__count {
+  font-weight: bold;
+  border-bottom: 1px solid #767676;
+}
+
+.atom--commonsdivision__count-header,
+.atom--commonsdivision__count,
+.atom--commonsdivision__party summary,
+.atom--commonsdivision__mp-lists {
+  & > *:nth-child(1) {
+    flex-grow: 1;
+    min-width: 120px;
+    max-width: 33%;
+  }
+
+  & > *:last-child {
+    flex-basis: 20px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
+
+.atom--commonsdivision__grid {
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    display: flex;
+    /*flex-direction: row;*/
+    line-height: 30px;
+    font-size: 14px;
+
+    & > * {
+      flex: 1;
+    }
+  }
 }
 
 .atom--commonsdivision__party-list {
   width: 50%;
 }
 
-.atom--commonsdivision__mps-list ul {
-  margin: 0 0 5px 5px;
+.atom--commonsdivision__mp-lists {
+  display: flex;
+  overflow-y: auto;
+  max-height: 100px;
+  line-height: 16px;
+  margin-top: 5px;
+  & > * {
+    flex: 1;
+  }
 }
 
-.from-content-api .atom--commonsdivision__mps-list ul li::before {
+.atom--commonsdivision__mp-lists ul {
+  margin: 0 0 5px 5px;
+  font-size: 12px;
+}
+
+.from-content-api .atom--commonsdivision__mp-lists ul li::before {
   content: none;
 }
 
 .atom--commonsdivision__party {
-  font-size: 14px;
-  margin-left: 5px;
+  border-bottom: 1px solid #B3B3B4;
+  padding-left: 3px;
+
+  summary {
+    display: flex;
+    cursor: pointer;
+
+    & > * {
+      flex: 1;
+    }
+  }
 }
 
 .atom--commonsdivision__party[open] .atom--commonsdivision__party-handle > :nth-child(1),
@@ -82,6 +116,11 @@
 .atom--commonsdivision__party-handle {
   padding: 0;
   width: 100%;
+  background: transparent;
+
+  .is-on {
+    display: inline;
+  }
 }
 
 .atom--commonsdivision__party-button .icon {
@@ -91,54 +130,47 @@
 
 .atom--commonsdivision__party-button {
   font-weight: bold;
-  font-size: 14px;
   line-height: 14px;
 
   border-radius: 5px;
   padding: 4px 6px 4px 4px;
 
+  margin-right: 5px;
+
   color: white;
-  svg {
-    fill: white;
-  }
+}
+
+.atom--commonsdivision__party-name {
 }
 
 .atom--commonsdivision__party-default {
-  background-color: #B3B3B4;
+  border-left: 5px solid #B3B3B4;
 }
 
 .atom--commonsdivision__party-tory {
-  background-color: #005789;
+  border-left: 5px solid #005789;
 }
 
 .atom--commonsdivision__party-labour {
-  background-color: #E31F26;
+  border-left: 5px solid #E31F26;
 }
 
 .atom--commonsdivision__party-dup {
-  background-color: #7D0069;
+  border-left: 5px solid #7D0069;
 }
 
 .atom--commonsdivision__party-green {
-  background-color: #33A22B;
+  border-left: 5px solid #33A22B;
 }
 
 .atom--commonsdivision__party-libdem {
-  background-color: #FFB900;
-  color: black;
-  svg {
-    fill: black;
-  }
+  border-left: 5px solid #FFB900;
 }
 
 .atom--commonsdivision__party-snp {
-  background-color: #FCDD03;
-  color: black;
-  svg {
-    fill: black;
-  }
+  border-left: 5px solid #FCDD03;
 }
 
 .atom--commonsdivision__party-plaid {
-  background-color: #4a7801;
+  border-left: 5px solid #4a7801;
 }

@@ -29,32 +29,36 @@
   }
 }
 
-@mpsByParty(mps: Seq[Mp]) = {
-  <div class="atom--commonsdivision__party-list">
-  @mps.groupBy(_.party).map { case (partyName, partyMps) =>
-    <div>
-      <details class="atom--commonsdivision__party">
-        <summary>
-          <button class="atom__button atom--commonsdivision__party-handle atom__button--large atom__button--rounded division-party__handle">
-            <span class="atom--commonsdivision__party-button @partyClassName(partyName) is-on">
-              @fragments.icons.html.plus()
-              <span>
-                @partyDisplayName(partyName) - @partyMps.length
-              </span>
-            </span>
-            <span class="atom--commonsdivision__party-button @partyClassName(partyName) is-on">
-              @fragments.icons.html.minus()
-              <span>
-                @partyDisplayName(partyName) - @partyMps.length
-              </span>
-            </span>
-          </button>
-        </summary>
-        <div class="atom--commonsdivision__mps-list">
-          <ul>@partyMps.map { mp => <li>@mp.name</li>}</ul>
+@uniqueNames(a: Set[String], b: Set[String]) = @{ (a | b).toList.sorted }
+
+@partyGrid(ayes: Map[String, Seq[Mp]], noes: Map[String, Seq[Mp]]) = {
+  <div class="atom--commonsdivision__grid">
+  @uniqueNames(ayes.keySet, noes.keySet).map { partyName =>
+    <details class="atom--commonsdivision__party @partyClassName(partyName)">
+      <summary>
+        <div class="atom--commonsdivision__party-name">@partyDisplayName(partyName)</div>
+        <div>@ayes.get(partyName).map(_.length).getOrElse("-")</div>
+        <div>@noes.get(partyName).map(_.length).getOrElse("-")</div>
+        <button class="atom__button atom--commonsdivision__party-handle atom--commonsdivision__party-handle">
+          <span class="atom--commonsdivision__party-button is-on">
+            @fragments.icons.html.plus()
+          </span>
+          <span class="atom--commonsdivision__party-button is-on">
+            @fragments.icons.html.minus()
+          </span>
+        </button>
+      </summary>
+      <div class="atom--commonsdivision__mp-lists">
+        <div></div>
+        <div>
+          <ul>@ayes.getOrElse(partyName, Nil).map { mp => <li>@mp.name</li>}</ul>
         </div>
-      </details>
-    </div>
+        <div>
+          <ul>@noes.getOrElse(partyName, Nil).map { mp => <li>@mp.name</li>}</ul>
+        </div>
+        <div></div>
+      </div>
+    </details>
   }
   </div>
 }
@@ -66,32 +70,34 @@
       <span class="atom--snippet__label">Commons vote</span>
       <h4 class="atom--snippet__headline">'@Html(title)'</h4>
       <span class="atom--commonsdivision__description">@Html(description)</span>
-      <time class="atom--commonsdivision__date" datetime="@{GuardianDateFormatter.toMachineValue(data.date)}">
-        @GuardianDateFormatter.toCustomFormat(data.date, "dd MMMM yyyy")
-      </time>
 
       <div class="atom--commonsdivision__grid">
-        <div>
-          <div class="atom--commonsdivision__count-header">Ayes</div>
-          <div class="atom--commonsdivision__count">@data.votes.ayes.length</div>
+        <div class="atom--commonsdivision__count-header">
+          <div>
+            <time class="atom--commonsdivision__date" datetime="@{GuardianDateFormatter.toMachineValue(data.date)}">
+              @GuardianDateFormatter.toCustomFormat(data.date, "dd MMMM yyyy")
+            </time>
+          </div>
+          <div>Ayes</div>
+          <div>Noes</div>
+          <div></div>
         </div>
-        <div>
-          <div class="atom--commonsdivision__count-header">Noes</div>
-          <div class="atom--commonsdivision__count">@data.votes.noes.length</div>
+        <div class="atom--commonsdivision__count">
+          <div>Total</div>
+          <div>@data.votes.ayes.length</div>
+          <div>@data.votes.noes.length</div>
+          <div></div>
         </div>
       </div>
 
       <button class="atom__button atom__button--large atom__button--rounded atom--snippet__handle" aria-hidden="true">
-        <span class="is-on">@{fragments.icons.html.plus()} Show MPs</span>
-        <span class="is-off">@{fragments.icons.html.minus()} Hide MPs</span>
+        <span class="is-on">@{fragments.icons.html.plus()} Show parties</span>
+        <span class="is-off">@{fragments.icons.html.minus()} Hide parties</span>
       </button>
     </summary>
 
     <div class="atom--snippet__body atom--commonsdivision__body">
-      <div class="atom--commonsdivision__grid">
-        @{mpsByParty(data.votes.ayes)}
-        @{mpsByParty(data.votes.noes)}
-      </div>
+      @{partyGrid(data.votes.ayes.groupBy(_.party), data.votes.noes.groupBy(_.party))}
     </div>
   </details>
 }
