@@ -55,35 +55,49 @@
     border-bottom: 1px solid $neutral-4;
   }
 
-  .atom__button {
+  &:hover, 
+  &:focus, 
+  &:active {
+    background: #fcfcfc;
+  }
+}
+
+.atom__button {
+  .atom--readerquestions__question &,
+  .atom--readerquestions__form & {
     font-family: var(--f-sans-serif-text);
     font-size: 14px;
     font-weight: 900;
     line-height: 18px;
     height: 28px;
     padding: 0 $gutter / 2;
-
+    
     background: $neutral-1;
     color: white;
   }
+  
+  .atom--readerquestions__question:hover &,
+  .atom--readerquestions__question:focus &,
+  .atom--readerquestions__question:active &,
+  .atom--readerquestions__form &:hover,
+  .atom--readerquestions__form &:focus,
+  .atom--readerquestions__form &:active {
+    .garnett--pillar-news      &,
+    .content--pillar-news      & { background-color: $c-pillar--news; }
+    .garnett--pillar-arts      &,
+    .content--pillar-arts      & { background-color: $c-pillar--arts; }
+    .garnett--pillar-sport     &,
+    .content--pillar-sport     & { background-color: $c-pillar--sport; }
+    .garnett--pillar-opinion   &,
+    .content--pillar-opinion   & { background-color: $c-pillar--opinion; }
+    .garnett--pillar-lifestyle &,
+    .content--pillar-lifestyle & { background-color: $c-pillar--lifestyle; }
+  }
 
-  &:hover, 
-  &:focus, 
-  &:active {
-    background: #fcfcfc;
-    
-    .atom__button {
-      .garnett--pillar-news      &,
-      .content--pillar-news      & { background-color: $c-pillar--news; }
-      .garnett--pillar-arts      &,
-      .content--pillar-arts      & { background-color: $c-pillar--arts; }
-      .garnett--pillar-sport     &,
-      .content--pillar-sport     & { background-color: $c-pillar--sport; }
-      .garnett--pillar-opinion   &,
-      .content--pillar-opinion   & { background-color: $c-pillar--opinion; }
-      .garnett--pillar-lifestyle &,
-      .content--pillar-lifestyle & { background-color: $c-pillar--lifestyle; }
-    }
+  .atom--readerquestions__form & .icon {
+    width: 20px;
+    height: 15px;
+    margin-right: $gutter / 2;
   }
 }
 
@@ -97,61 +111,10 @@
   align-self: flex-end;
 }
 
-.atom--readerquestions__notification {
-  padding-bottom: $baseline;
-  
-  @include mq(phablet) {
-    flex-direction: row;
-
-    .atom__button {
-      flex: 1;
-
-      & + & {
-        margin-left: $gutter / 2;
-      }
-    }
-  }
-}
-
-.atom--readerquestions__notification,
-.atom--readerquestions__notification > .atom__button {
-  margin-top: $baseline;
-
-  @include mq(phablet) {
-    margin-top: 0;
-  }
-}
-
-.atom--readerquestions__notification > .atom__button {
-  background: $neutral-1;
-  color: white;
-  font-family: var(--f-sans-serif-text);
-  font-weight: 900;
-  font-size: 14px;
-  line-height: 18px;
-  height: 36px;
-
-  justify-content: center;
-
-  &:hover,
-  &:active {
-    .garnett--pillar-news      &,
-    .content--pillar-news      & { background-color: $c-pillar--news; }
-    .garnett--pillar-arts      &,
-    .content--pillar-arts      & { background-color: $c-pillar--arts; }
-    .garnett--pillar-sport     &,
-    .content--pillar-sport     & { background-color: $c-pillar--sport; }
-    .garnett--pillar-opinion   &,
-    .content--pillar-opinion   & { background-color: $c-pillar--opinion; }
-    .garnett--pillar-lifestyle &,
-    .content--pillar-lifestyle & { background-color: $c-pillar--lifestyle; }    
-  }
-}
-
-.atom__view--thankyou {
+.atom__view--padded {
   padding-bottom: $baseline;
 
-  .atom--readerquestions__description {
+  .atom--readerquestions__description:last-child {
     margin-bottom: 0;
   }
 }
