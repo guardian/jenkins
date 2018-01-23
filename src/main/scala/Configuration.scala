@@ -7,20 +7,16 @@ sealed trait Configuration
 sealed trait NilConfiguration extends Configuration
 case object NilConfiguration extends NilConfiguration
 
-sealed trait EmailConfiguration extends Configuration {
-  def campaignServiceUrl: String
-  def siteUrl: String
-  def logoUrl: String
-  def userProfileUrl: String
-  def viewInBrowserUrl: Atom => String
-}
+final case class ArticleConfiguration(
+  ajaxUrl: String
+) extends Configuration
 
-final case class SimpleEmailConfiguration(
+final case class EmailConfiguration(
   campaignServiceUrl: String,
   siteUrl: String,
   logoUrl: String,
   userProfileUrl: String
-) extends EmailConfiguration {
+) extends Configuration {
   def viewInBrowserUrl = atom =>
     s"${campaignServiceUrl}/preview/${atom.id}"
 }

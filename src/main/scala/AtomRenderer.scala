@@ -101,12 +101,8 @@ trait AtomRenderer {
 }
 
 object ArticleAtomRenderer extends AtomRenderer {
-  type Conf = NilConfiguration
+  type Conf = ArticleConfiguration
   val renderings = renderers.ArticleRenderings
-
-  def getHTML(atom: Atom): HTML = getHTML(atom, NilConfiguration)
-  def getHTML(json: Json): Option[HTML] = getHTML(json, NilConfiguration)
-  def getHTML(json: String): Option[HTML] = getHTML(json, NilConfiguration)
 }
 
 object EmailAtomRenderer extends AtomRenderer {
