@@ -15,8 +15,9 @@ final case class EmailConfiguration(
   campaignServiceUrl: String,
   siteUrl: String,
   logoUrl: String,
-  userProfileUrl: String
+  userProfileUrl: String,
+  unsubscribeUrl: String
 ) extends Configuration {
-  def viewInBrowserUrl = atom =>
+  def viewInBrowserUrl: Atom => String = atom =>
     s"${campaignServiceUrl}/preview/${atom.id}"
 }
