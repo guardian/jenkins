@@ -11,7 +11,7 @@ type Question = [?QuestionId, ?QuestionText];
 type StoryQuestionsF = {
   questions: HTMLElement,
   views: HTMLElement[],
-  form: HTMLFormElement
+  form: ?HTMLFormElement
 };
 
 type StoryQuestions = StoryQuestionsF & Atom;
@@ -47,13 +47,17 @@ export default ({
     voteC.tap((q: Question) => {
       onVote(s)(q);
       updateFn();
-      subscribeC.tap((e: Event) => {
-        onSubmit(s, q, new FormData(s.form));
-        updateFn();
-      });
+      if (s.form) {
+        subscribeC.tap((e: Event) => {
+          onSubmit(s, q, new FormData(s.form));
+          updateFn();
+        });
+      }
     });
 
-    subscribeC = fromEvent('submit', s.form, { preventDefault: true }).takeN(1);
+    if (s.form) {
+      subscribeC = fromEvent('submit', s.form, { preventDefault: true }).takeN(1);
+    }
 
     observer = onVisible(s);
     viewport.observe(root, 1, observer);
@@ -126,7 +130,7 @@ export default ({
       'js-atom--readerquestions__subscribe'
     ): ?HTMLFormElement);
 
-    return atomId && views.length && questions && form
+    return atomId && views.length && questions
       ? Object.freeze({
           atomId,
           views,
