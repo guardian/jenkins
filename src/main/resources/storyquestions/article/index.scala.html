@@ -22,13 +22,13 @@
     </div>
   </div>
 
-  <div class="atom__view atom__view--padded" hidden>
-    <p class="atom--readerquestions__heading"><strong>Thank you for participating</strong></p>
-    <p class="atom--readerquestions__description">We’ll answer the one that generates the most interest shortly. Would you like to get notified when it’s ready?</p>
+  @for(
+    listId <- data.listId
+  ) { 
+    <div class="atom__view atom__view--padded" hidden>
+      <p class="atom--readerquestions__heading"><strong>Thank you for participating</strong></p>
+      <p class="atom--readerquestions__description">We’ll answer the one that generates the most interest shortly. Would you like to get notified when it’s ready?</p>
 
-    @for(
-      listId <- data.listId
-    ) { 
       <form action="@{conf.ajaxUrl}/story-questions/answers/signup" id="js-atom--readerquestions__subscribe" class="atom--readerquestions__form">
         <div class="atom__form-field atom__form-field--inline">
           <input class="ui" type="email" name="email" placeholder="Email address" required>
@@ -36,8 +36,8 @@
           <button type="submit" class="ui atom__button atom__button--rounded">Sign up</button>
         </div>
       </form>
-    }
-  </div>
+    </div>
+  }
 
   <div class="atom__view atom__view--padded" hidden>
     <p class="atom--readerquestions__heading"><strong>Thank you for your interest</strong></p>
