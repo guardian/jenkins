@@ -9,19 +9,22 @@ import org.jsoup.safety.Whitelist
 import collection.JavaConverters._
 
 trait Hydrator {
-  val whitelist = Whitelist.basicWithImages()
+  def whitelist = Whitelist.basicWithImages()
     .addTags("table", "tr", "td")
 
-  val document: String => Document = 
+  def document: String => Document = 
     doc => Jsoup.parse(Jsoup.clean(doc, whitelist))
  
-  val query: Element => CSSSelector => List[Element] = 
+  def stylesheet: String => List[CSSRuleset] =
+    CSS.parse(_)
+ 
+  def query: Element => CSSSelector => List[Element] = 
     el => sel => el.select(sel.value).asScala.toList
   
-  val update: Element => CSSProperty => CSSValue => Element =
+  def update: Element => CSSProperty => CSSValue => Element =
     el => prop => value => el.attr("style", s"""${prop}:${value};${el.attr("style")}""")
 
-  val run: Document => CSSRuleset => Document =
+  def run: Document => CSSRuleset => Document =
     doc => rules => {
       for {
         selector <- rules.selectors
