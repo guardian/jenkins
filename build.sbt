@@ -3,7 +3,7 @@ import Dependencies._
 
 lazy val commonSettings = Seq(
   organization := "com.gu",
-  scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8"),
+  scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds"),
   scalaVersion := "2.12.4",
   libraryDependencies ++= coreDeps,
   dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1",
@@ -50,7 +50,13 @@ lazy val utils = (project in file("utils"))
   .dependsOn(core)
   .settings(
     commonSettings,
-    libraryDependencies ++= utilsDeps
+    libraryDependencies ++= utilsDeps,
+    initialCommands in console := """
+      import monix.execution.Scheduler.Implicits.global
+      import com.gu.contentatom.thrift._
+      import com.gu.contentatom.renderer._
+      import com.gu.contentatom.renderer.utils._
+    """
   )
 
 
