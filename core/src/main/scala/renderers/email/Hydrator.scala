@@ -14,7 +14,7 @@ trait Hydrator {
 
   def document: String => Document = 
     doc => Jsoup.parse(Jsoup.clean(doc, whitelist))
- 
+
   def stylesheet: String => List[CSSRuleset] =
     CSS.parse(_)
  
@@ -38,11 +38,8 @@ trait Hydrator {
 
   def apply(html: String, css: String): String = {
     val doc = document(html)
-    for {
-      rules <- CSS.parse(css)
-    } {
-      run(doc)(rules)
-    }
+    val rules = stylesheet(css)
+    rules.foreach(run(doc)(_))
     doc.outerHtml
   }
 
