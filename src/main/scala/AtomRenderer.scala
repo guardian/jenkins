@@ -13,14 +13,11 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
-import io.circe._
-import io.circe.parser._
 import renderers.{Renderings, Rendering}
 
 trait AtomRenderer {
   protected val renderings: Renderings
   import renderings._
-  import json._
 
   type Conf <: Configuration
 
@@ -46,14 +43,6 @@ trait AtomRenderer {
     case AtomData.Timeline(data)       => getHTML(atom, data, conf)
     case _                             => atom.defaultHtml
   }
-
-  def getHTML(json: Json, conf: Conf): Option[HTML] = json.as[Atom] match {
-    case Left(_) => None
-    case Right(atom) => Some(getHTML(atom, conf))
-  }
-
-  def getHTML(json: String, conf: Conf): Option[HTML] =
-    parse(json).right.toOption.flatMap(getHTML(_, conf))
 
   def getCSS[A](implicit reader: Rendering[A]): CSS =
     reader.css.map(_.toString)
@@ -110,6 +99,4 @@ object DefaultAtomRenderer extends AtomRenderer {
   val renderings = renderers.DefaultRenderings
 
   def getHTML(atom: Atom): HTML = getHTML(atom, NilConfiguration)
-  def getHTML(json: Json): Option[HTML] = getHTML(json, NilConfiguration)
-  def getHTML(json: String): Option[HTML] = getHTML(json, NilConfiguration)
 }
