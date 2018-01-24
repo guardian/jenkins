@@ -39,7 +39,7 @@ trait Hydrator {
   def apply(html: String, css: String): String = {
     val doc = document(html)
     val rules = stylesheet(css)
-    rules.foreach(run(doc)(_))
+    rules.foreach(run(doc)(_)) // ಥ﹏ಥ
     doc.outerHtml
   }
 
