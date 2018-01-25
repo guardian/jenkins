@@ -11,10 +11,8 @@ import collection.JavaConverters._
 object Hydrator {
   def whitelist = Whitelist.basicWithImages()
     .addTags("table", "tr", "td")
-    .addAttributes("table", "width", "border", "cellpadding", "cellspacing")
-    .addAttributes("td", "width", "height")
-    .addAttributes("img", "width", "height")
-    .addAttributes(":all", "style")
+    .addAttributes("table", "align", "border", "cellpadding", "cellspacing")
+    .addAttributes(":all", "style", "class", "width", "height")
 
   def document: String => Document = 
     doc => Jsoup.parse(Jsoup.clean(doc, whitelist))
