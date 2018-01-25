@@ -8,21 +8,25 @@ import org.jsoup.safety.Whitelist
 
 import collection.JavaConverters._
 
-trait Hydrator {
+object Hydrator {
   def whitelist = Whitelist.basicWithImages()
     .addTags("table", "tr", "td")
+    .addAttributes("table", "width", "border", "cellpadding", "cellspacing")
+    .addAttributes("td", "width", "height")
+    .addAttributes("img", "width", "height")
+    .addAttributes(":all", "style")
 
   def document: String => Document = 
     doc => Jsoup.parse(Jsoup.clean(doc, whitelist))
 
   def stylesheet: String => List[CSSRuleset] =
-    CSS.parse(_)
+    CSS.parseCss(_)
  
   def query: Element => CSSSelector => List[Element] = 
     el => sel => el.select(sel.value).asScala.toList
   
   def update: Element => CSSProperty => CSSValue => Element =
-    el => prop => value => el.attr("style", s"""${prop}:${value};${el.attr("style")}""")
+    el => prop => value => el.attr("style", s"""${prop.value}:${value.value};${el.attr("style")}""")
 
   def run: Document => CSSRuleset => Document =
     doc => rules => {
