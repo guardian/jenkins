@@ -5,11 +5,8 @@ object Dependencies {
 
   val coreDeps = Seq(
     "com.gu"   %% "content-atom-model" % "2.4.55",
-    "com.gu"   %% "fezziwig"           % "0.7",
-    "io.circe" %% "circe-core"         % circeVersion,
-    "io.circe" %% "circe-generic"      % circeVersion,
-    "io.circe" %% "circe-parser"       % circeVersion,
-    "org.jsoup" % "jsoup"              % "1.11.2"
+    "org.jsoup" % "jsoup"              % "1.11.2",
+    "org.scalacheck" %% "scalacheck"   % "1.13.5" % "test"
   )
 
   val utilsDeps = Seq(
