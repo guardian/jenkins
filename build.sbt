@@ -8,14 +8,8 @@ crossScalaVersions := Seq("2.11.11", "2.12.4")
 releaseCrossBuild := true
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
-val circeVersion = "0.8.0"
-
 libraryDependencies ++= Seq(
-  "com.gu"   %% "content-atom-model" % "2.4.55",
-  "com.gu"   %% "fezziwig"           % "0.7",
-  "io.circe" %% "circe-core"         % circeVersion,
-  "io.circe" %% "circe-generic"      % circeVersion,
-  "io.circe" %% "circe-parser"       % circeVersion
+  "com.gu"   %% "content-atom-model" % "2.4.55"
 )
 
 /**
