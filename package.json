@@ -50,9 +50,9 @@
     "postcss": "postcss build/*/*/*.css -u autoprefixer",
     "apps": "yarn run appsJS; yarn run appsCSS",
     "appsJS": "NODE_ENV=production webpack --config apps.config.js",
-    "appsCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path src/main/resources/css --output build/ src/main/resources/; postcss build/*/*/*.css -u autoprefixer --dir build/",
+    "appsCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path core/src/main/resources/css --output build/ core/src/main/resources/; postcss build/*/*/*.css -u autoprefixer --dir build/",
     "frontend": "yarn run frontendJS; yarn run copy; yarn run frontendCSS",
     "frontendJS": "NODE_ENV=production webpack --config frontend.config.js",
-    "frontendCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path src/main/resources/css --output dist/ src/main/resources/"
+    "frontendCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path core/src/main/resources/css --output dist/ core/src/main/resources/"
   }
 }
