@@ -20,28 +20,27 @@ object Hydrator {
   def stylesheet: String => List[CSSRuleset] =
     CSS.parseCss(_)
  
-  def query: Element => CSSSelector => List[Element] = 
-    el => sel => el.select(sel.value).asScala.toList
+  def query(el: Element, sel: CSSSelector): List[Element] = 
+    el.select(sel.value).asScala.toList
   
-  def update: Element => CSSProperty => CSSValue => Element =
-    el => prop => value => el.attr("style", s"""${prop.value}:${value.value};${el.attr("style")}""")
+  def update(el: Element, prop: CSSProperty, value: CSSValue): Element =
+    el.attr("style", s"""${prop.value}:${value.value};${el.attr("style")}""")
 
-  def run: Document => CSSRuleset => Document =
-    doc => rules => {
-      for {
-        selector <- rules.selectors
-        element <- query(doc)(selector)
-        (prop, value) <- rules.block.decls
-      } {
-        update(element)(prop)(value)
-      }
-      doc
+  def run(doc: Document, rules: CSSRuleset): Document = {
+    for {
+      selector <- rules.selectors
+      element <- query(doc, selector)
+      (prop, value) <- rules.block.decls
+    } {
+      update(element, prop, value)
     }
+    doc
+  }
 
   def apply(html: String, css: String): String = {
     val doc = document(html)
     val rules = stylesheet(css)
-    rules.foreach(run(doc)(_)) // ಥ﹏ಥ
+    rules.foreach(run(doc, _)) // ಥ﹏ಥ
     doc.outerHtml
   }
 
