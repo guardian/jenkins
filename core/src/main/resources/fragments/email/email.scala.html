@@ -1,10 +1,9 @@
-@(body: Html)
+@(atom: com.gu.contentatom.thrift.Atom)(body: Html)(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
 
 <table class="bg" width="100%" cellspacing="10" cellpadding="0">
   <tr>
     <td class="bg__header">
-      @* TODO | URL for view in browser *@
-      <a href="#">View in browser</a>
+      <a href="@conf.viewInBrowserUrl(atom)">View in browser</a>
     </td>
   </tr>
   <tr>
