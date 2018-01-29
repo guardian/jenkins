@@ -7,7 +7,7 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.12.4",
   libraryDependencies ++= coreDeps,
   dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1",
-  unmanagedResourceDirectories in Compile += baseDirectory.value / "build",
+  unmanagedResourceDirectories in Compile += (baseDirectory in ThisBuild).value / "build",
   excludeFilter in Compile in unmanagedResources := "*.fjs" || "*.scss"
 )
 
