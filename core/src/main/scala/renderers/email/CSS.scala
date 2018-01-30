@@ -21,7 +21,7 @@ class CSSRulesetParsers extends RegexParsers {
 
   def value = """[^;}]+""".r
 
-  def typeSelector = """\w[\w-]+""".r
+  def typeSelector = """\w[\w-]*""".r
 
   def ident = """[\w\d_-]+""".r
 
@@ -48,19 +48,19 @@ class CSSRulesetParsers extends RegexParsers {
     }
 
   def selector: Parser[CSSSelector] = 
-    (rep1(basicSelector) ^^ { _.mkString }) ~
-      pseudoClass.* ~
-      pseudoElement.? ~
-      (adjacentSiblingSelector | generalSiblingSelector | childSelector | (selector ^^ { " " + _.value })).* ^^ { 
-        case a ~ Nil ~ None    ~ Nil  => CSSSelector(a)
-        case a ~ Nil ~ None    ~ ds   => CSSSelector(a + ds.mkString)
-        case a ~ Nil ~ Some(c) ~ Nil  => CSSSelector(a + c)
-        case a ~ Nil ~ Some(c) ~ ds   => CSSSelector(a + c + ds.mkString)
-        case a ~ bs  ~ None    ~ Nil  => CSSSelector(a + bs.mkString)
-        case a ~ bs  ~ None    ~ ds   => CSSSelector(a + bs.mkString + ds.mkString)
-        case a ~ bs  ~ Some(c) ~ Nil  => CSSSelector(a + bs.mkString + c)
-        case a ~ bs  ~ Some(c) ~ ds   => CSSSelector(a + bs.mkString + c + ds.mkString)
-      }
+    basicSelector ~
+    pseudoClass.* ~
+    pseudoElement.? ~
+    (adjacentSiblingSelector | generalSiblingSelector | childSelector | (selector ^^ { " " + _.value })).* ^^ { 
+      case a ~ Nil ~ None    ~ Nil  => CSSSelector(a)
+      case a ~ Nil ~ None    ~ ds   => CSSSelector(a + ds.mkString)
+      case a ~ Nil ~ Some(c) ~ Nil  => CSSSelector(a + c)
+      case a ~ Nil ~ Some(c) ~ ds   => CSSSelector(a + c + ds.mkString)
+      case a ~ bs  ~ None    ~ Nil  => CSSSelector(a + bs.mkString)
+      case a ~ bs  ~ None    ~ ds   => CSSSelector(a + bs.mkString + ds.mkString)
+      case a ~ bs  ~ Some(c) ~ Nil  => CSSSelector(a + bs.mkString + c)
+      case a ~ bs  ~ Some(c) ~ ds   => CSSSelector(a + bs.mkString + c + ds.mkString)
+    }
     
   def basicSelector: Parser[String] = 
     typeSelector | classSelector | idSelector | universalSelector | attributeSelector
