@@ -22,10 +22,12 @@
       item <- data.events
     ) { 
       <tr class="atom--snippet__item">
-        <td><span class="atom--snippet__event-date">@item.renderFormattedDate(item.date, item.dateFormat)</span>
-        @item.toDate.map { maybeDate => –
-          <span class="atom--snippet__event-date">@item.renderFormattedDate(maybeDate, item.dateFormat)</span>
-        }</td>
+        <td>
+          <span class="atom--snippet__event-date">@item.renderFormattedDate(item.date, item.dateFormat)</span>
+          @item.toDate.map { maybeDate => –
+            <span class="atom--snippet__event-date">@item.renderFormattedDate(maybeDate, item.dateFormat)</span>
+          }
+        </td>
       </tr>
       <tr><td class="atom--snippet__heading"><b>@item.title</b></td></tr>
       @item.body.map { body =>

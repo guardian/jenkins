@@ -8,15 +8,17 @@
   label = data.typeLabel.getOrElse("Profile"), 
   headline = atom.title.getOrElse("")
 ){ 
-  <table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <table cellspacing="0" cellpadding="0" border="0">
     <tr>
-      <td>
+      <td width="100">
         @for(
           img <- data.headshot 
         ) { 
           @fragments.atoms.html.snippetImage(img) 
         }
-  
+      </td>
+      <td width="10"></td>
+      <td width="470">
         @for(
           item <- data.items
         ) { 
@@ -38,8 +40,7 @@
       credit <- asset.credit 
     ) {
       <tr> 
-        <td class="atom--snippet__credit">
-          <span class="inline-icon">@fragments.icons.html.info()</span>
+        <td colspan="3" class="atom--snippet__credit">
           @credit
         </td>
       </tr>
