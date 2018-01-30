@@ -10,8 +10,9 @@ import collection.JavaConverters._
 
 object Hydrator {
   def whitelist = Whitelist.basicWithImages()
-    .addTags("table", "tr", "td")
+    .addTags("table", "tr", "td", "div", "span")
     .addAttributes("table", "align", "border", "cellpadding", "cellspacing")
+    .addAttributes("img", "src")
     .addAttributes(":all", "style", "class", "width", "height")
 
   def document: String => Document = 
@@ -41,7 +42,8 @@ object Hydrator {
     val doc = document(html)
     val rules = stylesheet(css)
     rules.foreach(run(doc, _)) // ಥ﹏ಥ
-    doc.outerHtml
+    doc.charset(java.nio.charset.StandardCharsets.UTF_8)
+    "<!DOCTYPE html>" + doc.outerHtml
   }
 
 }
