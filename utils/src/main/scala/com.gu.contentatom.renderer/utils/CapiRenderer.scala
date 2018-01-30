@@ -3,10 +3,10 @@ package utils
 // -----------------------------------------------------------------------------
 import cats.Monad
 import cats.data.Kleisli
-
 import com.gu.contentapi.client.GuardianContentClient
 import com.gu.contentatom.thrift.{Atom, AtomType}
 
+import java.io._
 import monix.execution.Scheduler.Implicits.global
 import monix.eval.Task
 // -----------------------------------------------------------------------------
@@ -19,9 +19,13 @@ trait CapiRenderer[F[_]] {
   def getHtml(renderer: AtomRenderer)(config: renderer.Conf): Kleisli[F, Option[Atom], Option[String]]
 }
 
+trait Save[F[_]] {
+  def save(filename: String): Kleisli[F, String, Unit]
+}
+
 // -----------------------------------------------------------------------------
 // Interpreters
-class IoCapiRenderer(apiKey: String) extends Capi[Task] with CapiRenderer[Task] {
+class IoCapiRenderer(apiKey: String) extends Capi[Task] with CapiRenderer[Task] with Save[Task] {
   import cats.implicits._
 
   val client = new GuardianContentClient(apiKey)
@@ -56,9 +60,20 @@ class IoCapiRenderer(apiKey: String) extends Capi[Task] with CapiRenderer[Task] 
   def getHtml(renderer: AtomRenderer)(config: renderer.Conf) = 
     Kleisli { optAtom => Task.now(optAtom.map(renderer.getHTML(_, config))) }
 
+  def save(filename: String) =
+    Kleisli { contents => 
+      Task {
+        val pw = new PrintWriter(new File(filename))
+        pw.write(contents)
+        pw.close()
+      }
+    }
+
   def getArticle = getAtom.andThen(getHtml(ArticleAtomRenderer)(articleConfig))
 
   def getEmail = getAtom.andThen(getHtml(EmailAtomRenderer)(emailConfig))
+
+  def getEmailAndSave(filename: String) = getEmail.andThen(save(filename).traverse(_))
 }
 
 object IoCapiRenderer {
