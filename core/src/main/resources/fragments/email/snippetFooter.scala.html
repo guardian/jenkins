@@ -1,20 +1,16 @@
 @(atom: com.gu.contentatom.thrift.Atom)(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
 
-<table class="atom--snippet__footer" cellspacing="0" cellpadding="0" border="0">
+<table class="atom--snippet__footer" width="600" cellspacing="0" cellpadding="20" border="0">
   <tr>
-    <td width="10"></td>
-    <td width="580">
+    <td>
       <a href="@conf.userProfileUrl">Manage your emails</a> | 
       <a href="@conf.unsubscribeUrl">Unsubscribe</a> | 
       <a href="@conf.viewInBrowserUrl(atom)">Trouble viewing?</a>
     </td>
-    <td width="10"></td>
   </tr>
   <tr>
-    <td width="10"></td>
-    <td width="580" class="legalese">
+    <td class="legalese">
       <p>You are receiving this email because you subscribed to a readers question. Guardian News &amp; Media Limited - a member of Guardian Media Group PLC. Registered Office: Kings Place, 90 York Way, London, N1 9GU. Registered in England No. 908396</p>
     </td>
-    <td width="10"></td>
   </tr>
 </table>
