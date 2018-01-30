@@ -2,47 +2,49 @@
 , data: com.gu.contentatom.thrift.atom.guide.GuideAtom
 )(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
 
-@fragments.email.html.snippet(
-  atom,
-  className = "guide", 
-  label = data.typeLabel.getOrElse("Quick guide"), 
-  headline = atom.title.getOrElse("") 
-){ 
-  <table width="100%" cellspacing="0" cellpadding="0" border="0">
-    <tr>
-      <td>
-        @for(
-          img <- data.guideImage 
-        ) { 
-          @fragments.atoms.html.snippetImage(img) 
-        } 
-        
-        @for(
-          item <- data.items
-        ) { 
-          <div class="atom--snippet__item">
-            @item.title.map { t =>
-              <div class="atom--snippet__heading">
-                <b>@t</b>
-              </div>
-            } 
-            @Html(item.body)
-          </div>
-        } 
-      </td>
-    </tr>
-  
-    @for( 
-      img <- data.guideImage; 
-      asset <- img.master; 
-      credit <- asset.credit 
-    ) { 
+@fragments.email.html.email(atom){
+  @fragments.email.html.snippet(
+    atom,
+    className = "guide", 
+    label = data.typeLabel.getOrElse("Quick guide"), 
+    headline = atom.title.getOrElse("") 
+  ){ 
+    <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td class="atom--snippet__credit">
-          <span class="inline-icon">@fragments.icons.html.info()</span>
-          @credit
+        <td>
+          @for(
+            img <- data.guideImage 
+          ) { 
+            @fragments.atoms.html.snippetImage(img) 
+          } 
+          
+          @for(
+            item <- data.items
+          ) { 
+            <div class="atom--snippet__item">
+              @item.title.map { t =>
+                <div class="atom--snippet__heading">
+                  <b>@t</b>
+                </div>
+              } 
+              @Html(item.body)
+            </div>
+          } 
         </td>
       </tr>
-    } 
-  </table>
+    
+      @for( 
+        img <- data.guideImage; 
+        asset <- img.master; 
+        credit <- asset.credit 
+      ) { 
+        <tr>
+          <td class="atom--snippet__credit">
+            <span class="inline-icon">@fragments.icons.html.info()</span>
+            @credit
+          </td>
+        </tr>
+      } 
+    </table>
+  }
 }
