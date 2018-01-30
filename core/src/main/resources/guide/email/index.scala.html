@@ -9,15 +9,17 @@
     label = data.typeLabel.getOrElse("Quick guide"), 
     headline = atom.title.getOrElse("") 
   ){ 
-    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <table cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td>
+        <td width="100">
           @for(
             img <- data.guideImage 
           ) { 
             @fragments.atoms.html.snippetImage(img) 
           } 
-          
+        </td>
+        <td width="10"></td>
+        <td width="470">
           @for(
             item <- data.items
           ) { 
@@ -39,7 +41,7 @@
         credit <- asset.credit 
       ) { 
         <tr>
-          <td class="atom--snippet__credit">
+          <td colspan="3" class="atom--snippet__credit">
             <span class="inline-icon">@fragments.icons.html.info()</span>
             @credit
           </td>
