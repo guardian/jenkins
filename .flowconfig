@@ -1,11 +1,11 @@
 [ignore]
-<PROJECT_ROOT>/src/main/resources/css/.*
-<PROJECT_ROOT>/src/main/resources/fragments/.*
+<PROJECT_ROOT>/core/src/main/resources/css/.*
+<PROJECT_ROOT>/core/src/main/resources/fragments/.*
 
 [include]
 
 [libs]
-./src/main/resources/__flow__/types
+./core/src/main/resources/__flow__/types
 
 [lints]
 

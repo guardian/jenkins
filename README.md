@@ -151,7 +151,7 @@ go to the Frontend app, find the Dependencies.scala file and update the version 
 
 Make sure to add your new atom type in these two files in Atom-Renderer:
 
-* `src/main/resources/__flow__/types/atoms.fjs`
+* `core/src/main/resources/__flow__/types/atoms.fjs`
 
 * `webpack/atomTypes.js` 
 
