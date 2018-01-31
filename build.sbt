@@ -38,10 +38,27 @@ lazy val coreSettings = Seq(
   )
 )
 
+lazy val publishSettings = Seq(
+  sonatypeProfileName := "com.gu",
+  publishMavenStyle := true,
+  licenses := Seq("APL2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
+  homepage := Some(url("https://(your project url)")),
+  scmInfo := Some(
+    ScmInfo(
+      url("https://github.com/guardian/atom-renderer"),
+      "scm:git@github.com:guardian/atom-renderer.git"
+    )
+  ),
+  developers := List(
+    Developer(id="regiskuckaertz", name="Regis Kuckaertz", email="regis.kuckaertz@theguardian.com", url=url("https://github.com/regiskuckaertz"))
+  )
+)
+
 lazy val core = (project in file("core"))
   .settings(
     commonSettings,
     coreSettings,
+    publishSettings,
     sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value
   )
   .enablePlugins(SbtTwirl)
