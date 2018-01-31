@@ -19,11 +19,9 @@ const createJsSettings = rendering => atomType => ({
   },
   resolve: {
     extensions: ['.fjs'],
-    modules: [
-      path.join(__dirname, 'src', 'main', 'resources', 'lib')
-    ]
+    modules: [path.join(__dirname, 'core', 'src', 'main', 'resources', 'lib')]
   },
-  context: path.resolve(__dirname, 'src', 'main', 'resources'),
+  context: path.resolve(__dirname, 'core', 'src', 'main', 'resources'),
   plugins: [
     new Uglify({
       parallel: true

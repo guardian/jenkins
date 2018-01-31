@@ -1,0 +1,49 @@
+@(atom: com.gu.contentatom.thrift.Atom
+, data: com.gu.contentatom.thrift.atom.profile.ProfileAtom
+)(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
+
+@fragments.email.html.snippet( 
+  atom, 
+  className = "profile", 
+  label = data.typeLabel.getOrElse("Profile"), 
+  headline = atom.title.getOrElse("")
+){ 
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tr>
+      <td width="100">
+        @for(
+          img <- data.headshot 
+        ) { 
+          @fragments.atoms.html.snippetImage(img) 
+        }
+      </td>
+      <td width="10"></td>
+      <td width="470">
+        @for(
+          item <- data.items
+        ) { 
+          <div class="atom--snippet__item">
+            @item.title.map { t =>
+              <div class="atom--snippet__heading">
+                <b>@t</b>
+              </div>
+            } 
+            @Html(item.body)
+          </div>
+        } 
+      </td>
+    </tr>
+  
+    @for( 
+      img <- data.headshot; 
+      asset <- img.master; 
+      credit <- asset.credit 
+    ) {
+      <tr> 
+        <td colspan="3" class="atom--snippet__credit">
+          @credit
+        </td>
+      </tr>
+    } 
+  </table>
+}

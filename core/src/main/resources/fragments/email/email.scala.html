@@ -1,0 +1,20 @@
+@(atom: com.gu.contentatom.thrift.Atom)(body: Html)(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
+
+<table class="bg" width="100%" cellspacing="10" cellpadding="0">
+  <tr>
+    <td height="36" valign="center" class="bg__header">
+      <a href="@conf.viewInBrowserUrl(atom)">View in browser</a>
+    </td>
+  </tr>
+  <tr>
+    <td class="bg__body">
+      <table align="center" class="main" width="600" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <td>
+            @body
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

@@ -1,51 +1,63 @@
 import ReleaseTransformations._
+import Dependencies._
 
-name := "atom-renderer"
-organization := "com.gu"
-scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8")
-scalaVersion := "2.12.4"
-crossScalaVersions := Seq("2.11.11", "2.12.4")
-releaseCrossBuild := true
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
-
-libraryDependencies ++= Seq(
-  "com.gu"   %% "content-atom-model" % "2.4.55"
+lazy val commonSettings = Seq(
+  organization := "com.gu",
+  scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds"),
+  scalaVersion := "2.12.4",
+  libraryDependencies ++= coreDeps,
+  dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1",
+  unmanagedResourceDirectories in Compile += (baseDirectory in ThisBuild).value / "build",
+  excludeFilter in Compile in unmanagedResources := "*.fjs" || "*.scss"
 )
 
-/**
- * WARNING - upgrading the following will break clients
- */
-dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1"
-
-lazy val root = (project in file(".")).enablePlugins(SbtTwirl)
-
-sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value
-
-// Add CSS and JS generated files
-unmanagedResourceDirectories in Compile += baseDirectory.value / "build"
-
-// Ignore JS and SASS files
-excludeFilter in Compile in unmanagedResources := "*.fjs" || "*.scss"
-
-// Add sonatype repository settings
-publishTo := Some(
-  if (isSnapshot.value)
-    Opts.resolver.sonatypeSnapshots
-  else
-    Opts.resolver.sonatypeStaging
+lazy val coreSettings = Seq(
+  name := "atom-renderer",
+  crossScalaVersions := Seq("2.11.11", "2.12.4"),
+  releaseCrossBuild := true,
+  releasePublishArtifactsAction := PgpKeys.publishSigned.value,
+  publishTo := Some(
+    if (isSnapshot.value)
+      Opts.resolver.sonatypeSnapshots
+    else
+      Opts.resolver.sonatypeStaging
+  ),
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    runClean,
+    runTest,
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    releaseStepCommand("publishSigned"),
+    setNextVersion,
+    commitNextVersion,
+    releaseStepCommand("sonatypeReleaseAll"),
+    pushChanges
+  )
 )
 
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  releaseStepCommand("publishSigned"),
-  setNextVersion,
-  commitNextVersion,
-  releaseStepCommand("sonatypeReleaseAll"),
-  pushChanges
-)
+lazy val core = (project in file("core"))
+  .settings(
+    commonSettings,
+    coreSettings,
+    sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value
+  )
+  .enablePlugins(SbtTwirl)
+
+lazy val utils = (project in file("utils"))
+  .dependsOn(core)
+  .settings(
+    commonSettings,
+    libraryDependencies ++= utilsDeps,
+    initialCommands in console := """
+      import monix.execution.Scheduler.Implicits.global
+      import com.gu.contentatom.thrift._
+      import com.gu.contentatom.renderer._
+      import com.gu.contentatom.renderer.utils._
+    """
+  )
+
+
+
