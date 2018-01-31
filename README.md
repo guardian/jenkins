@@ -27,9 +27,61 @@ More information on [Getting Started with Flow](https://flow.org/en/docs/getting
 
 ## Preview your changes
 
-In future we may add a dummy atom so the results of your change can be previewed from within the repo. 
+### Locally
 
-For now, you need to publish your changes to NPM as a new version of the Atom Renderer package. Then, you need to open
+The `utils` project provides a convenience tool for (_ahem_) quickly testing your changes. In order to use it,
+you will need your API key. With that in hand, just run the SBT console:
+
+```
+% sbt
+> project utils
+> console
+import monix.execution.Scheduler.Implicits.global
+import com.gu.contentatom.thrift._
+import com.gu.contentatom.renderer._
+import com.gu.contentatom.renderer.utils._
+**scala>** val client = IoCapiRenderer(<your-api-key>)
+client: monix.eval.Task[com.gu.contentatom.renderer.utils.IoCapiRenderer] = Task.FlatMap$267799898
+**scala>** client.flatMap(_.getArticle(("a025541b-c788-4e77-a175-c0574a855a04", AtomType.Guide)))
+res0: monix.eval.Task[Option[com.gu.contentatom.renderer.ArticleAtomRenderer.HTML]] = Task.FlatMap$619160253
+**scala>** res0.runSyncMaybe
+res1: Either[monix.execution.CancelableFuture[Option[com.gu.contentatom.renderer.ArticleAtomRenderer.HTML]],Option[com.gu.contentatom.renderer.ArticleAtomRenderer.HTML]] = Left(Async(Future(<not completed>),monix.execution.cancelables.StackedCancelable$Impl@5e5f05e6))
+Fetching atom/guide/a025541b-c788-4e77-a175-c0574a855a04
+
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+**scala>** res1
+res2: Either[monix.execution.CancelableFuture[Option[com.gu.contentatom.renderer.ArticleAtomRenderer.HTML]],Option[com.gu.contentatom.renderer.ArticleAtomRenderer.HTML]] =
+Left(Async(Future(Success(Some(
+
+
+
+<details data-snippet-id="a025541b-c788-4e77-a175-c0574a855a04" data-snippet-type="guide" class="atom atom--snippet atom--snippet--guide">
+  <summary class="atom--snippet__header">
+    <span class="atom--snippet__label">Quick guide</span>
+    <h4 class="atom--snippet__headline">Scotland squad</h4>
+    <button class="atom__button atom__button--large atom__button--rounded atom--snippet__handle" aria-hidden="true">
+      <span class="is-on">
+
+<svg class="icon icon--plus " width="18px" height="18px"
+  viewBox="0 0 18 18"
+  >
+
+  <path d="M8.2 0h1.6l.4 7.8 7.8.4v1...
+```
+
+There are currently three methods:
+
+- `getArticle: ((String, AtomType)) => Task[HTML]` produces the article rendering for an atom
+- `getEmail: ((String, AtomType)) => Task[HTML]` produces the email rendering for an atom
+- `getEmailAndSave: String => ((String, AtomType)) => Task[HTML]` as above but saves the content in the specified location
+
+... and the answer is yes, I will make this way easier in the future.
+
+### In Frontend
+
+You need to publish your changes to NPM as a new version of the Atom Renderer package. Then, you need to open
 the Guardian's Frontend app on your local machine, require the updated Atom Renderer package 
 and run Frontend. 
 
