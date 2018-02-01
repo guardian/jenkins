@@ -6,10 +6,6 @@
   padding-bottom: 25px;
 }
 
-.atom--commonsdivision__label {
-  display: inline;
-}
-
 .atom--commonsdivision__header {
   &.atom--snippet__header {
     margin-bottom: 0;
@@ -26,10 +22,7 @@
 .atom--commonsdivision__date {
   font-weight: normal;
   font-size: 11px;
-  line-height: 22px;
   color: $neutral-2;
-  float: right;
-  margin-right: 5px;
 }
 
 .atom--commonsdivision__party {
@@ -113,8 +106,11 @@
   }
 }
 
-.atom--commonsdivision__totals-table tr {
+.from-content-api .atom--commonsdivision__totals-table tr {
   border-bottom: 1px solid #b2b2b2;
+  td, th {
+    font-size: 17px;
+  }
 }
 
 .atom--commonsdivision__party-table tbody {

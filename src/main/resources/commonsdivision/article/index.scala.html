@@ -68,11 +68,11 @@
   <details class="atom atom--snippet atom--commonsdivision">
     <summary class="atom--snippet__header atom--commonsdivision__header">
       <span class="atom--snippet__label atom--commonsdivision__label">Commons vote</span>
+
+      <h4 class="atom--snippet__headline">'@Html(title)'</h4>
       <time class="atom--commonsdivision__date" datetime="@{GuardianDateFormatter.toMachineValue(data.date)}">
       @GuardianDateFormatter.toCustomFormat(data.date, "dd MMMM yyyy")
       </time>
-
-      <h4 class="atom--snippet__headline">'@Html(title)'</h4>
       <span class="atom--commonsdivision__description">@Html(description)</span>
 
       <table class="atom--commonsdivision__table atom--commonsdivision__totals-table">
