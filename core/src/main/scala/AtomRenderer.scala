@@ -13,6 +13,7 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
+import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import renderers.{Renderings, Rendering}
 import renderers.email.Hydrator
 
@@ -42,6 +43,7 @@ trait AtomRenderer {
     case AtomData.Review(data)         => getHTML(atom, data, conf)
     case AtomData.Storyquestions(data) => getHTML(atom, data, conf)
     case AtomData.Timeline(data)       => getHTML(atom, data, conf)
+    case AtomData.CommonsDivision(data) => getHTML(atom, data, conf)
     case _                             => atom.defaultHtml
   }
 
@@ -64,6 +66,7 @@ trait AtomRenderer {
     case AtomType.Review         => getCSS[ReviewAtom]
     case AtomType.Storyquestions => getCSS[StoryQuestionsAtom]
     case AtomType.Timeline       => getCSS[TimelineAtom]
+    case AtomType.Commonsdivision => getCSS[CommonsDivision]
     case _                       => None
   }
 
@@ -83,6 +86,7 @@ trait AtomRenderer {
     case AtomType.Review         => getJS[ReviewAtom]
     case AtomType.Storyquestions => getJS[StoryQuestionsAtom]
     case AtomType.Timeline       => getJS[TimelineAtom]
+    case AtomType.Commonsdivision => getJS[CommonsDivision]
     case _                       => None
   }
 

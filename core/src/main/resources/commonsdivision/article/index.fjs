@@ -1,0 +1,50 @@
+//@flow
+import { fromEvent } from 'events-getter';
+
+type CommonsDivisionF = {
+  parties: HTMLElement[]
+};
+
+type CommonsDivision = CommonsDivisionF & Atom;
+
+export default ({
+  ophan,
+  dom,
+  viewport
+}: Services): AtomBuilder<CommonsDivisionF> => (
+  root: HTMLElement
+): Coeval<CommonsDivision> => {
+
+  const start = (c: CommonsDivision): Promise<void> => {
+
+    c.parties.forEach(party => {
+      const button = (party.querySelector('.atom--commonsdivision__party-handle'): ?HTMLElement);
+
+      const expandParty = fromEvent('click', button)
+        .map((e: Event) => {
+          Array.from(button.children).forEach(child => {
+            child.classList.toggle('is-off');
+          });
+          const mps = (party.querySelector('.atom--commonsdivision__party-mps'): ?HTMLElement);
+          mps.classList.toggle('is-off');
+        });
+    });
+    return Promise.resolve();
+  };
+
+  const runTry = (): Try<CommonsDivision> => {
+    const parties = Array.from(root.querySelectorAll('.atom--commonsdivision__party'));
+
+    return parties ? Object.freeze({
+      parties,
+      atomId: root.id,
+      stop,
+      start(): Promise<void> {
+        return start(this);
+      }
+    })
+    : 'Some elements were missing when initialising atom';
+  };
+
+  return Object.freeze({ runTry });
+};

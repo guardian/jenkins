@@ -1,0 +1,105 @@
+@import com.gu.contentatom.renderer.utils.GuardianDateFormatter
+@import com.gu.contentatom.thrift.atom.commonsdivision.Mp
+
+@(atom: com.gu.contentatom.thrift.Atom
+, data: com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
+)
+
+@partyClassName(name: String) = @{
+  val shortName = name match {
+    case "Conservative" => "tory"
+    case "Labour" => "labour"
+    case "Democratic Unionist Party" => "dup"
+    case "Liberal Democrat" => "libdem"
+    case "Green Party" => "green"
+    case "Plaid Cymru" => "plaid"
+    case "Scottish National Party" => "snp"
+    case _ => "default"
+  }
+  s"atom--commonsdivision__party-$shortName"
+}
+
+@partyDisplayName(name: String) = @{
+  name match {
+    case "Democratic Unionist Party" => "DUP"
+    case "Scottish National Party" => "SNP"
+    case "Liberal Democrat" => "Lib Dem"
+    case "Green Party" => "Green"
+    case other => other
+  }
+}
+
+@uniqueNames(a: Set[String], b: Set[String]) = @{ (a | b).toList.sorted }
+
+@partiesTable(ayes: Map[String, Seq[Mp]], noes: Map[String, Seq[Mp]]) = {
+  <div class="atom--commonsdivision__parties">
+    <table class="atom--commonsdivision__table atom--commonsdivision__party-table">
+    @uniqueNames(ayes.keySet, noes.keySet).map { partyName =>
+      <tbody class="atom--commonsdivision__party @partyClassName(partyName)">
+        <tr class="atom--commonsdivision__party-header">
+          <td>@partyDisplayName(partyName)</td>
+          <td>@ayes.get(partyName).map(_.length).getOrElse("-")</td>
+          <td>@noes.get(partyName).map(_.length).getOrElse("-")</td>
+          <td>
+            <button class="atom__button atom--commonsdivision__party-handle">
+              <span class="atom--commonsdivision__party-button">
+              @fragments.icons.html.plus()
+              </span>
+              <span class="atom--commonsdivision__party-button is-off">
+              @fragments.icons.html.minus()
+              </span>
+            </button>
+          </td>
+        </tr>
+        <tr class="atom--commonsdivision__party-mps is-off">
+          <td></td>
+          <td><ul>@ayes.getOrElse(partyName, Nil).map { mp => <li>@mp.name</li>}</ul></td>
+          <td><ul>@noes.getOrElse(partyName, Nil).map { mp => <li>@mp.name</li>}</ul></td>
+          <td></td>
+        </tr>
+      </tbody>
+    }
+    </table>
+  </div>
+}
+
+@for(title <- atom.title; description <- data.description) {
+
+  <details class="atom atom--snippet atom--commonsdivision">
+    <summary class="atom--snippet__header atom--commonsdivision__header">
+      <span class="atom--snippet__label atom--commonsdivision__label">Commons vote</span>
+
+      <h4 class="atom--snippet__headline">'@Html(title)'</h4>
+      <time class="atom--commonsdivision__date" datetime="@{GuardianDateFormatter.toMachineValue(data.date)}">
+      @GuardianDateFormatter.toCustomFormat(data.date, "dd MMMM yyyy")
+      </time>
+      <span class="atom--commonsdivision__description">@Html(description)</span>
+
+      <table class="atom--commonsdivision__table atom--commonsdivision__totals-table">
+        <tbody>
+          <tr class="atom--commonsdivision__totals-header">
+            <th></th>
+            <th>Ayes</th>
+            <th>Noes</th>
+            <th></th>
+          </tr>
+          <tr class="atom--commonsdivision__totals">
+            <td>Total</td>
+            <td>@data.votes.ayes.length</td>
+            <td>@data.votes.noes.length</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="atom__button atom__button--large atom__button--rounded atom--snippet__handle" aria-hidden="true">
+        <span class="is-on">@{fragments.icons.html.plus()} Show parties</span>
+        <span class="is-off">@{fragments.icons.html.minus()} Hide parties</span>
+      </button>
+    </summary>
+
+    <div class="atom--snippet__body atom--commonsdivision__body">
+      @{partiesTable(data.votes.ayes.groupBy(_.party), data.votes.noes.groupBy(_.party))}
+    </div>
+  </details>
+}

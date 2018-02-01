@@ -2,6 +2,7 @@ package com.gu.contentatom.renderer
 package renderers
 
 import com.gu.contentatom.thrift.Atom
+import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
 import com.gu.contentatom.thrift.atom.guide.GuideAtom
@@ -73,5 +74,9 @@ object DefaultRenderings extends Renderings {
 
   val timelineRendering = new DefaultRendering[TimelineAtom] {
     val html_impl = (atom, data) => timeline.default.html.index(atom, data)
+  }
+
+  val commonsdivisionRendering = new DefaultRendering[CommonsDivision] {
+    val html_impl = (atom, data) => commonsdivision.default.html.index(atom, data)
   }
 }

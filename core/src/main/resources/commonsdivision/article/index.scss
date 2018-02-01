@@ -1,0 +1,147 @@
+@import "vars";
+@import "atoms/buttons";
+@import "atoms/snippet";
+
+.atom--commonsdivision {
+  padding-bottom: 25px;
+}
+
+.atom--commonsdivision__header {
+  &.atom--snippet__header {
+    margin-bottom: 0;
+  }
+}
+
+.atom--commonsdivision__description {
+  font-weight: normal;
+  padding-top: 8px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.atom--commonsdivision__date {
+  font-weight: normal;
+  font-size: 11px;
+  color: $neutral-2;
+}
+
+.atom--commonsdivision__party {
+  border-bottom: 1px solid #B3B3B4;
+  padding-left: 3px;
+
+  background-size: 5px 5px;
+  background-repeat: repeat-y;
+  background-position: top left;
+}
+
+.atom--commonsdivision__party tr td:first-child {
+  padding-left: 7px;
+}
+
+.atom--commonsdivision__party-handle {
+  padding: 0;
+  border: 1px solid $neutral-2;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+
+  .icon {
+    width: 18px;
+    height: 8px;
+  }
+}
+
+.atom--commonsdivision__party-default {
+  background-image: linear-gradient(#B3B3B4,#B3B3B4);
+}
+
+.atom--commonsdivision__party-tory {
+  background-image: linear-gradient(#005789,#005789);
+}
+
+.atom--commonsdivision__party-labour {
+  background-image: linear-gradient(#E31F26,#E31F26);
+}
+
+.atom--commonsdivision__party-dup {
+  background-image: linear-gradient(#7D0069,#7D0069);
+}
+
+.atom--commonsdivision__party-green {
+  background-image: linear-gradient(#33A22B,#33A22B);
+}
+
+.atom--commonsdivision__party-libdem {
+  background-image: linear-gradient(#FFB900,#FFB900);
+}
+
+.atom--commonsdivision__party-snp {
+  background-image: linear-gradient(#FCDD03,#FCDD03);
+}
+
+.atom--commonsdivision__party-plaid {
+  background-image: linear-gradient(#4a7801,#4a7801);
+}
+
+.from-content-api .atom--commonsdivision__table {
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 0;
+  table-layout: fixed;
+
+  td:first-child, th:first-child {
+    min-width: 120px;
+    width: 28%;
+  }
+
+  td:last-child, th:last-child {
+    width: 12px;
+    padding: 8px;
+  }
+
+  td, th {
+    padding: 5px;
+    background: transparent !important;
+  }
+}
+
+.from-content-api .atom--commonsdivision__totals-table tr {
+  border-bottom: 1px solid #b2b2b2;
+  td, th {
+    font-size: 17px;
+  }
+}
+
+.atom--commonsdivision__party-table tbody {
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.atom--commonsdivision__totals-header {
+  color: $c-pillar--news;
+}
+
+.atom--commonsdivision__table .atom--commonsdivision__party-mps {
+  vertical-align: top;
+
+  td {
+    padding: 1px;
+  }
+}
+
+.from-content-api .atom--commonsdivision__party-mps ul {
+  overflow-y: auto;
+  max-height: 100px;
+  line-height: 13px;
+  margin-top: 5px;
+  font-size: 12px;
+  font-weight: normal;
+
+  li {
+    padding-bottom: 5px;
+  }
+
+  li::before {
+    content: none;
+  }
+}
