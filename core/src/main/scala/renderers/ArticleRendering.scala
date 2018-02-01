@@ -114,7 +114,8 @@ object ArticleRenderings extends Renderings {
   }
 
   val commonsdivisionRendering = new ArticleRendering[CommonsDivision] {
-    val html_impl = (atom, data) => commonsdivision.article.html.index(atom, data)
+    def html[C <: Conf](atom: Atom, data: CommonsDivision)(implicit conf: C) =
+      commonsdivision.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/commonsdivision/article/index.css")
     val js_impl = () => LoadFromClasspath("/commonsdivision/article/index.js")
   }
