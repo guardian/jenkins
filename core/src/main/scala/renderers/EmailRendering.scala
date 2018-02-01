@@ -2,6 +2,7 @@ package com.gu.contentatom.renderer
 package renderers
 
 import com.gu.contentatom.thrift.Atom
+import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
 import com.gu.contentatom.thrift.atom.guide.GuideAtom
@@ -14,9 +15,7 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
-
 import play.twirl.api.Html
-
 import utils.LoadFromClasspath
 
 trait EmailRendering[A] extends Rendering[A] {
@@ -99,6 +98,12 @@ object EmailRenderings extends Renderings {
     def html[C <: Conf](atom: Atom, data: TimelineAtom)(implicit conf: C) =
       timeline.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/timeline/email/index.css")
+  }
+
+  val commonsdivisionRendering = new EmailRendering[CommonsDivision] {
+    def html[C <: Conf](atom: Atom, data: CommonsDivision)(implicit conf: C) =
+      commonsdivision.email.html.index(atom, data)
+    val css_impl = () => LoadFromClasspath("/commonsdivision/email/index.css")
   }
 }
     
