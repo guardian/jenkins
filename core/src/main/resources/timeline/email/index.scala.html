@@ -5,34 +5,36 @@
 , data: com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 )(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
 
-@fragments.email.html.snippet(
-  atom, 
-  className = "timeline", 
-  label = data.typeLabel.getOrElse("Timeline"), 
-  headline = atom.title.getOrElse("") 
-){
-  <table width="100%" cellspacing="0" cellpadding="0" border="0">
-    @for(
-      description <- data.description
-    ) {
-      <tr><td class="atom--snippet__description">@Html(description)</td></tr>      
-    } 
-    
-    @for(
-      item <- data.events
-    ) { 
-      <tr class="atom--snippet__item">
-        <td class="atom--snippet__event-date">
-          <span>@item.renderFormattedDate(item.date, item.dateFormat)</span>
-          @item.toDate.map { maybeDate => –
-            <span>@item.renderFormattedDate(maybeDate, item.dateFormat)</span>
-          }
-        </td>
-      </tr>
-      <tr><td class="atom--snippet__heading"><b>@item.title</b></td></tr>
-      @item.body.map { body =>
-        <tr><td class="atom--snippet__body">@Html(body)</td></tr>
-      }
-    } 
-  </table>
+@fragments.email.html.email(atom){
+  @fragments.email.html.snippet(
+    atom, 
+    className = "timeline", 
+    label = data.typeLabel.getOrElse("Timeline"), 
+    headline = atom.title.getOrElse("") 
+  ){
+    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+      @for(
+        description <- data.description
+      ) {
+        <tr><td class="atom--snippet__description">@Html(description)</td></tr>      
+      } 
+      
+      @for(
+        item <- data.events
+      ) { 
+        <tr class="atom--snippet__item">
+          <td class="atom--snippet__event-date">
+            <span>@item.renderFormattedDate(item.date, item.dateFormat)</span>
+            @item.toDate.map { maybeDate => –
+              <span>@item.renderFormattedDate(maybeDate, item.dateFormat)</span>
+            }
+          </td>
+        </tr>
+        <tr><td class="atom--snippet__heading"><b>@item.title</b></td></tr>
+        @item.body.map { body =>
+          <tr><td class="atom--snippet__body">@Html(body)</td></tr>
+        }
+      } 
+    </table>
+  }
 }
