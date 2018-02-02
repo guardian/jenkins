@@ -3,7 +3,7 @@ package utils
 // -----------------------------------------------------------------------------
 import cats.Monad
 import cats.data.Kleisli
-import com.gu.contentapi.client.GuardianContentClient
+import com.gu.contentapi.client.ContentApiClientLogic
 import com.gu.contentatom.thrift.{Atom, AtomType}
 
 import java.io._
@@ -25,10 +25,13 @@ trait Save[F[_]] {
 
 // -----------------------------------------------------------------------------
 // Interpreters
-class IoCapiRenderer(apiKey: String) extends Capi[Task] with CapiRenderer[Task] with Save[Task] {
+class IoCapiRenderer(_apiKey: String, _targetUrl: String = "https://content.guardianapis.com") extends Capi[Task] with CapiRenderer[Task] with Save[Task] {
   import cats.implicits._
 
-  val client = new GuardianContentClient(apiKey)
+  val client = new ContentApiClientLogic { 
+    override val apiKey = _apiKey
+    override val targetUrl = _targetUrl
+  }
 
   val articleConfig = ArticleConfiguration("http://localhost")
   val emailConfig = EmailConfiguration(
@@ -77,7 +80,7 @@ class IoCapiRenderer(apiKey: String) extends Capi[Task] with CapiRenderer[Task] 
 }
 
 object IoCapiRenderer {
-  def apply(apiKey: String) = Task {
-    new IoCapiRenderer(apiKey)
+  def apply(apiKey: String, targetUrl: String) = Task {
+    new IoCapiRenderer(apiKey, targetUrl)
   }
 }
