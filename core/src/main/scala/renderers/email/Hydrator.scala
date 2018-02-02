@@ -43,7 +43,9 @@ object Hydrator {
     val doc = document(html)
     val rules = stylesheet(css)
     rules.foreach(run(doc, _)) // ಥ﹏ಥ
-    doc.charset(java.nio.charset.StandardCharsets.UTF_8)
+    doc
+      .outputSettings(doc.outputSettings.syntax(Document.OutputSettings.Syntax.xml))
+      .charset(java.nio.charset.StandardCharsets.UTF_8)
     doc.body.html
   }
 
