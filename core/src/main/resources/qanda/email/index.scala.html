@@ -2,37 +2,39 @@
 , data: com.gu.contentatom.thrift.atom.qanda.QAndAAtom
 )(implicit conf: com.gu.contentatom.renderer.EmailConfiguration)
 
-@fragments.email.html.snippet( 
-  atom, 
-  className = "qanda", 
-  label = data.typeLabel.getOrElse("Q&amp;A"), 
-  headline = atom.title.getOrElse("")
-){ 
-  <table cellspacing="0" cellpadding="0" border="0">
-    <tr>
-      <td width="100">
-        @for(
-          img <- data.eventImage 
-        ) { 
-          @fragments.atoms.html.snippetImage(img)
-        } 
-      </td>
-      <td width="10"></td>
-      <td width="470">
-        @Html(data.item.body) 
-      </td>
-    </tr>
-    
-    @for( 
-      img <- data.eventImage;
-      asset <- img.master; 
-      credit <- asset.credit 
-    ) { 
+@fragments.email.html.email(atom){
+  @fragments.email.html.snippet( 
+    atom, 
+    className = "qanda", 
+    label = data.typeLabel.getOrElse("Q&amp;A"), 
+    headline = atom.title.getOrElse("")
+  ){ 
+    <table cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td colspan="3" class="atom--snippet__credit">
-          @credit
+        <td width="100">
+          @for(
+            img <- data.eventImage 
+          ) { 
+            @fragments.atoms.html.snippetImage(img)
+          } 
+        </td>
+        <td width="10"></td>
+        <td width="470">
+          @Html(data.item.body) 
         </td>
       </tr>
-    }
-  </table>
+      
+      @for( 
+        img <- data.eventImage;
+        asset <- img.master; 
+        credit <- asset.credit 
+      ) { 
+        <tr>
+          <td colspan="3" class="atom--snippet__credit">
+            @credit
+          </td>
+        </tr>
+      }
+    </table>
+  }
 }
