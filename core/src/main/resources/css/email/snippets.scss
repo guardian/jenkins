@@ -29,11 +29,11 @@ p {
 }
 
 .atom--snippet__label {
-  color: $c-pillar--news;
+  color: var(--c-pillar--main);
 }
 
 .atom--snippet__rule {
-  background: $c-pillar--news content-box;
+  background: var(--c-pillar--main) content-box;
 }
 
 .atom--snippet__image {
@@ -46,7 +46,7 @@ p {
 }
 
 .atom--snippet__body a {
-  color: $c-pillar--news;
+  color: var(--c-pillar--main);
   text-decoration-color: $neutral-4;
   text-decoration-skip-ink: auto; 
 }
