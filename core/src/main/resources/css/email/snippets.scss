@@ -28,12 +28,12 @@ p {
   width: 600px;
 }
 
-.atom--snippet__label {
-  color: var(--c-pillar--main);
+.atom--snippet__main {
+  border-top: 1px solid var(--c-pillar--main);
 }
 
-.atom--snippet__rule {
-  background: var(--c-pillar--main) content-box;
+.atom--snippet__label {
+  color: var(--c-pillar--main);
 }
 
 .atom--snippet__image {
