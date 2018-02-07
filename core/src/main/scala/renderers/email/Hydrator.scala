@@ -3,7 +3,7 @@ package renderers
 package email
 
 import org.jsoup.Jsoup
-import org.jsoup.nodes.{ Document, Element }
+import org.jsoup.nodes.{ Document, Element, Entities }
 import org.jsoup.safety.Whitelist
 
 import collection.JavaConverters._
@@ -42,9 +42,12 @@ object Hydrator {
   def apply(html: String, css: String): String = {
     val doc = document(html)
     val rules = stylesheet(css)
+    val settings = doc.outputSettings
+      .syntax(Document.OutputSettings.Syntax.xml)
+      .escapeMode(Entities.EscapeMode.xhtml)
     rules.foreach(run(doc, _)) // ಥ﹏ಥ
     doc
-      .outputSettings(doc.outputSettings.syntax(Document.OutputSettings.Syntax.xml))
+      .outputSettings(settings)
       .charset(java.nio.charset.StandardCharsets.UTF_8)
     doc.body.html
   }
