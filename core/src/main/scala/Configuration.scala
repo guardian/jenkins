@@ -12,12 +12,10 @@ final case class ArticleConfiguration(
 ) extends Configuration
 
 final case class EmailConfiguration(
-  campaignServiceUrl: String,
+  viewInBrowserUrl: String,
   siteUrl: String,
   logoUrl: String,
   userProfileUrl: String,
-  unsubscribeUrl: String
-) extends Configuration {
-  def viewInBrowserUrl: Atom => String = atom =>
-    s"${campaignServiceUrl}/preview/${atom.id}"
-}
+  unsubscribeUrl: String,
+  supportTheGuardianUrl: String
+) extends Configuration
