@@ -47,7 +47,7 @@ object Hydrator {
       .escapeMode(Entities.EscapeMode.xhtml)
     rules.foreach(run(doc, _)) // ಥ﹏ಥ
     doc
-      .outputSettings(doc.outputSettings.syntax(Document.OutputSettings.Syntax.xml))
+      .outputSettings(settings)
       .charset(java.nio.charset.StandardCharsets.UTF_8)
     doc.body.html
   }
