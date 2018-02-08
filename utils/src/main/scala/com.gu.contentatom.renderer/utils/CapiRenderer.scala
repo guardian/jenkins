@@ -35,11 +35,12 @@ class IoCapiRenderer(_apiKey: String, _targetUrl: String = "https://content.guar
 
   val articleConfig = ArticleConfiguration("http://localhost")
   val emailConfig = EmailConfiguration(
-    "http://localhost",
-    "http://localhost",
-    "http://localhost",
-    "http://localhost",
-    "http://localhost"
+    viewInBrowserUrl = "http://localhost",
+    siteUrl = "http://localhost",
+    logoUrl = "http://localhost",
+    userProfileUrl = "http://localhost",
+    unsubscribeUrl = "http://localhost",
+    supportTheGuardianUrl = "http://localhost"
   )
 
   def getAtom = Kleisli { case ((id, typ)) =>
