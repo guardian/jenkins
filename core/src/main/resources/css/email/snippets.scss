@@ -1,4 +1,5 @@
 @import '_vars';
+@import 'atoms/buttons';
 
 img { max-width: 100%; }
 
@@ -30,6 +31,7 @@ p {
 
 .atom--snippet__main {
   border-top: 1px solid var(--c-pillar--main);
+  border-bottom: 1px solid var(--c-pillar--main);
 }
 
 .atom--snippet__label {
@@ -69,4 +71,10 @@ p {
 .legalese {
   font-size: 10px;
   line-height: 14px;
+}
+
+.atom__button {
+  background-color: var(--c-pillar--main);
+  color: white;
+  padding: $baseline $gutter;
 }
