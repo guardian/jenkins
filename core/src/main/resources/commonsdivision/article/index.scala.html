@@ -1,9 +1,10 @@
 @import com.gu.contentatom.renderer.utils.GuardianDateFormatter
 @import com.gu.contentatom.thrift.atom.commonsdivision.Mp
 
+@import com.gu.contentatom.renderer.ArticleConfiguration
 @(atom: com.gu.contentatom.thrift.Atom
 , data: com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
-)
+)(implicit conf: ArticleConfiguration)
 
 @partyClassName(name: String) = @{
   val shortName = name match {
@@ -41,22 +42,26 @@
           <td>@ayes.get(partyName).map(_.length).getOrElse("-")</td>
           <td>@noes.get(partyName).map(_.length).getOrElse("-")</td>
           <td>
-            <button class="atom__button atom--commonsdivision__party-handle">
-              <span class="atom--commonsdivision__party-button">
-              @fragments.icons.html.plus()
-              </span>
-              <span class="atom--commonsdivision__party-button is-off">
-              @fragments.icons.html.minus()
-              </span>
-            </button>
+            @if(conf.commonsdivisionConfiguration.showMps) {
+              <button class="atom__button atom--commonsdivision__party-handle">
+                <span class="atom--commonsdivision__party-button">
+                @fragments.icons.html.plus()
+                </span>
+                <span class="atom--commonsdivision__party-button is-off">
+                @fragments.icons.html.minus()
+                </span>
+              </button>
+            }
           </td>
         </tr>
+        @if(conf.commonsdivisionConfiguration.showMps) {
         <tr class="atom--commonsdivision__party-mps is-off">
           <td></td>
           <td><ul>@ayes.getOrElse(partyName, Nil).map { mp => <li>@mp.name</li>}</ul></td>
           <td><ul>@noes.getOrElse(partyName, Nil).map { mp => <li>@mp.name</li>}</ul></td>
           <td></td>
         </tr>
+        }
       </tbody>
     }
     </table>
