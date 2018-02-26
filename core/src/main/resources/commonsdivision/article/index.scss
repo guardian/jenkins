@@ -103,7 +103,12 @@
   td, th {
     padding: 5px;
     background: transparent !important;
+    border-bottom: none;
   }
+}
+
+.atom--commonsdivision .atom--commonsdivision__table {
+  border-top: none;
 }
 
 .from-content-api .atom--commonsdivision__totals-table tr {
@@ -144,4 +149,8 @@
   li::before {
     content: none;
   }
+}
+
+.is-off {
+  display: none;
 }

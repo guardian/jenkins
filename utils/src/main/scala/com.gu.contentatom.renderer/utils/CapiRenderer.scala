@@ -5,8 +5,9 @@ import cats.Monad
 import cats.data.Kleisli
 import com.gu.contentapi.client.ContentApiClientLogic
 import com.gu.contentatom.thrift.{Atom, AtomType}
-
 import java.io._
+
+import com.gu.contentatom.renderer.ArticleConfiguration.CommonsdivisionConfiguration
 import monix.execution.Scheduler.Implicits.global
 import monix.eval.Task
 // -----------------------------------------------------------------------------
@@ -33,7 +34,7 @@ class IoCapiRenderer(_apiKey: String, _targetUrl: String = "https://content.guar
     override val targetUrl = _targetUrl
   }
 
-  val articleConfig = ArticleConfiguration("http://localhost")
+  val articleConfig = ArticleConfiguration("http://localhost", CommonsdivisionConfiguration(true))
   val emailConfig = EmailConfiguration(
     viewInBrowserUrl = "http://localhost",
     siteUrl = "http://localhost",
