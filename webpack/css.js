@@ -1,7 +1,7 @@
-module.exports = ({ cssVarsPath }) => [
+module.exports = () => [
   {
     test: /stylesheets\/atoms\.scss$/,
-    use: ['babel-loader', 'postcss-variables-loader', 'sass-loader']
+    use: ['babel-loader']
   },
   {
     test: /@guardian\/atom-renderer\/dist\/.+\.css$/,
@@ -14,15 +14,8 @@ module.exports = ({ cssVarsPath }) => [
           ident: 'postcss',
           plugins: () => [
             require('postcss-import')(),
-            require('autoprefixer')(),
-            require('postcss-css-variables')()
+            require('autoprefixer')()
           ]
-        }
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          data: `@import '${cssVarsPath}';`
         }
       }
     ]
