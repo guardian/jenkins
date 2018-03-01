@@ -17,7 +17,7 @@ object Hydrator {
     .addAttributes(":all", "align", "valign", "style", "class", "width", "height")
 
   def document: String => Document = 
-    doc => Jsoup.parse(Jsoup.clean(doc, whitelist))
+    doc => Jsoup.parse(doc)
 
   def stylesheet: String => List[CSSRuleset] =
     CSS.parseCss(_)
