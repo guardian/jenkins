@@ -15,7 +15,7 @@ lazy val root = (project in file("."))
 
 lazy val core = (project in file("core"))
   .settings(commonSettings, coreSettings, publishSettings, twirlSettings)
-  .enablePlugins(SbtTwirl)
+  .enablePlugins(SbtTwirl, SbtWeb)
 
 lazy val email = (project in file("email"))
   .dependsOn(core)
@@ -39,6 +39,8 @@ lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++
 lazy val coreSettings: Seq[Setting[_]] = 
   Seq ( name      := Metadata.ghProject
       , publishTo := sonatypePublishTo.value
+      , WebKeys.pipeline := WebKeys.pipeline.dependsOn(webpack.toTask("")).value
+      , WebpackKeys.config in webpack := file("apps.config.js")
       )
 
 lazy val emailSettings: Seq[Setting[_]] = 
