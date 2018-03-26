@@ -1,0 +1,174 @@
+@import "vars";
+@import "helpers/multiline";
+@import "helpers/scale";
+
+.atom--snippet > summary {
+    outline: none;
+}
+
+.atom--snippet > summary::-webkit-details-marker {
+    display: none;
+}
+
+.atom--snippet {
+    @include multiline(4, $neutral-4);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    background: $neutral-7;
+    position: relative;
+    padding: 0 ($gutter / 4) ($baseline / 2);
+    margin: ($baseline * 4 / 3) 0 ($baseline * 3);
+}
+
+.atom--snippet a {
+    color: $news-main-1;
+    border-bottom-color: $neutral-3;
+}
+
+.atom--snippet[open] .atom--snippet__handle > :nth-child(1),
+.atom--snippet:not([open]) .atom--snippet__handle > :nth-child(2) {
+    display: none;
+}
+
+.atom--snippet__header {
+    margin: 0 0 ($baseline * 4 / 3);
+    font-weight: bold;
+}
+
+.atom--snippet__label {
+    display: block;
+    color: var(--c-pillar--main);
+}
+
+.atom--snippet__label,
+.atom--snippet__headline {
+    @include headline(3);
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
+}
+
+.atom--snippet__handle,
+.atom--snippet__feedback,
+.atom--snippet__credit {
+    font-family: var(--f-sans-serif-text);
+}
+
+.atom--snippet__handle {
+    font-size: 13px;
+    position: absolute;
+    bottom: 0;
+    transform: translate(0, 50%);
+    padding: 0 15px 0 7px;
+}
+
+.atom--snippet__handle,
+.atom--snippet__feedback .atom__button {
+    background: $neutral-1;
+    color: #ffffff;
+}
+
+.atom--snippet__feedback .atom__button:hover,
+.atom--snippet__feedback .atom__button:focus,
+.atom--snippet__handle:hover,
+.atom--snippet__handle:focus {
+    background-color: var(--c-pillar--main);
+}
+
+.atom--snippet__handle span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.atom--snippet__handle .icon {
+    fill: white;
+    width: 20px;
+    height: 20px;
+    margin-right: $gutter / 2;
+}
+
+.atom--snippet__body {
+    overflow: hidden;
+}
+
+.atom--snippet__body > p::before {
+    background-color: $news-support-2;
+}
+
+.atom--snippet__footer {
+    @include textSans(2);
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.atom--snippet__feedback:not([hidden]) {
+    display: flex;
+    align-items: center;
+}
+
+.atom--snippet__feedback .atom__button {
+    margin: 0 0 0 ($gutter / 4);
+    padding: 0;
+    width: 28px;
+    height: 28px;
+}
+
+.atom--snippet__feedback .atom__button[value='dislike'] {
+    transform: rotate(180deg);
+}
+
+.atom--snippet__feedback .atom__button,
+.atom--snippet__feedback .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.atom--snippet__feedback .icon {
+    width: 16px;
+    height: 16px;
+}
+
+.atom--snippet__feedback path {
+    fill: currentColor;
+}
+
+/** THEMING */
+
+.atom--snippet__image {
+    float: left;
+    margin-right: $gutter / 2;
+    margin-bottom: $baseline / 2;
+    
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+
+    border-radius: 50%;
+}
+
+.atom--snippet__heading {
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
+}
+
+.atom--snippet__credit {
+    @include textSans(2);
+    margin: $baseline 0;
+    
+    > .inline-icon {
+        display: inline-flex;
+        background: $neutral-3;
+        border-radius: 100%;
+        width: 16px;
+        height: 16px;
+        align-items: center;
+        justify-content: center;
+        margin-right: $gutter / 4;
+
+        > .icon {
+            height: 12px;
+        }
+    }
+}

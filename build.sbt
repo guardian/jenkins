@@ -1,7 +1,7 @@
 import ReleaseTransformations._
 import Dependencies._
 
-lazy val commonSettings = Seq(
+lazy val commonSettings: Seq[Setting[_]] = Seq(
   organization := "com.gu",
   scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds"),
   scalaVersion := "2.12.4",
@@ -11,7 +11,7 @@ lazy val commonSettings = Seq(
   excludeFilter in Compile in unmanagedResources := "*.fjs" || "*.scss"
 )
 
-lazy val coreSettings = Seq(
+lazy val coreSettings: Seq[Setting[_]] = Seq(
   name := "atom-renderer",
   crossScalaVersions := Seq("2.11.11", "2.12.4"),
   releaseCrossBuild := true,
@@ -38,17 +38,22 @@ lazy val coreSettings = Seq(
   )
 )
 
-lazy val publishSettings = Seq(
+lazy val emailSettings: Seq[Setting[_]] = Seq(
+  name := "atom-renderer-email",
+  libraryDependencies ++= emailDeps
+)
+
+lazy val publishSettings: Seq[Setting[_]] = Seq(
   sonatypeProfileName := "com.gu",
   publishMavenStyle := true,
   licenses := Seq("APL2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
-  homepage := Some(url("https://(your project url)")),
   scmInfo := Some(
     ScmInfo(
       url("https://github.com/guardian/atom-renderer"),
       "scm:git@github.com:guardian/atom-renderer.git"
     )
   ),
+  homepage := scmInfo.value.map(_.browseUrl),
   developers := List(
     Developer(id="regiskuckaertz", name="Regis Kuckaertz", email="regis.kuckaertz@theguardian.com", url=url("https://github.com/regiskuckaertz"))
   )
@@ -63,8 +68,18 @@ lazy val core = (project in file("core"))
   )
   .enablePlugins(SbtTwirl)
 
-lazy val utils = (project in file("utils"))
+lazy val email = (project in file("email"))
   .dependsOn(core)
+  .settings(
+    commonSettings,
+    emailSettings,
+    publishSettings,
+    sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value
+  )
+  .enablePlugins(SbtTwirl)
+
+lazy val utils = (project in file("utils"))
+  .dependsOn(core, email)
   .settings(
     commonSettings,
     libraryDependencies ++= utilsDeps,

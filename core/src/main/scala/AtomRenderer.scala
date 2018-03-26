@@ -15,7 +15,6 @@ import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import renderers.{Renderings, Rendering}
-import renderers.email.Hydrator
 
 trait AtomRenderer {
   protected val renderings: Renderings
@@ -97,13 +96,6 @@ trait AtomRenderer {
 object ArticleAtomRenderer extends AtomRenderer {
   type Conf = ArticleConfiguration
   val renderings = renderers.ArticleRenderings
-}
-
-object EmailAtomRenderer extends AtomRenderer {
-  type Conf = EmailConfiguration
-  val renderings = renderers.EmailRenderings
-
-  override def getHTML(atom: Atom, config: EmailConfiguration): HTML = Hydrator(super.getHTML(atom, config), getCSS(atom.atomType).getOrElse(""))
 }
 
 object DefaultAtomRenderer extends AtomRenderer {

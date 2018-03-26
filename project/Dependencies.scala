@@ -5,8 +5,11 @@ object Dependencies {
 
   val coreDeps = Seq(
     "com.gu"   %% "content-atom-model" % "2.4.61",
-    "org.jsoup" % "jsoup"              % "1.11.2",
     "org.scalacheck" %% "scalacheck"   % "1.13.5" % "test"
+  )
+
+  val emailDeps = Seq(
+    "org.jsoup" % "jsoup"              % "1.11.2"
   )
 
   val utilsDeps = Seq(
