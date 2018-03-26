@@ -1,6 +1,8 @@
 import sbt._
 
 object Dependencies {
+  val scalaVersions = Seq("2.11.11", "2.12.4")
+  
   val coreDeps = Seq(
     "com.gu"   %% "content-atom-model" % "2.4.61"
   )
