@@ -26,59 +26,59 @@ lazy val utils = (project in file("utils"))
   .dependsOn(core, email)
   .settings(commonSettings, utilsSettings, disablePublishingSettings)
 
-lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++ Seq(
-  crossScalaVersions := scalaVersions,
-  scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds"),
-  scalaVersion := scalaVersions.min,
-  libraryDependencies ++= coreDeps,
-  dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1",
-  unmanagedResourceDirectories in Compile += (baseDirectory in ThisBuild).value / "build",
-  excludeFilter in Compile in unmanagedResources := "*.fjs" || "*.scss"
-)
+lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++ 
+  Seq ( crossScalaVersions := scalaVersions
+      , scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds")
+      , scalaVersion := scalaVersions.min
+      , libraryDependencies ++= coreDeps
+      , dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1"
+      , unmanagedResourceDirectories in Compile += (baseDirectory in ThisBuild).value / "build"
+      , excludeFilter in Compile in unmanagedResources := "*.fjs" || "*.scss"
+      )
 
-lazy val coreSettings: Seq[Setting[_]] = Seq(
-  name      := Metadata.ghProject,
-  publishTo := sonatypePublishTo.value,
-)
+lazy val coreSettings: Seq[Setting[_]] = 
+  Seq ( name      := Metadata.ghProject
+      , publishTo := sonatypePublishTo.value
+      )
 
-lazy val emailSettings: Seq[Setting[_]] = Seq(
-  name := Metadata.ghProject + "-email",
-  libraryDependencies ++= emailDeps
-)
+lazy val emailSettings: Seq[Setting[_]] = 
+  Seq ( name := Metadata.ghProject + "-email"
+      , libraryDependencies ++= emailDeps
+      )
 
 lazy val utilsSettings: Seq[Setting[_]] =
-  Seq( libraryDependencies ++= utilsDeps
-     , initialCommands in console := 
-       """import monix.execution.Scheduler.Implicits.global
-         |import com.gu.contentatom.thrift._
-         |import com.gu.contentatom.renderer._
-         |import com.gu.contentatom.renderer.utils._
-       """.stripMargin
-     )
+  Seq ( libraryDependencies ++= utilsDeps
+      , initialCommands in console := 
+        """import monix.execution.Scheduler.Implicits.global
+          |import com.gu.contentatom.thrift._
+          |import com.gu.contentatom.renderer._
+          |import com.gu.contentatom.renderer.utils._
+        """.stripMargin
+      )
 
 
 lazy val twirlSettings: Seq[Setting[_]] = 
-  Seq(sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value)
+  Seq (sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value)
 
-lazy val publishSettings: Seq[Setting[_]] = Seq(
-  sonatypeProfileName := "com.gu",
-  publishMavenStyle := true
-)
+lazy val publishSettings: Seq[Setting[_]] = 
+  Seq ( sonatypeProfileName := "com.gu"
+      , publishMavenStyle := true
+      )
 
 lazy val releasePublishAction: TaskKey[_] = PgpKeys.publishSigned
 lazy val releaseSteps: Seq[ReleaseStep] = 
-  Seq( runClean
-     , checkSnapshotDependencies
-     , inquireVersions
-     , runTest
-     , setReleaseVersion
-     , commitReleaseVersion
-     , tagRelease
-     , releaseStepCommandAndRemaining(s"+${releasePublishAction.key.label}")
-     , setNextVersion
-     , commitNextVersion
-     , pushChanges
-     )
+  Seq ( runClean
+      , checkSnapshotDependencies
+      , inquireVersions
+      , runTest
+      , setReleaseVersion
+      , commitReleaseVersion
+      , tagRelease
+      , releaseStepCommandAndRemaining(s"+${releasePublishAction.key.label}")
+      , setNextVersion
+      , commitNextVersion
+      , pushChanges
+      )
 
 val disablePublishingSettings: Seq[Setting[_]] = 
-  Seq(skip in publish := true)
+  Seq (skip in publish := true)
