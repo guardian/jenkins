@@ -1,6 +1,0 @@
-@(name: String, width: Int, height: Int, viewBox: Boolean = true, classNames: List[String] = Nil)(body: Html)
-<svg class="icon icon--@name @classNames.map("icon--" + _).mkString(" ")" width="@{width}px" height="@{height}px" 
-  @if(viewBox){viewBox="0 0 @width @height"}
-  >
-  @body
-</svg>
