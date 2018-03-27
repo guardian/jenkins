@@ -47,9 +47,10 @@
     "lint": "eslint --ext .fjs src/main/resources",
     "copy": "node ./tools/copy.js",
     "postcss": "postcss build/*/*/*.css -u autoprefixer",
-    "apps": "yarn run appsJS; yarn run appsCSS",
+    "apps": "yarn run appsJS; yarn run appsCSS; yarn run appsEmailCSS",
     "appsJS": "NODE_ENV=production webpack --config apps.config.js",
     "appsCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path core/src/main/resources/css --output build/ core/src/main/resources/; postcss build/*/*/*.css -u autoprefixer --dir build/",
+    "appsEmailCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path core/src/main/resources/css --include-path email/src/main/resources/css --output build/ email/src/main/resources/; postcss build/*/*/*.css -u autoprefixer --dir build/",
     "frontend": "yarn run frontendJS; yarn run copy; yarn run frontendCSS",
     "frontendJS": "NODE_ENV=production webpack --config frontend.config.js",
     "frontendCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path core/src/main/resources/css --output dist/ core/src/main/resources/"
