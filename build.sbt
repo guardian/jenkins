@@ -27,20 +27,20 @@ lazy val utils = (project in file("utils"))
   .settings(commonSettings, utilsSettings, disablePublishingSettings)
 
 lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++ 
-  Seq ( crossScalaVersions := scalaVersions
-      , scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds")
-      , scalaVersion := scalaVersions.min
+  Seq ( crossScalaVersions  := scalaVersions
+      , scalacOptions       ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds")
+      , scalaVersion        := scalaVersions.min
       , libraryDependencies ++= coreDeps
       , dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1"
-      , unmanagedResourceDirectories in Compile += (baseDirectory in ThisBuild).value / "build"
-      , excludeFilter in Compile in unmanagedResources := "*.fjs" || "*.scss"
+      , Compile / unmanagedResourceDirectories       += (ThisBuild / baseDirectory).value / "build"
+      , Compile / unmanagedResources / excludeFilter := "*.fjs" || "*.scss"
       )
 
 lazy val coreSettings: Seq[Setting[_]] = 
   Seq ( name      := Metadata.ghProject
       , publishTo := sonatypePublishTo.value
       , WebKeys.pipeline := WebKeys.pipeline.dependsOn(webpack.toTask("")).value
-      , WebpackKeys.config in webpack := file("apps.config.js")
+      , WebpackKeys.config / webpack := file("apps.config.js")
       )
 
 lazy val emailSettings: Seq[Setting[_]] = 
@@ -50,7 +50,7 @@ lazy val emailSettings: Seq[Setting[_]] =
 
 lazy val utilsSettings: Seq[Setting[_]] =
   Seq ( libraryDependencies ++= utilsDeps
-      , initialCommands in console := 
+      , console / initialCommands := 
         """import monix.execution.Scheduler.Implicits.global
           |import com.gu.contentatom.thrift._
           |import com.gu.contentatom.renderer._
@@ -60,7 +60,8 @@ lazy val utilsSettings: Seq[Setting[_]] =
 
 
 lazy val twirlSettings: Seq[Setting[_]] = 
-  Seq (sourceDirectories in (Compile, TwirlKeys.compileTemplates) += (resourceDirectory in Compile).value)
+  Seq ( Compile / TwirlKeys.compileTemplates / sourceDirectories  += (Compile / resourceDirectory).value
+      )
 
 lazy val publishSettings: Seq[Setting[_]] = 
   Seq ( sonatypeProfileName := "com.gu"
@@ -83,4 +84,4 @@ lazy val releaseSteps: Seq[ReleaseStep] =
       )
 
 val disablePublishingSettings: Seq[Setting[_]] = 
-  Seq (skip in publish := true)
+  Seq (publish / skip := true)
