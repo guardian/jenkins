@@ -17,6 +17,7 @@
   font-family: var(--f-serif-headline);
   font-weight: 500;
   margin-bottom: 0;
+  color: #c70000;
   color: var(--c-pillar--main);
 }
 
@@ -72,6 +73,7 @@
   .atom--readerquestions__form &:hover,
   .atom--readerquestions__form &:focus,
   .atom--readerquestions__form &:active {
+    background-color: #c70000;
     background-color: var(--c-pillar--main);
   }
 }
