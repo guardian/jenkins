@@ -17,7 +17,8 @@
   font-family: var(--f-serif-headline);
   font-weight: 500;
   margin-bottom: 0;
-  color: var(--c-pillar--main);
+  color: $c-pillar--default;
+  color: var(--c-pillar--main, $c-pillar--default);
 }
 
 .atom--readerquestions .atom--readerquestions__description {
@@ -72,7 +73,8 @@
   .atom--readerquestions__form &:hover,
   .atom--readerquestions__form &:focus,
   .atom--readerquestions__form &:active {
-    background-color: var(--c-pillar--main);
+    background-color: $c-pillar--default;
+    background-color: var(--c-pillar--main, $c-pillar--default);
   }
 }
 

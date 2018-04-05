@@ -35,7 +35,8 @@ p {
 }
 
 .atom--snippet__label {
-  color: var(--c-pillar--main);
+  color: $c-pillar--default;
+  color: var(--c-pillar--main, $c-pillar--default);
 }
 
 .atom--snippet__image {
@@ -48,7 +49,8 @@ p {
 }
 
 .atom--snippet__body a {
-  color: var(--c-pillar--main);
+  color: $c-pillar--default;
+  color: var(--c-pillar--main, $c-pillar--default);
   text-decoration-color: $neutral-4;
   text-decoration-skip-ink: auto; 
 }
@@ -74,7 +76,8 @@ p {
 }
 
 .atom__button {
-  background-color: var(--c-pillar--main);
+  background-color: $c-pillar--default;
+  background-color: var(--c-pillar--main, $c-pillar--default);
   color: white;
   padding: $baseline $gutter;
 }
