@@ -37,10 +37,10 @@ lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++
       )
 
 lazy val coreSettings: Seq[Setting[_]] = 
-  Seq ( name      := Metadata.ghProject
-      , publishTo := sonatypePublishTo.value
-      , WebKeys.pipeline := WebKeys.pipeline.dependsOn(webpack.toTask("")).value
-      , WebpackKeys.config / webpack := file("apps.config.js")
+  Seq ( name                         := Metadata.ghProject
+      , publishTo                    := sonatypePublishTo.value
+      , WebKeys.pipeline             := WebKeys.pipeline.dependsOn(webpack.toTask("")).value
+      , webpack / WebpackKeys.config := file("apps.config.js")
       )
 
 lazy val emailSettings: Seq[Setting[_]] = 
