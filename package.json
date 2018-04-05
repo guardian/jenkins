@@ -9,14 +9,14 @@
     "node": ">=8.5.0"
   },
   "dependencies": {
-    "autoprefixer": "^7.1.6",
+    "autoprefixer": "^8.2.0",
     "css-loader": "^0.28.7",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "recursive-copy": "^2.0.7",
-    "sass-mq": "^3.3.2",
-    "style-loader": "^0.19.0",
-    "webpack": "^3.5.6"
+    "sass-mq": "^4.0.2",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -33,12 +33,13 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
-    "flow-bin": "^0.58.0",
+    "flow-bin": "^0.68.0",
     "node-sass": "^4.5.3",
-    "postcss-cli": "^4.1.1",
-    "postcss-variables-loader": "^4.0.0",
+    "postcss-cli": "^5.0.0",
+    "postcss-variables-loader": "^5.0.1",
     "prettier": "^1.8.2",
-    "uglifyjs-webpack-plugin": "^1.0.1"
+    "uglifyjs-webpack-plugin": "^1.0.1",
+    "webpack-cli": "^2.0.13"
   },
   "scripts": {
     "build": "babel src/main/resources",
@@ -46,9 +47,10 @@
     "lint": "eslint --ext .fjs src/main/resources",
     "copy": "node ./tools/copy.js",
     "postcss": "postcss build/*/*/*.css -u autoprefixer",
-    "apps": "yarn run appsJS; yarn run appsCSS",
+    "apps": "yarn run appsJS; yarn run appsCSS; yarn run appsEmailCSS",
     "appsJS": "NODE_ENV=production webpack --config apps.config.js",
     "appsCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path core/src/main/resources/css --output build/ core/src/main/resources/; postcss build/*/*/*.css -u autoprefixer --dir build/",
+    "appsEmailCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path core/src/main/resources/css --include-path email/src/main/resources/css --output build/ email/src/main/resources/; postcss build/*/*/*.css -u autoprefixer --dir build/",
     "frontend": "yarn run frontendJS; yarn run copy; yarn run frontendCSS",
     "frontendJS": "NODE_ENV=production webpack --config frontend.config.js",
     "frontendCSS": "node-sass --output-style compressed --include-path node_modules/sass-mq --include-path core/src/main/resources/css --output dist/ core/src/main/resources/"
