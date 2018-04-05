@@ -35,6 +35,7 @@ p {
 }
 
 .atom--snippet__label {
+  color: #c70000;
   color: var(--c-pillar--main);
 }
 
@@ -48,6 +49,7 @@ p {
 }
 
 .atom--snippet__body a {
+  color: #c70000;
   color: var(--c-pillar--main);
   text-decoration-color: $neutral-4;
   text-decoration-skip-ink: auto; 
@@ -74,6 +76,7 @@ p {
 }
 
 .atom__button {
+  background-color: #c70000;
   background-color: var(--c-pillar--main);
   color: white;
   padding: $baseline $gutter;
