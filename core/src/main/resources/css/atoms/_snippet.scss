@@ -38,8 +38,8 @@
 
 .atom--snippet__label {
     display: block;
-    color: #c70000;
-    color: var(--c-pillar--main);
+    color: $c-pillar--default;
+    color: var(--c-pillar--main, $c-pillar--default);
 }
 
 .atom--snippet__label,
@@ -73,7 +73,7 @@
 .atom--snippet__feedback .atom__button:focus,
 .atom--snippet__handle:hover,
 .atom--snippet__handle:focus {
-    background-color: #c70000;
+    background-color: ;
     background-color: var(--c-pillar--main);
 }
 

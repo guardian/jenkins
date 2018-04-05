@@ -123,8 +123,8 @@
 }
 
 .atom--commonsdivision__totals-header {
-  color: #c70000;
-  color: var(--c-pillar--main);
+  color: $c-pillar--default;
+  color: var(--c-pillar--main, $c-pillar--default);
 }
 
 .atom--commonsdivision__table .atom--commonsdivision__party-mps {
