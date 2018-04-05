@@ -5,6 +5,7 @@ const Uglify = require('uglifyjs-webpack-plugin');
 const atomTypes = require('./webpack/atomTypes');
 
 const createJsSettings = rendering => atomType => ({
+  mode: 'production',
   entry: {
     [atomType]: `./${atomType}/${rendering}/index.fjs`
   },
