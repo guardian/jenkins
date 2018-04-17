@@ -32,13 +32,13 @@ lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++
       , scalaVersion        := scalaVersions.min
       , libraryDependencies ++= coreDeps
       , dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1"
+      , publishTo           := sonatypePublishTo.value
       , Compile / unmanagedResourceDirectories       += (ThisBuild / baseDirectory).value / "build"
       , Compile / unmanagedResources / excludeFilter := "*.fjs" || "*.scss"
       )
 
 lazy val coreSettings: Seq[Setting[_]] = 
   Seq ( name                         := Metadata.ghProject
-      , publishTo                    := sonatypePublishTo.value
       , WebKeys.pipeline             := WebKeys.pipeline.dependsOn(webpack.toTask("")).value
       , webpack / WebpackKeys.config := file("apps.config.js")
       )
