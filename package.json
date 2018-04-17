@@ -11,9 +11,11 @@
   "dependencies": {
     "autoprefixer": "^8.2.0",
     "css-loader": "^0.28.7",
+    "postcss-css-variables": "^0.8.1",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "recursive-copy": "^2.0.7",
+    "sass-loader": "^7.0.1",
     "sass-mq": "^4.0.2",
     "style-loader": "^0.20.3",
     "webpack": "^4.2.0"
