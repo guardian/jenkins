@@ -63,8 +63,8 @@ lazy val twirlSettings: Seq[Setting[_]] =
 lazy val publishSettings: Seq[Setting[_]] = 
   Seq ( sonatypeProfileName := "com.gu"
       , publishMavenStyle   := true
-      , releaseVcsSign      := true,
-      , releaseCrossBuild   := true,
+      , releaseVcsSign      := true
+      , releaseCrossBuild   := true
       , releaseProcess      := releaseSteps
       )
 
