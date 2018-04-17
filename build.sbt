@@ -7,10 +7,7 @@ lazy val root = (project in file("."))
   .settings(commonSettings, disablePublishingSettings)
   .settings(
     Compile / sources := Seq.empty,
-    Test    / sources := Seq.empty,
-    releaseVcsSign    := true,
-    releaseCrossBuild := true,
-    releaseProcess    := releaseSteps
+    Test    / sources := Seq.empty
   )
 
 lazy val core = (project in file("core"))
@@ -65,7 +62,10 @@ lazy val twirlSettings: Seq[Setting[_]] =
 
 lazy val publishSettings: Seq[Setting[_]] = 
   Seq ( sonatypeProfileName := "com.gu"
-      , publishMavenStyle := true
+      , publishMavenStyle   := true
+      , releaseVcsSign      := true,
+      , releaseCrossBuild   := true,
+      , releaseProcess      := releaseSteps
       )
 
 lazy val releasePublishAction: TaskKey[_] = PgpKeys.publishSigned
