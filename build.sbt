@@ -4,7 +4,7 @@ import Dependencies._
 
 lazy val root = (project in file("."))
   .aggregate(core, email, utils)
-  .settings(commonSettings, disablePublishingSettings)
+  .settings(commonSettings, publishSettings, disablePublishingSettings)
   .settings(
     Compile / sources := Seq.empty,
     Test    / sources := Seq.empty
