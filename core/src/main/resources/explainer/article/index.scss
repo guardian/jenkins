@@ -5,6 +5,11 @@
     background-color: $guardian-brand;
     color: #ffffff;
     position: relative;
+    ol, p, ul {
+      font-size: 14px;
+      line-height: 20px;
+      margin: 0 0 $baseline / 2;
+    }
 }
 
 .atom--explainer__header {
@@ -15,10 +20,11 @@
     padding-bottom: $baseline * 1.5;
 }
 
-.atom--explainer {
-  ol, p, ul {
-    font-size: 14px;
-    line-height: 20px;
-    margin: 0 0 $baseline / 2;
-  }
+// specificity required to override link styling
+
+figure.element-atom .atom-explainer a.underline-u {
+    color: #ffffff;
+    &:hover {
+      color: #A8D8F2; //not in vars
+    }
 }
