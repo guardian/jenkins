@@ -15,6 +15,7 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
+import com.gu.contentatom.thrift.atom.chart.ChartAtom
 import play.twirl.api.Html
 import utils.LoadFromClasspath
 
@@ -118,5 +119,12 @@ object ArticleRenderings extends Renderings {
       commonsdivision.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/commonsdivision/article/index.css")
     val js_impl = () => LoadFromClasspath("/commonsdivision/article/index.js")
+  }
+
+  val chartRendering = new ArticleRendering[ChartAtom] {
+    def html[C <: Conf](atom: Atom, data: ChartAtom)(implicit conf: C) =
+      chart.article.html.index(atom, data)
+    val css_impl = () => LoadFromClasspath("/chart/article/index.css")
+    val js_impl = () => LoadFromClasspath("/chart/article/index.js")
   }
 }

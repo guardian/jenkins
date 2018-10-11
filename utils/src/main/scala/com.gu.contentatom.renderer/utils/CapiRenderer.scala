@@ -55,6 +55,7 @@ class IoCapiRenderer(_apiKey: String) extends Capi[Task] with CapiRenderer[Task]
         case AtomType.Timeline => response.timeline
         case AtomType.Storyquestions => response.storyquestions
         case AtomType.Explainer=> response.explainer
+        case AtomType.Chart    => response.chart
         case _                 => None
       }
     }

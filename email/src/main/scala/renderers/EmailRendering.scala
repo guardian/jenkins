@@ -2,6 +2,7 @@ package com.gu.contentatom.renderer
 package renderers
 
 import com.gu.contentatom.thrift.Atom
+import com.gu.contentatom.thrift.atom.chart.ChartAtom
 import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
@@ -104,6 +105,12 @@ object EmailRenderings extends Renderings {
     def html[C <: Conf](atom: Atom, data: CommonsDivision)(implicit conf: C) =
       commonsdivision.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/commonsdivision/email/index.css")
+  }
+
+  val chartRendering = new EmailRendering[ChartAtom] {
+    def html[C <: Conf](atom: Atom, data: ChartAtom)(implicit conf: C) =
+      chart.email.html.index(atom, data)
+    val css_impl = () => LoadFromClasspath("/chart/email/index.css")
   }
 }
     
