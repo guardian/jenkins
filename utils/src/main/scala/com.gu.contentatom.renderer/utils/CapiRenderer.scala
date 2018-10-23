@@ -3,7 +3,8 @@ package utils
 // -----------------------------------------------------------------------------
 import cats.Monad
 import cats.data.Kleisli
-import com.gu.contentapi.client.ContentApiClientLogic
+import com.gu.contentapi.client.GuardianContentClient
+import com.gu.contentapi.client.model.ItemQuery
 import com.gu.contentatom.thrift.{Atom, AtomType}
 import java.io._
 
@@ -26,13 +27,10 @@ trait Save[F[_]] {
 
 // -----------------------------------------------------------------------------
 // Interpreters
-class IoCapiRenderer(_apiKey: String, _targetUrl: String = "https://content.guardianapis.com") extends Capi[Task] with CapiRenderer[Task] with Save[Task] {
+class IoCapiRenderer(_apiKey: String) extends Capi[Task] with CapiRenderer[Task] with Save[Task] {
   import cats.implicits._
 
-  val client = new ContentApiClientLogic { 
-    override val apiKey = _apiKey
-    override val targetUrl = _targetUrl
-  }
+  val client = new GuardianContentClient(_apiKey)
 
   val articleConfig = ArticleConfiguration("http://localhost", CommonsdivisionConfiguration(true))
   val emailConfig = EmailConfiguration(
@@ -44,11 +42,11 @@ class IoCapiRenderer(_apiKey: String, _targetUrl: String = "https://content.guar
     supportTheGuardianUrl = "http://localhost"
   )
 
-  def getAtom = Kleisli { case ((id, typ)) =>
+  def getAtom = Kleisli { case (id, typ) =>
     Task.fromFuture {
-      val path = s"atom/${typ.name.toLowerCase}/$id"
+      val path = ItemQuery(s"atom/${typ.name.toLowerCase}/$id")
       println(s"Fetching $path")
-      client.getResponse(client.item(path))
+      client.getResponse(path)
     }.map { response =>
       typ match {
         case AtomType.Guide    => response.guide
@@ -57,6 +55,7 @@ class IoCapiRenderer(_apiKey: String, _targetUrl: String = "https://content.guar
         case AtomType.Timeline => response.timeline
         case AtomType.Storyquestions => response.storyquestions
         case AtomType.Explainer=> response.explainer
+        case AtomType.Chart    => response.chart
         case _                 => None
       }
     }
@@ -82,7 +81,7 @@ class IoCapiRenderer(_apiKey: String, _targetUrl: String = "https://content.guar
 }
 
 object IoCapiRenderer {
-  def apply(apiKey: String, targetUrl: String) = Task {
-    new IoCapiRenderer(apiKey, targetUrl)
+  def apply(apiKey: String) = Task {
+    new IoCapiRenderer(apiKey)
   }
 }

@@ -2,6 +2,7 @@ package com.gu.contentatom.renderer
 package renderers
 
 import com.gu.contentatom.thrift.Atom
+import com.gu.contentatom.thrift.atom.chart.ChartAtom
 import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import com.gu.contentatom.thrift.atom.cta.CTAAtom
 import com.gu.contentatom.thrift.atom.explainer.ExplainerAtom
@@ -78,5 +79,9 @@ object DefaultRenderings extends Renderings {
 
   val commonsdivisionRendering = new DefaultRendering[CommonsDivision] {
     val html_impl = (atom, data) => commonsdivision.default.html.index(atom, data)
+  }
+
+  val chartRendering = new DefaultRendering[ChartAtom] {
+    val html_impl = (atom, data) => chart.default.html.index(atom, data)
   }
 }
