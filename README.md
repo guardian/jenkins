@@ -9,7 +9,7 @@ javascript using type-checking from FlowJS, and wrapped in a Scala app.
 
 2. Install node dependencies: `yarn`*
 
-3. Install sbt dependencies `sbt compile`
+3. Install sbt dependencies `sbt compile`. You need to have the [pgp plugin installed globally](https://www.scala-sbt.org/sbt-pgp/index.html).
 
 ## Run FlowJS
 
