@@ -1,2 +1,2 @@
-module.exports = ['guide', 'qanda', 'profile', 'timeline', 'storyquestions', 'explainer', 'commonsdivision', 'chart'];
+module.exports = ['guide', 'qanda', 'profile', 'timeline', 'storyquestions', 'explainer', 'commonsdivision', 'chart', 'audio'];
 

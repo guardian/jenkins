@@ -16,6 +16,8 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
+import com.gu.contentatom.thrift.atom.audio.AudioAtom
+
 import play.twirl.api.Html
 import utils.LoadFromClasspath
 
@@ -111,6 +113,12 @@ object EmailRenderings extends Renderings {
     def html[C <: Conf](atom: Atom, data: ChartAtom)(implicit conf: C) =
       chart.email.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/chart/email/index.css")
+  }
+
+  val audioRendering = new EmailRendering[AudioAtom] {
+    def html[C <: Conf](atom: Atom, data: AudioAtom)(implicit conf: C) =
+      audio.email.html.index(atom, data)
+    val css_impl = () => LoadFromClasspath("/audio/email/index.css")
   }
 }
     
