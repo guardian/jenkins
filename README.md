@@ -100,6 +100,9 @@ Ensure your machine is logged into this account. If not, run: `npm adduser` and 
 5. Publish your version to NPM:  `npm publish`
 The version you just pushed should appear here: https://www.npmjs.com/package/@guardian/atom-renderer
 
+6. In the (highly likely) scenario that you've made Scala code changes, that you'll want to test in Frontend (see below) you'll also need to publish your Scala changes locally.
+First, **check that `atom-renderer/version.sbt` is correct**, i.e. make sure it ends with `-SNAPSHOT`, then run `sbt +publishLocal` (the `+` is significant for cross-compilation of Scala versions - see `project/Dependencies.scala` for those) to add the updated library files to your local `.ivy2/local/com.gu/` cache. 
+This'll be tagged with the same version as shown in `atom-renderer/version.sbt`.
 
 *In Frontend*
 
