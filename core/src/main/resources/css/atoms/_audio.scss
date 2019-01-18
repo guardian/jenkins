@@ -1,0 +1,194 @@
+@import "vars";
+@import "helpers/multiline";
+@import "helpers/scale";
+
+.atom--audio > summary {
+    outline: none;
+}
+
+.atom--audio > summary::-webkit-details-marker {
+    display: none;
+}
+
+.atom--audio {
+    @include multiline(4, $neutral-4);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    background: $neutral-7;
+    position: relative;
+    padding: 0 ($gutter / 4) ($baseline / 2);
+    margin: ($baseline * 4 / 3) 0 ($baseline * 3);
+}
+
+.atom--audio a {
+    color: $news-main-1;
+    border-bottom-color: $neutral-3;
+}
+
+// not needed?
+.atom--audio[open] .atom--audio__handle > :nth-child(1),
+.atom--audio:not([open]) .atom--audio__handle > :nth-child(2) {
+    display: none;
+}
+
+.atom--audio__header {
+    margin: 0 0 ($baseline * 4 / 3);
+    font-weight: bold;
+}
+
+.atom--audio__label {
+    display: block;
+
+    .garnett--pillar-news      &,
+    .content--pillar-news      & { color: $c-pillar--news; }
+    .garnett--pillar-arts      &,
+    .content--pillar-arts      & { color: $c-pillar--arts; }
+    .garnett--pillar-sport     &,
+    .content--pillar-sport     & { color: $c-pillar--sport; }
+    .garnett--pillar-opinion   &,
+    .content--pillar-opinion   & { color: $c-pillar--opinion; }
+    .garnett--pillar-lifestyle &,
+    .content--pillar-lifestyle & { color: $c-pillar--lifestyle; }
+}
+
+.atom--audio__label,
+.atom--audio__headline {
+    @include headline(3);
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
+}
+
+.atom--audio__handle,
+.atom--audio__feedback,
+.atom--audio__credit {
+    font-family: var(--f-sans-serif-text);
+}
+
+.atom--audio__handle {
+    font-size: 13px;
+    position: absolute;
+    bottom: 0;
+    transform: translate(0, 50%);
+    padding: 0 15px 0 7px;
+}
+
+.atom--audio__handle,
+.atom--audio__feedback .atom__button {
+    background: $neutral-1;
+    color: #ffffff;
+}
+
+.atom--audio__feedback .atom__button:hover,
+.atom--audio__feedback .atom__button:focus,
+.atom--audio__handle:hover,
+.atom--audio__handle:focus {
+    .garnett--pillar-news      &,
+    .content--pillar-news      & { background-color: $c-pillar--news; }
+    .garnett--pillar-arts      &,
+    .content--pillar-arts      & { background-color: $c-pillar--arts; }
+    .garnett--pillar-sport     &,
+    .content--pillar-sport     & { background-color: $c-pillar--sport; }
+    .garnett--pillar-opinion   &,
+    .content--pillar-opinion   & { background-color: $c-pillar--opinion; }
+    .garnett--pillar-lifestyle &,
+    .content--pillar-lifestyle & { background-color: $c-pillar--lifestyle; }    
+}
+
+.atom--audio__handle span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.atom--audio__handle .icon {
+    fill: white;
+    width: 20px;
+    height: 20px;
+    margin-right: $gutter / 2;
+}
+
+.atom--audio__body {
+    overflow: hidden;
+}
+
+.atom--audio__body > p::before {
+    background-color: $news-support-2;
+}
+
+.atom--audio__footer {
+    @include textSans(2);
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.atom--audio__feedback:not([hidden]) {
+    display: flex;
+    align-items: center;
+}
+
+.atom--audio__feedback .atom__button {
+    margin: 0 0 0 ($gutter / 4);
+    padding: 0;
+    width: 28px;
+    height: 28px;
+}
+
+.atom--audio__feedback .atom__button[value='dislike'] {
+    transform: rotate(180deg);
+}
+
+.atom--audio__feedback .atom__button,
+.atom--audio__feedback .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.atom--audio__feedback .icon {
+    width: 16px;
+    height: 16px;
+}
+
+.atom--audio__feedback path {
+    fill: currentColor;
+}
+
+/** THEMING */
+
+.atom--audio__cover-image {
+    float: left;
+    margin-right: $gutter / 2;
+    margin-bottom: $baseline / 2;
+    
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+
+    border-radius: 50%;
+}
+
+.atom--audio__heading {
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
+}
+
+.atom--audio__credit {
+    @include textSans(2);
+    margin: $baseline 0;
+    
+    > .inline-icon {
+        display: inline-flex;
+        background: $neutral-3;
+        border-radius: 100%;
+        width: 16px;
+        height: 16px;
+        align-items: center;
+        justify-content: center;
+        margin-right: $gutter / 4;
+
+        > .icon {
+            height: 12px;
+        }
+    }
+}

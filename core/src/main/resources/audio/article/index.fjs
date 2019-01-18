@@ -1,1 +1,5 @@
 //@flow
+import audio from 'audio';
+import { ComponentTypes } from 'ophan';
+
+export default audio(ComponentTypes.AUDIO_ATOM);

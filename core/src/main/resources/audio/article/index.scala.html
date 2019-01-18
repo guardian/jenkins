@@ -2,44 +2,52 @@
 , data: com.gu.contentatom.thrift.atom.audio.AudioAtom
 )(implicit conf: com.gu.contentatom.renderer.ArticleConfiguration)
 
-
-<div class="atom--audio">
-    <div class="atom--audio__kicker">@data.kicker</div>
-    <div class="atom--audio__cover-url"><img class="atom--audio__cover-url-image" src="@data.coverUrl" alt="TODO: alt text"></div>
-    <div class="atom--audio__player">
-        <audio
-            class="atom--audio__player-element"
-            src="@data.trackUrl"
-            preload="metadata"
-            data-media-id="TODO"
-            data-title="@data.kicker"
-            data-component="TODO in-article audio-atom"
-        >
-            <p>
-                Sorry your browser does not support audio - but you can download here
-                and listen @data.trackUrl
-            </p>
-        </audio>
-        <div class="atom--audio__controls">
-            <div class="atom--audio__controls-play-button">
-                <svg width="30" height="30" viewBox="0 0 30 30">
-                    <g fill="none" fill-rule="evenodd">
-                        <circle fill="#FFE500" cx="15" cy="15" r="15"/>
-                        <path fill="#121212" d="M10.113 8.571l-.47.366V20.01l.472.347 13.456-5.593v-.598z"/>
-                    </g>
-                </svg>
-            </div>
-        </div>
-        <div class="atom--audio__time">
-            <span class="atom--audio__time-duration">
-                TODO: duration @data.duration
-            </span>
-        </div>
-        <div class="atom--audio__progress-bar">
-            <div class="atom--audio__progress-bar-played">TODO: progress bar</div>
-        </div>
+@fragments.atoms.html.audio(
+    atom.id,
+    className = "podcast",
+    label = "Podcast Name?",
+    headline = atom.title.getOrElse("No title?")
+){
+    <audio
+    class="atom--audio__player-element"
+    duration="@data.duration"
+    src="@data.trackUrl"
+    preload="metadata"
+    data-media-id="TODO"
+    data-title="@data.kicker"
+    data-component="TODO in-article audio-atom"
+    >
+        <p>
+            Sorry your browser does not support audio - but you can download here
+            and listen @data.trackUrl
+        </p>
+    </audio>
+    <div class="atom--audio__controls">
+        <button class="atom__button atom__button--play atom__button--rounded atom--audio__handle" aria-hidden="false">
+            <svg width="30" height="30" viewBox="0 0 30 30">
+                <g fill="none" fill-rule="evenodd">
+                    <circle fill="#FFE500" cx="15" cy="15" r="15"/>
+                    <path fill="#121212" d="M10.113 8.571l-.47.366V20.01l.472.347 13.456-5.593v-.598z"/>
+                </g>
+            </svg>
+        </button>
+        <button class="atom__button atom__button--pause atom__button--rounded atom--audio__handle" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 30 30">
+                <g fill="none" fill-rule="evenodd">
+                    <circle fill="#005EFF" cx="15" cy="15" r="15"/>
+                    <path fill="#121212" d="M10.113 8.571l-.47.366V20.01l.472.347 13.456-5.593v-.598z"/>
+                </g>
+            </svg>
+        </button>
+    </div>
+    <div class="atom--audio__time">
+        <span class="atom--audio__time-played">00:00</span>
+        <span class="atom--audio__progress-bar">|------------------------------------</span>
+        <span class="atom--audio__time-duration">@data.duration</span>
     </div>
     <div class="atom--audio__content-link">
         <a href="//theguardian.com@data.contentId">TODO: Do we need this link?</a>
     </div>
-</div>
+}
+
+
