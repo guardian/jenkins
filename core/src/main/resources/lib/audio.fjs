@@ -4,31 +4,51 @@ import { Actions } from 'ophan';
 import type { Channel } from 'channels';
 import { fromEvent } from 'events-getter';
 
-type SnippetF = { snippetId: string
-                , snippetType: string
-                , header: HTMLElement
-                , question: HTMLElement
-                , ack: HTMLElement
+type AudioF = { audioId: string
+                , playButton: HTMLElement
+                , pauseButton: HTMLElement
+                , scrubber: HTMLElement
+                , feedback: HTMLElement
                 };
-type Snippet = SnippetF & Atom;
+type Audio = AudioF & Atom;
 
-export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<SnippetF> => (root: HTMLElement): Coeval<Snippet> => {
+export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<AudioF> => (root: HTMLElement): Coeval<Audio> => {
+  let playC: Channel<Action>;
+  let pauseC: Channel<Action>;
+  let scrubC: Channel<Action>;
   let feedbackC: Channel<Action>;
-  let expandC: Channel<Action>;
   let observer: (x: number) => void;
 
-  const start = (a: Snippet): Promise<void> => {
+  const start = (a: Audio): Promise<void> => {
+    playC = fromEvent('click', a.playButton)
+      .map((e: Event) => ((e.target: any).closest('.atom--audio__button-play'): ?HTMLButtonElement))
+      .filter((e: ?HTMLButtonElement) => !!e)
+      .map((e: ?HTMLButtonElement) => e && e.value === Actions.CLICK)
+      .takeN(1);
+    playC.tap(onPlay(a));
+
+    pauseC = fromEvent('click', a.pauseButton)
+      .map((e: Event) => ((e.target: any).closest('.atom--audio__button-pause'): ?HTMLButtonElement))
+      .filter((e: ?HTMLButtonElement) => !!e)
+      .map((e: ?HTMLButtonElement) => e && e.value === Actions.CLICK)
+      .takeN(1);
+    pauseC.tap(onPause(a));
+
+    //TODO: Do we have to capture scrub events
+    scrubC = fromEvent('click', a.scrubber)
+      .map((e: Event) => ((e.target: any).closest('.atom--audio__scrub'): ?HTMLElement))
+      .filter((e: ?HTMLElement) => !!e)
+      .map((e: ?HTMLElement) => e && e.value === Actions.CLICK)
+      .takeN(1);
+    pauseC.tap(onScrub(a));
+
+    //TODO: Will audio have feedback buttons?
     feedbackC = fromEvent('click', a.question)
-      .map((e: Event) => ((e.target: any).closest('.atom__button'): ?HTMLButtonElement))
+      .map((e: Event) => ((e.target: any).closest('.atom__feedback-button'): ?HTMLButtonElement))
       .filter((e: ?HTMLButtonElement) => !!e)
       .map((e: ?HTMLButtonElement) => e && e.value === 'like' ? Actions.LIKE : Actions.DISLIKE)
       .takeN(1);
     feedbackC.tap(onFeedback(a));
-
-    expandC = fromEvent('click', a.header)
-      .map(_ => Actions.EXPAND)
-      .takeN(1);
-    expandC.tap(onExpand(a));
 
     observer = onVisible(a);
     viewport.observe(root, 1, observer);
@@ -37,31 +57,59 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
   
   const stop = () => {
+    playC.close();
+    pauseC.close();
+    scrubC.close();
     feedbackC.close();
-    expandC.close();
     viewport.unobserve(root, 1, observer);
   };
   
-  const onFeedback = (p: Snippet) => (a: Action): void => {
-    record(p.snippetId, a);
+  const onPlay = (p: Audio) => (a: Action): void => {
+    debugger;
+    record(p.audioId, a);
+    dom.write(() => {
+      p.playButton.hidden = true;
+      p.pauseButton.hidden = false;
+    });
+  };
+
+  const onPause = (p: Audio) => (a: Action): void => {
+    debugger;
+    record(p.audioId, a);
+    dom.write(() => {
+      p.pauseButton.hidden = true;
+      p.playButton.hidden = false;
+    });
+  };
+
+  const onScrub = (p: Audio) => (a: Action): void => {
+    debugger;
+    record(p.audioId, a);
+    dom.write(() => {
+      p.pauseButton.hidden = true;
+      p.playButton.hidden = false;
+    });
+  };
+
+  const onFeedback = (p: Audio) => (a: Action): void => {
+    debugger;
+    record(p.audioId, a);
     dom.write(() => {
       p.ack.hidden = false;
       p.question.hidden = true;
     });
   };
 
-  const onExpand = (p: Snippet) => (a: Action): void => {
-    record(p.snippetId, a);
-  };
-
-  const onVisible = (p: Snippet) => (ratio: number): void => {
+  const onVisible = (p: Audio) => (ratio: number): void => {
+    debugger;
     if (ratio >= 1) {
-      record(p.snippetId, Actions.VIEW);
+      record(p.audioId, Actions.VIEW);
       viewport.unobserve(root, 1, observer);
     }
   };
 
   const record = (id: string, action: Action) => {
+    debugger;
     ophan.record({
       componentEvent: {
         component: {
@@ -76,19 +124,21 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
   
   const runTry = (): Try<Snippet> => {
-    const header = (root.querySelector('.atom--audio__header'): ?HTMLElement);
-    const question = (root.querySelector('.atom--saudio__feedback'): ?HTMLElement);
-    const ack = (root.querySelector('.atom--audio__ack'): ?HTMLElement);
+    const playButton = (root.querySelector('.atom--audio__button-play'): ?HTMLElement);
+    const pauseButton = (root.querySelector('.atom--audio__button-pause'): ?HTMLElement);
+    const scrubber = (root.querySelector('.atom--audio__scrub'): ?HTMLElement);
+    const feedback = (root.querySelector('.atom--audio__feedback'): ?HTMLElement);
     const audio = (root.querySelector('.atom--audio'): ?HTMLElement);
 
-    return header && question && ack && audio
+    return playButton && pauseButton && scrubber && feedback && audio
       ? Object.freeze({
         atomId: root.id,
-        snippetId: (audio.dataset.snippetId: string),
-        snippetType: (audio.dataset.snippetType: string),
-        header,
-        question,
-        ack,
+        audioId: (audio.dataset.audioId: string),
+        audioType: (audio.dataset.audioType: string),
+        playButton,
+        pauseButton,
+        scrubber,
+        feedback,
         stop,
         start(): Promise<void> {
           return start(this);

@@ -23,7 +23,7 @@
         </p>
     </audio>
     <div class="atom--audio__controls">
-        <button class="atom__button atom__button--play atom__button--rounded atom--audio__handle" aria-hidden="false">
+        <button class="atom--audio__button-play atom__button atom--audio__button--rounded atom--audio__handle" aria-hidden="false">
             <svg width="30" height="30" viewBox="0 0 30 30">
                 <g fill="none" fill-rule="evenodd">
                     <circle fill="#FFE500" cx="15" cy="15" r="15"/>
@@ -31,7 +31,7 @@
                 </g>
             </svg>
         </button>
-        <button class="atom__button atom__button--pause atom__button--rounded atom--audio__handle" aria-hidden="true">
+        <button class="atom--audio__button-pause atom__button atom--audio__button--rounded atom--audio__handle is-hidden" aria-hidden="true">
             <svg width="30" height="30" viewBox="0 0 30 30">
                 <g fill="none" fill-rule="evenodd">
                     <circle fill="#005EFF" cx="15" cy="15" r="15"/>
@@ -42,11 +42,12 @@
     </div>
     <div class="atom--audio__time">
         <span class="atom--audio__time-played">00:00</span>
-        <span class="atom--audio__progress-bar">|------------------------------------</span>
+        <span class="atom--audio__progress-bar atom--audio__scrub">|------------------------------------</span>
         <span class="atom--audio__time-duration">@data.duration</span>
     </div>
+    <div class="atom--audio__feedback"></div>
     <div class="atom--audio__content-link">
-        <a href="//theguardian.com@data.contentId">TODO: Do we need this link?</a>
+        <a href="//theguardian.com@data.contentId">TODO: Do we really need this link?</a>
     </div>
 }
 
