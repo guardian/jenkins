@@ -49,5 +49,8 @@ export const Actions: { [Action]: Action } =
   , ANSWER: 'ANSWER'
   , VOTE: 'VOTE'
   , CLICK: 'CLICK'
+  , PLAY: 'PLAY'
+  , PAUSE: 'PAUSE'
+  , SCRUB: 'SCRUB'
   };
 

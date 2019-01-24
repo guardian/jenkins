@@ -5,50 +5,45 @@ import type { Channel } from 'channels';
 import { fromEvent } from 'events-getter';
 
 type AudioF = { audioId: string
-                , playButton: HTMLElement
-                , pauseButton: HTMLElement
+                , player: HTMLElement
+                , playPauseButton: HTMLElement
                 , scrubber: HTMLElement
-                , feedback: HTMLElement
                 };
 type Audio = AudioF & Atom;
 
+function setPlayingState(dom: DomService, playPauseButton: HTMLElement) {
+  dom.write(() => {
+    playPauseButton.classList.add('is-playing');
+  });
+}
+
+function setPausedState(dom: DomService, playPauseButton: HTMLElement) {
+  console.log('PAUSED!');
+  dom.write(() => {
+    playPauseButton.classList.remove(['is-playing']);
+  });
+}
+
 export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<AudioF> => (root: HTMLElement): Coeval<Audio> => {
-  let playC: Channel<Action>;
-  let pauseC: Channel<Action>;
+  let playPauseC: Channel<Action>;
   let scrubC: Channel<Action>;
-  let feedbackC: Channel<Action>;
   let observer: (x: number) => void;
+  let audioContainerSelector = '.atom--audio';
+  let audioPlayerSelector = '.atom--audio__player-element';
+  let playPauseButtonSelector = '.atom--audio__button-playaudio';
+  let scrubberSelector = '.atom--audio__scrub';
 
   const start = (a: Audio): Promise<void> => {
-    playC = fromEvent('click', a.playButton)
-      .map((e: Event) => ((e.target: any).closest('.atom--audio__button-play'): ?HTMLButtonElement))
-      .filter((e: ?HTMLButtonElement) => !!e)
-      .map((e: ?HTMLButtonElement) => e && e.value === Actions.CLICK)
-      .takeN(1);
-    playC.tap(onPlay(a));
+    playPauseC = fromEvent('click', a.playPauseButton)
+      .map((e: Event) => ((e.target: any).closest(playPauseButtonSelector): ?HTMLButtonElement))
+      .filter((e: ?HTMLButtonElement) => !!e);
+    playPauseC.tap(onPlayPause(a));
 
-    pauseC = fromEvent('click', a.pauseButton)
-      .map((e: Event) => ((e.target: any).closest('.atom--audio__button-pause'): ?HTMLButtonElement))
-      .filter((e: ?HTMLButtonElement) => !!e)
-      .map((e: ?HTMLButtonElement) => e && e.value === Actions.CLICK)
-      .takeN(1);
-    pauseC.tap(onPause(a));
-
-    //TODO: Do we have to capture scrub events
+    //TODO: Do we have to capture scrub events?
     scrubC = fromEvent('click', a.scrubber)
-      .map((e: Event) => ((e.target: any).closest('.atom--audio__scrub'): ?HTMLElement))
-      .filter((e: ?HTMLElement) => !!e)
-      .map((e: ?HTMLElement) => e && e.value === Actions.CLICK)
-      .takeN(1);
-    pauseC.tap(onScrub(a));
-
-    //TODO: Will audio have feedback buttons?
-    feedbackC = fromEvent('click', a.question)
-      .map((e: Event) => ((e.target: any).closest('.atom__feedback-button'): ?HTMLButtonElement))
-      .filter((e: ?HTMLButtonElement) => !!e)
-      .map((e: ?HTMLButtonElement) => e && e.value === 'like' ? Actions.LIKE : Actions.DISLIKE)
-      .takeN(1);
-    feedbackC.tap(onFeedback(a));
+      .map((e: Event) => ((e.target: any).closest(scrubberSelector): ?HTMLElement))
+      .filter((e: ?HTMLElement) => !!e);
+    scrubC.tap(onScrub(a));
 
     observer = onVisible(a);
     viewport.observe(root, 1, observer);
@@ -57,51 +52,28 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
   
   const stop = () => {
-    playC.close();
-    pauseC.close();
+    playPauseC.close();
     scrubC.close();
-    feedbackC.close();
     viewport.unobserve(root, 1, observer);
   };
-  
-  const onPlay = (p: Audio) => (a: Action): void => {
-    debugger;
-    record(p.audioId, a);
-    dom.write(() => {
-      p.playButton.hidden = true;
-      p.pauseButton.hidden = false;
-    });
-  };
 
-  const onPause = (p: Audio) => (a: Action): void => {
-    debugger;
+  const onPlayPause = (p: Audio) => (a: Action): void => {
     record(p.audioId, a);
-    dom.write(() => {
-      p.pauseButton.hidden = true;
-      p.playButton.hidden = false;
-    });
+    if (p.player.paused) {
+      setPlayingState(dom, p.playPauseButton);
+      p.player.play();
+    } else {
+      setPausedState(dom, p.playPauseButton);
+      p.player.pause();
+    }
   };
 
   const onScrub = (p: Audio) => (a: Action): void => {
-    debugger;
     record(p.audioId, a);
-    dom.write(() => {
-      p.pauseButton.hidden = true;
-      p.playButton.hidden = false;
-    });
-  };
-
-  const onFeedback = (p: Audio) => (a: Action): void => {
-    debugger;
-    record(p.audioId, a);
-    dom.write(() => {
-      p.ack.hidden = false;
-      p.question.hidden = true;
-    });
+    // presumably this should send an event to the audio player to skip in the direction of mouse travel?
   };
 
   const onVisible = (p: Audio) => (ratio: number): void => {
-    debugger;
     if (ratio >= 1) {
       record(p.audioId, Actions.VIEW);
       viewport.unobserve(root, 1, observer);
@@ -109,7 +81,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
 
   const record = (id: string, action: Action) => {
-    debugger;
     ophan.record({
       componentEvent: {
         component: {
@@ -124,21 +95,19 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
   
   const runTry = (): Try<Snippet> => {
-    const playButton = (root.querySelector('.atom--audio__button-play'): ?HTMLElement);
-    const pauseButton = (root.querySelector('.atom--audio__button-pause'): ?HTMLElement);
-    const scrubber = (root.querySelector('.atom--audio__scrub'): ?HTMLElement);
-    const feedback = (root.querySelector('.atom--audio__feedback'): ?HTMLElement);
-    const audio = (root.querySelector('.atom--audio'): ?HTMLElement);
+    const playPauseButton = (root.querySelector(playPauseButtonSelector): ?HTMLElement);
+    const scrubber = (root.querySelector(scrubberSelector): ?HTMLElement);
+    const audio = (root.querySelector(audioContainerSelector): ?HTMLElement);
+    const player = (root.querySelector(audioPlayerSelector): ?HTMLElement);
 
-    return playButton && pauseButton && scrubber && feedback && audio
+    return player && audio && playPauseButton && scrubber
       ? Object.freeze({
-        atomId: root.id,
-        audioId: (audio.dataset.audioId: string),
-        audioType: (audio.dataset.audioType: string),
-        playButton,
-        pauseButton,
+        atomId: (root.dataset.atomId: string),
+        audioId: (root.dataset.atomId: string),  //TODO: Where should this come from? Should it even be here?
+        player: player,
+        audioType: (root.dataset.audioType: string),  //TODO: Not currently available. Do we need it?
+        playPauseButton,
         scrubber,
-        feedback,
         stop,
         start(): Promise<void> {
           return start(this);
