@@ -6,6 +6,7 @@ import { fromEvent } from 'events-getter';
 
 type AudioF = { audioId: string
                 , player: HTMLElement
+                , audioType: String
                 , playPauseButton: HTMLElement
                 , scrubber: HTMLElement
                 };
@@ -94,13 +95,13 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     });
   };
   
-  const runTry = (): Try<Snippet> => {
+  const runTry = (): Try<Audio> => {
     const playPauseButton = (root.querySelector(playPauseButtonSelector): ?HTMLElement);
     const scrubber = (root.querySelector(scrubberSelector): ?HTMLElement);
     const audio = (root.querySelector(audioContainerSelector): ?HTMLElement);
     const player = (root.querySelector(audioPlayerSelector): ?HTMLElement);
 
-    return player && audio && playPauseButton && scrubber
+    return audio && player && playPauseButton && scrubber
       ? Object.freeze({
         atomId: (root.dataset.atomId: string),
         audioId: (root.dataset.atomId: string),  //TODO: Where should this come from? Should it even be here?
