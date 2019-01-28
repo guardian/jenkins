@@ -5,24 +5,23 @@
 @fragments.atoms.html.audio(
     atom.id,
     className = "podcast",
-    label = "Podcast Name?",
-    headline = atom.title.getOrElse("No title?")
+    label = "Today in Focus",   // TODO: get from data
+    headline = atom.title.getOrElse("")
 ){
     <audio
     class="atom--audio__player-element"
     duration="@data.duration"
     src="@data.trackUrl"
     preload="metadata"
-    data-media-id="TODO"
+    data-media-id="@data.contentId"
     data-title="@data.kicker"
-    data-component="TODO in-article audio-atom"
+    data-component="@data.contentId"
     >
         <p>
             Sorry your browser does not support audio - but you can download here
             and listen @data.trackUrl
         </p>
     </audio>
-
 
     <div class="atom--audio__controls">
         <button class="atom--audio__button-playaudio atom__button atom--audio__button--rounded atom--audio__handle">
@@ -33,13 +32,13 @@
 
     <div class="atom--audio__time">
         <div class="atom--audio__time-played">
-            <span>00:00</span>
+            <span></span>
         </div>
         <div class="atom--audio__progress-bar">
             <input type="range" min="0" max="@data.duration" step="1">
         </div>
         <div class="atom--audio__time-duration">
-            <span>@data.duration</span>
+            <span></span>
         </div>
     </div>
 }
