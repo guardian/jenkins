@@ -79,6 +79,7 @@
 
 .atom--audio__body .atom--audio__controls {
   grid-column: 1;
+  padding-top: 10px;
 }
 
 .atom--audio__body .atom--audio__time {
@@ -88,7 +89,7 @@
   grid-row: auto;
   grid-gap: 10px;
   align-items: center;
-}
+} 
 
 .atom--audio__time span {
   font-family: "Guardian Text Sans Web","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
@@ -101,22 +102,37 @@
   width: auto;
 }
 
-.atom--audio__body input[type=range]:focus {
+input[type=range]:focus {
   outline: none;
 }
 
 .atom--audio__progress-bar input[type=range] {
   -webkit-appearance: none;
   appearance: none;
-  overflow: hidden;
   width: 100%;
   cursor: pointer;
-  background-color: rgb(189, 186, 186);
+}
+
+/* fill color behind the thumb in FF & IE/Edge, js used for webkit */
+.atom--audio__progress-bar input[type=range]::-ms-fill-lower {
+background-color: #C70000;	
+  height: 7px;
+}
+
+.atom--audio__progress-bar input[type=range]::-moz-range-progress {
+   background-color: #C70000;	
+  height: 7px;
 }
 
 .atom--audio__progress-bar input[type=range]::-webkit-slider-runnable-track {
   -webkit-appearance: none;
-  background: grey;
+  background: #afafaf;
+  height: 7px;
+}
+
+.atom--audio__progress-bar input[type=range]::-moz-range-track {
+  -webkit-appearance: none;
+  background: #afafaf;
   height: 7px;
 }
 
@@ -124,12 +140,20 @@
   -webkit-appearance: none;
   width: 15px;
   height: 15px;
-  background: black;
+  background:#C70000;
   border-radius: 50%;
-  box-shadow: -100vw 0 0 100vw red;
   margin-top: -4px;
 }
 
+.atom--audio__progress-bar input[type=range]::-moz-range-thumb {
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #C70000;
+  border-radius: 50%;
+  margin-top: -4px;
+  border: none;
+}
 
 .atom--audio__time-played {
   grid-column: 1;
@@ -137,4 +161,13 @@
 
 .atom--audio__time-duration {
   grid-column: 3;
+}
+
+.atom--audio__body button:focus {
+  outline: none;
+}
+
+.atom--audio__body button svg {
+  width: 50px;
+  height: auto;
 }
