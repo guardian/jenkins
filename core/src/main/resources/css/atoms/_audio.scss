@@ -100,11 +100,13 @@
 }
 
 .atom--audio__time-played {
+  min-width: 65px;
   grid-column: 1;
   padding-top: 6px;
 }
 
 .atom--audio__time-duration {
+  min-width: 65px;
   grid-column: 3;
   padding-top: 6px;
 }
@@ -129,7 +131,7 @@ input[type=range]:focus {
   width: 100%;
   cursor: pointer;
   height: 6px;
-  background: linear-gradient(to right, #C70000 50%, #afafaf 50%);
+  background: linear-gradient(to right, #C70000 0%, #afafaf 0%);
 }
 
 /* IE and FF slider input styling */
