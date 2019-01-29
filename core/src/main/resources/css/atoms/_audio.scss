@@ -30,7 +30,6 @@
         display: inline;
       }
     }
-
 }
 
 .atom--audio a {
@@ -69,7 +68,6 @@
 }
 
 /* CSS STYLES FOR AUDIO ATOM  - convert to Sass */
-
 .atom--audio__body {
   display: grid;
   grid-template-columns: 60px 1fr;
@@ -96,53 +94,59 @@
   font-size: .8em;
 }
 
-
 .atom--audio__progress-bar {
   grid-column: 2;
   width: auto;
+}
+
+.atom--audio__time-played {
+  grid-column: 1;
+  padding-top: 6px;
+}
+
+.atom--audio__time-duration {
+  grid-column: 3;
+  padding-top: 6px;
+}
+
+.atom--audio__body button:focus {
+  outline: none;
+}
+
+.atom--audio__body button svg {
+  width: 50px;
+  height: auto;
 }
 
 input[type=range]:focus {
   outline: none;
 }
 
+/* SLIDER STYLES */
 .atom--audio__progress-bar input[type=range] {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
   cursor: pointer;
+  height: 6px;
+  background: linear-gradient(to right, #C70000 50%, #afafaf 50%);
 }
 
-/* fill color behind the thumb in FF & IE/Edge, js used for webkit */
+/* IE and FF slider input styling */
 .atom--audio__progress-bar input[type=range]::-ms-fill-lower {
-background-color: #C70000;	
+  background-color: #C70000;	
   height: 7px;
 }
 
 .atom--audio__progress-bar input[type=range]::-moz-range-progress {
    background-color: #C70000;	
-  height: 7px;
-}
-
-.atom--audio__progress-bar input[type=range]::-webkit-slider-runnable-track {
-  -webkit-appearance: none;
-  background: #afafaf;
-  height: 7px;
+  height: 8px;
 }
 
 .atom--audio__progress-bar input[type=range]::-moz-range-track {
   -webkit-appearance: none;
   background: #afafaf;
-  height: 7px;
-}
-
-.atom--audio__progress-bar input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 15px;
-  height: 15px;
-  background:#C70000;
-  border-radius: 50%;
-  margin-top: -4px;
+  height: 8px;
 }
 
 .atom--audio__progress-bar input[type=range]::-moz-range-thumb {
@@ -155,19 +159,17 @@ background-color: #C70000;
   border: none;
 }
 
-.atom--audio__time-played {
-  grid-column: 1;
+/* Safari / Chrome styling - nb: the track's progress fill colour has to be done with js */
+.atom--audio__progress-bar input[type=range]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 7px;
 }
 
-.atom--audio__time-duration {
-  grid-column: 3;
-}
-
-.atom--audio__body button:focus {
-  outline: none;
-}
-
-.atom--audio__body button svg {
-  width: 50px;
-  height: auto;
+.atom--audio__progress-bar input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  background:#C70000;
+  border-radius: 50%;
+  margin-top: -4px;
 }
