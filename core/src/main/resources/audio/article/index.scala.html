@@ -5,17 +5,17 @@
 @fragments.atoms.html.audio(
     atom.id,
     className = "podcast",
-    label = "Today in Focus",   // TODO: get from data
+    label = data.kicker,
     headline = atom.title.getOrElse("")
 ){
     <audio
     class="atom--audio__player-element"
-    duration="@data.duration"
+    data-duration="@data.duration"
     src="@data.trackUrl"
-    preload="metadata"
+    preload="none"
     data-media-id="@data.contentId"
     data-title="@data.kicker"
-    data-component="@data.contentId"
+    data-component="inarticle audio"
     >
         <p>
             Sorry your browser does not support audio - but you can download here

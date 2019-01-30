@@ -50,7 +50,5 @@ export const Actions: { [Action]: Action } =
   , VOTE: 'VOTE'
   , CLICK: 'CLICK'
   , PLAY: 'PLAY'
-  , PAUSE: 'PAUSE'
-  , SCRUB: 'SCRUB'
   };
 

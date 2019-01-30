@@ -6,7 +6,6 @@ import { fromEvent } from 'events-getter';
 
 type AudioF = { audioId: string
                 , player: HTMLElement
-                , audioType: String
                 , playPauseButton: HTMLElement
                 , timePlayed: HTMLElement
                 , timeDuration: HTMLElement
@@ -21,9 +20,8 @@ function setPlayingState(dom: DomService, playPauseButton: HTMLElement) {
 }
 
 function setPausedState(dom: DomService, playPauseButton: HTMLElement) {
-  console.log('PAUSED!');
   dom.write(() => {
-    playPauseButton.classList.remove(['is-playing']);
+    playPauseButton.classList.remove('is-playing');
   });
 }
 
@@ -39,7 +37,7 @@ function setupTime(dom: DomService, audio: Audio) {
   dom.write(() => {
     audio.scrubber.value = 0;
     audio.timePlayed.innerText = formatTime(0);
-    audio.timeDuration.innerText = formatTime(audio.player.duration);
+    audio.timeDuration.innerText = formatTime(Number(audio.player.getAttribute('data-duration')) || 0);
   });
 }
 
@@ -51,7 +49,8 @@ function updateTime(dom: DomService, audio: Audio) {
   if (now - (Number(last) || 0) < 1000) return;
 
   const played = Math.floor(audio.player.currentTime);
-  const percentPlayed = Math.floor(played / audio.player.duration * 100);
+  const duration = Number(audio.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
+  const percentPlayed = Math.floor(played / duration * 100);
   const gradientDescription = `linear-gradient(to right, #C70000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
 
   dom.write(() => {
@@ -81,12 +80,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       .filter((e: ?HTMLButtonElement) => !!e);
     playPauseC.tap(onPlayPause(a));
 
-    //TODO: Do we have to capture scrub events?
-    scrubC = fromEvent('click', a.scrubber)
-      .map((e: Event) => ((e.target: any).closest(progressBarSelector): ?HTMLElement))
-      .filter((e: ?HTMLElement) => !!e);
-    scrubC.tap(onScrub(a));
-
     playerTimeUpdateC = fromEvent('timeupdate', a.player)
       .map((e: Event) => ((e.target: any).closest(audioPlayerSelector): ?HTMLElement))
       .filter((e: ?HTMLElement) => !!e);
@@ -105,8 +98,8 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
 
   const onPlayPause = (p: Audio) => (a: Action): void => {
-    record(p.audioId, a);
     if (p.player.paused) {
+      record(p.player.getAttribute('data-media-id'), Actions.PLAY);
       setPlayingState(dom, p.playPauseButton);
       p.player.play();
       p.player.ontimeupdate = updateTime(dom, p);
@@ -116,18 +109,14 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     }
   };
 
-  const onScrub = (p: Audio) => (a: Action): void => {
-    // record(p.audioId, a);
-    // presumably this should send an event to the audio player to skip in the direction of mouse travel?
-  };
-
   const onTick = (p: Audio) => (a: Action): void => {
+    //TODO: send progress events to Ophan - needs thought re deduplication because it's based on percentage played
     updateTime(dom, p);
   };
 
   const onVisible = (p: Audio) => (ratio: number): void => {
     if (ratio >= 1) {
-      record(p.audioId, Actions.VIEW);
+      record(p.player.getAttribute('data-media-id'), Actions.VIEW);
       setupTime(dom, p);
       viewport.unobserve(root, 1, observer);
     }
@@ -158,9 +147,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     return audio && player && playPauseButton && timePlayed && scrubber
       ? Object.freeze({
         atomId: (root.dataset.atomId: string),
-        audioId: (root.dataset.atomId: string),  //TODO: Where should this come from? Should it even be here?
         player: player,
-        audioType: (root.dataset.audioType: string),  //TODO: Not currently available. Do we need it?
         playPauseButton,
         timePlayed,
         timeDuration,

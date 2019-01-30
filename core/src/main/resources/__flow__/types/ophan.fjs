@@ -48,7 +48,8 @@ declare type Action = 'INSERT'
                     | 'SUBSCRIBE'
                     | 'ANSWER'
                     | 'VOTE'
-                    | 'CLICK';
+                    | 'CLICK'
+                    | 'PLAY';
 
 declare type AbTest = { name          : string
                       , variant       : string
