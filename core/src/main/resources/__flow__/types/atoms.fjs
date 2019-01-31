@@ -8,7 +8,8 @@ declare type AtomType =
   | 'storyquestions'
   | 'explainer'
   | 'commonsdivision'
-  | 'chart';
+  | 'chart'
+  | 'audio' ;
 
 declare type Atom = { atomId: string
                     , start: (a: Atom) => Promise<void>

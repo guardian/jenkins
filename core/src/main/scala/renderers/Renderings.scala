@@ -15,6 +15,7 @@ import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import com.gu.contentatom.thrift.atom.chart.ChartAtom
+import com.gu.contentatom.thrift.atom.audio.AudioAtom
 
 trait Renderings {
   implicit val ctaRendering: Rendering[CTAAtom]
@@ -31,4 +32,5 @@ trait Renderings {
   implicit val timelineRendering: Rendering[TimelineAtom]
   implicit val commonsdivisionRendering: Rendering[CommonsDivision]
   implicit val chartRendering: Rendering[ChartAtom]
+  implicit val audioRendering: Rendering[AudioAtom]
 }

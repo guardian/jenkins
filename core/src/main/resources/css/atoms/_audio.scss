@@ -1,0 +1,177 @@
+@import "vars";
+@import "helpers/multiline";
+@import "helpers/scale";
+
+.atom--audio {
+    @include multiline(4, $neutral-4);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    background: $neutral-7;
+    position: relative;
+    padding: 0 ($gutter / 4) ($baseline / 2);
+    margin: ($baseline * 4 / 3) 0 ($baseline * 3);
+
+    .atom--audio__button-playaudio {
+      background: transparent;
+      .icon--play-button-svg {
+        display: inline;
+      }
+      .icon--pause-button-svg {
+        display: none;
+      }
+    }
+
+    .atom--audio__button-playaudio.is-playing {
+      .icon--play-button-svg {
+        display: none;
+      }
+      .icon--pause-button-svg {
+        display: inline;
+      }
+    }
+}
+
+.atom--audio a {
+    color: $news-main-1;
+    border-bottom-color: $neutral-3;
+}
+
+.atom--audio__label {
+    display: block;
+
+    .garnett--pillar-news      &,
+    .content--pillar-news      & { color: $c-pillar--news; }
+    .garnett--pillar-arts      &,
+    .content--pillar-arts      & { color: $c-pillar--arts; }
+    .garnett--pillar-sport     &,
+    .content--pillar-sport     & { color: $c-pillar--sport; }
+    .garnett--pillar-opinion   &,
+    .content--pillar-opinion   & { color: $c-pillar--opinion; }
+    .garnett--pillar-lifestyle &,
+    .content--pillar-lifestyle & { color: $c-pillar--lifestyle; }
+}
+
+.atom--audio__label,
+.atom--audio__headline {
+    @include headline(3);
+    font-family: var(--f-serif-headline);
+    font-weight: 500;
+}
+
+.atom--audio__body {
+    overflow: hidden;
+}
+
+.atom--audio__body > p::before {
+    background-color: $news-support-2;
+}
+
+/* CSS STYLES FOR AUDIO ATOM  - convert to Sass */
+.atom--audio__body {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  grid-gap: 10px;
+  grid-row: auto;
+}
+
+.atom--audio__body .atom--audio__controls {
+  grid-column: 1;
+  padding-top: 10px;
+}
+
+.atom--audio__body .atom--audio__time {
+  grid-column: 2/5;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-row: auto;
+  grid-gap: 10px;
+  align-items: center;
+} 
+
+.atom--audio__time span {
+  font-family: var(--f-sans-serif-text);
+  font-size: .8em;
+}
+
+.atom--audio__progress-bar {
+  grid-column: 2;
+  width: auto;
+}
+
+.atom--audio__time-played {
+  min-width: 65px;
+  grid-column: 1;
+  padding-top: 6px;
+}
+
+.atom--audio__time-duration {
+  min-width: 65px;
+  grid-column: 3;
+  padding-top: 6px;
+}
+
+.atom--audio__body button:focus {
+  outline: none;
+}
+
+.atom--audio__body button svg {
+  width: 50px;
+  height: auto;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+/* SLIDER STYLES */
+.atom--audio__progress-bar input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  height: 6px;
+  background: linear-gradient(to right, #C70000 0%, #afafaf 0%);
+}
+
+/* IE and FF slider input styling */
+.atom--audio__progress-bar input[type=range]::-ms-fill-lower {
+  background-color: #C70000;	
+  height: 7px;
+}
+
+.atom--audio__progress-bar input[type=range]::-moz-range-progress {
+   background-color: #C70000;	
+  height: 8px;
+}
+
+.atom--audio__progress-bar input[type=range]::-moz-range-track {
+  -moz-appearance: none;
+  background: #afafaf;
+  height: 8px;
+}
+
+.atom--audio__progress-bar input[type=range]::-moz-range-thumb {
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #C70000;
+  border-radius: 50%;
+  margin-top: -4px;
+  border: none;
+}
+
+/* Safari / Chrome styling - nb: the track's progress fill colour has to be done with js */
+.atom--audio__progress-bar input[type=range]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 7px;
+}
+
+.atom--audio__progress-bar input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  background:#C70000;
+  border-radius: 50%;
+  margin-top: -4px;
+}

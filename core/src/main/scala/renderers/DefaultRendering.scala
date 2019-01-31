@@ -16,6 +16,8 @@ import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
+import com.gu.contentatom.thrift.atom.audio.AudioAtom
+
 import play.twirl.api.Html
 
 trait DefaultRendering[A] extends Rendering[A] {
@@ -83,5 +85,9 @@ object DefaultRenderings extends Renderings {
 
   val chartRendering = new DefaultRendering[ChartAtom] {
     val html_impl = (atom, data) => chart.default.html.index(atom, data)
+  }
+
+  val audioRendering = new DefaultRendering[AudioAtom] {
+    val html_impl = (atom, data) => audio.default.html.index(atom, data)
   }
 }

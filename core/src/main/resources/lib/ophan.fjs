@@ -21,6 +21,7 @@ export const ComponentTypes: { [ComponentType]: ComponentType } =
   , PROFILE_ATOM: 'PROFILE_ATOM'
   , GUIDE_ATOM: 'GUIDE_ATOM'
   , TIMELINE_ATOM: 'TIMELINE_ATOM'
+  , AUDIO_ATOM: 'AUDIO_ATOM'
   , NEWSLETTER_SUBSCRIPTION: 'NEWSLETTER_SUBSCRIPTION'
   , SURVEYS_QUESTIONS: 'SURVEYS_QUESTIONS'
   , ACQUISITIONS_EPIC: 'ACQUISITIONS_EPIC'
@@ -48,5 +49,7 @@ export const Actions: { [Action]: Action } =
   , ANSWER: 'ANSWER'
   , VOTE: 'VOTE'
   , CLICK: 'CLICK'
+  , PLAY: 'PLAY'
+  , READY: 'READY'
   };
 

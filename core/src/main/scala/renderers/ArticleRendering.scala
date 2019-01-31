@@ -16,6 +16,8 @@ import com.gu.contentatom.thrift.atom.review.ReviewAtom
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import com.gu.contentatom.thrift.atom.chart.ChartAtom
+import com.gu.contentatom.thrift.atom.audio.AudioAtom
+
 import play.twirl.api.Html
 import utils.LoadFromClasspath
 
@@ -126,5 +128,12 @@ object ArticleRenderings extends Renderings {
       chart.article.html.index(atom, data)
     val css_impl = () => LoadFromClasspath("/chart/article/index.css")
     val js_impl = () => LoadFromClasspath("/chart/article/index.js")
+  }
+
+  val audioRendering = new ArticleRendering[AudioAtom] {
+    def html[C <: Conf](atom: Atom, data: AudioAtom)(implicit conf: C) =
+      audio.article.html.index(atom, data)
+    val css_impl = () => LoadFromClasspath("/audio/article/index.css")
+    val js_impl = () => LoadFromClasspath("/audio/article/index.js")
   }
 }

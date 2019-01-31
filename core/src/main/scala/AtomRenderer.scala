@@ -15,6 +15,8 @@ import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import com.gu.contentatom.thrift.atom.chart.ChartAtom
+import com.gu.contentatom.thrift.atom.audio.AudioAtom
+
 import renderers.{Renderings, Rendering}
 
 trait AtomRenderer {
@@ -45,6 +47,7 @@ trait AtomRenderer {
     case AtomData.Timeline(data)       => getHTML(atom, data, conf)
     case AtomData.CommonsDivision(data) => getHTML(atom, data, conf)
     case AtomData.Chart(data)          => getHTML(atom, data, conf)
+    case AtomData.Audio(data)           => getHTML(atom, data, conf)
     case _                             => atom.defaultHtml
   }
 
@@ -69,6 +72,7 @@ trait AtomRenderer {
     case AtomType.Timeline       => getCSS[TimelineAtom]
     case AtomType.Commonsdivision => getCSS[CommonsDivision]
     case AtomType.Chart          => getCSS[ChartAtom]
+    case AtomType.Audio          => getCSS[AudioAtom]
     case _                       => None
   }
 
@@ -90,6 +94,7 @@ trait AtomRenderer {
     case AtomType.Timeline       => getJS[TimelineAtom]
     case AtomType.Commonsdivision => getJS[CommonsDivision]
     case AtomType.Chart          => getJS[ChartAtom]
+    case AtomType.Audio          => getJS[AudioAtom]
     case _                       => None
   }
 
