@@ -99,7 +99,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onPlayPause = (p: Audio) => (a: Action): void => {
     if (p.player.paused) {
-      record(p.player.getAttribute('data-media-id'), Actions.PLAY);
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PLAY);
       setPlayingState(dom, p.playPauseButton);
       p.player.play();
       p.player.ontimeupdate = updateTime(dom, p);
@@ -116,23 +116,18 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onVisible = (p: Audio) => (ratio: number): void => {
     if (ratio >= 1) {
-      record(p.player.getAttribute('data-media-id'), Actions.VIEW);
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.READY);
       setupTime(dom, p);
       viewport.unobserve(root, 1, observer);
     }
   };
 
-  const record = (id: string, action: Action) => {
+  const recordOphanAudioEvent = (id: string, eventName: string) => {
     ophan.record({
-      componentEvent: {
-        component: {
-          componentType,
-          id,
-          products: [],
-          labels: []
-        },
-        action
-      }
+      audio: {
+        id,
+        eventType: `audio:content:${eventName}`,
+      },
     });
   };
   

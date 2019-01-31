@@ -50,5 +50,6 @@ export const Actions: { [Action]: Action } =
   , VOTE: 'VOTE'
   , CLICK: 'CLICK'
   , PLAY: 'PLAY'
+  , READY: 'READY'
   };
 
