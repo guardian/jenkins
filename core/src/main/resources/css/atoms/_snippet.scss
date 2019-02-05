@@ -54,14 +54,14 @@
 .atom--snippet__label,
 .atom--snippet__headline {
     @include headline(3);
-    font-family: var(--f-serif-headline);
+    font-family: $f-serif-headline;
     font-weight: 500;
 }
 
 .atom--snippet__handle,
 .atom--snippet__feedback,
 .atom--snippet__credit {
-    font-family: var(--f-sans-serif-text);
+    font-family: $f-sans-serif-text;
 }
 
 .atom--snippet__handle {
@@ -168,7 +168,7 @@
 }
 
 .atom--snippet__heading {
-    font-family: var(--f-serif-headline);
+    font-family: $f-serif-headline;
     font-weight: 500;
 }
 
