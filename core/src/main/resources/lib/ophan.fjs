@@ -51,5 +51,10 @@ export const Actions: { [Action]: Action } =
   , CLICK: 'CLICK'
   , PLAY: 'PLAY'
   , READY: 'READY'
+  , PAUSE: 'PAUSE'
+  , PERCENT25: 'PERCENT25'
+  , PERCENT50: 'PERCENT50'
+  , PERCENT75: 'PERCENT75'
+  , THE_END: 'THE_END'
   };
 
