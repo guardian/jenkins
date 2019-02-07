@@ -10,6 +10,7 @@ case object NilConfiguration extends NilConfiguration
 final case class ArticleConfiguration(
   ajaxUrl: String,
   isAdFree: Boolean = false,
+  useAcast: Boolean = false,
   commonsdivisionConfiguration: CommonsdivisionConfiguration
 ) extends Configuration
 

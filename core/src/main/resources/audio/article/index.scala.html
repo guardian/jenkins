@@ -2,45 +2,46 @@
 , data: com.gu.contentatom.thrift.atom.audio.AudioAtom
 )(implicit conf: com.gu.contentatom.renderer.ArticleConfiguration)
 
-@fragments.atoms.html.audio(
-    atom.id,
-    className = "podcast",
-    label = data.kicker,
-    headline = atom.title.getOrElse("")
-){
-    <audio
-    class="atom--audio__player-element"
-    data-duration="@data.duration"
-    src="@data.trackUrl"
-    preload="none"
-    data-media-id="@data.contentId"
-    data-title="@data.kicker"
-    data-component="inarticle audio"
-    >
+@defining(if(conf.useAcast && !conf.isAdFree) data.trackUrl.replace("https://","https://flex.acast.com/") else data.trackUrl) { srcUrl: String =>
+    @fragments.atoms.html.audio(
+        atom.id,
+        className = "podcast",
+        label = data.kicker,
+        headline = atom.title.getOrElse("")
+    ){
+        <audio
+        class="atom--audio__player-element"
+        data-duration="@data.duration"
+        src="@srcUrl"
+        preload="none"
+        data-media-id="@data.contentId"
+        data-title="@data.kicker"
+        data-component="inarticle audio"
+        >
         <p>
-            Sorry your browser does not support audio - but you can download here
-            and listen @data.trackUrl
+        Sorry your browser does not support audio - but you can download here
+        and listen @data.trackUrl
         </p>
-    </audio>
+        </audio>
 
-    <div class="atom--audio__controls">
+        <div class="atom--audio__controls">
         <button class="atom--audio__button-playaudio atom__button atom--audio__button--rounded atom--audio__handle">
-            @fragments.icons.html.playaudio()
-            @fragments.icons.html.pauseaudio()
+        @fragments.icons.html.playaudio()
+        @fragments.icons.html.pauseaudio()
         </button>
-    </div>
+        </div>
 
-    <div class="atom--audio__time">
+        <div class="atom--audio__time">
         <div class="atom--audio__time-played">
-            <span></span>
+        <span></span>
         </div>
         <div class="atom--audio__progress-bar">
-            <input type="range" min="0" max="100" step="1">
+        <input type="range" min="0" max="100" step="1">
         </div>
         <div class="atom--audio__time-duration">
-            <span></span>
+        <span></span>
         </div>
-    </div>
+        </div>
+
+    }
 }
-
-
