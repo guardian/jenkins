@@ -66,13 +66,13 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   let scrubC: Channel<Action>;
   let playerTimeUpdateC: Channel<Action>;
   let observer: (x: number) => void;
-  let audioContainerSelector = '.atom--audio';
-  let audioPlayerSelector = '.atom--audio__player-element';
-  let playPauseButtonSelector = '.atom--audio__button-playaudio';
-  let progressBarSelector = '.atom--audio__progress-bar';
-  let progressSlider = '.atom--audio__progress-bar > input';
-  let timePlayedSelector = '.atom--audio__time-played > span';
-  let timeDurationSelector = '.atom--audio__time-duration > span';
+  const audioContainerSelector = '.atom--audio';
+  const audioPlayerSelector = '.atom--audio__player-element';
+  const playPauseButtonSelector = '.atom--audio__button-playaudio';
+  const progressBarSelector = '.atom--audio__progress-bar';
+  const progressSlider = '.atom--audio__progress-bar > input';
+  const timePlayedSelector = '.atom--audio__time-played > span';
+  const timeDurationSelector = '.atom--audio__time-duration > span';
 
   const start = (a: Audio): Promise<void> => {
     playPauseC = fromEvent('click', a.playPauseButton)
