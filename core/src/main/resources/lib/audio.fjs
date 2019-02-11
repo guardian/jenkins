@@ -40,15 +40,6 @@ function setupTime(dom: DomService, audio: Audio) {
   });
 }
 
-function recordOphanAudioEvent(id: string, eventName: string) {
-  ophan.record({
-    audio: {
-      id,
-      eventType: `audio:content:${eventName}`,
-    },
-  });
-}
-
 function updateTime(dom: DomService, audio: Audio) {
   const now = Date.now();
   const last = audio.player.getAttribute('last-tick');
@@ -140,6 +131,15 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     }
   };
 
+  const recordOphanAudioEvent = (id: string, eventName: string) => {
+    ophan.record({
+      audio: {
+        id,
+        eventType: `audio:content:${eventName}`,
+      },
+    });
+  };
+  
   const runTry = (): Try<Audio> => {
     const playPauseButton = (root.querySelector(playPauseButtonSelector): ?HTMLElement);
     const scrubber = (root.querySelector(progressSlider): ?HTMLElement);
