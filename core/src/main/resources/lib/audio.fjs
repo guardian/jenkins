@@ -4,12 +4,13 @@ import { Actions, MediaEvents } from 'ophan';
 import type { Channel } from 'channels';
 import { fromEvent } from 'events-getter';
 
-type AudioF = { player: HTMLElement
-              , playPauseButton: HTMLElement
-              , timePlayed: HTMLElement
-              , timeDuration: HTMLElement
-              , scrubber: HTMLElement
-              };
+type AudioF = { audioId: string
+                , player: HTMLElement
+                , playPauseButton: HTMLElement
+                , timePlayed: HTMLElement
+                , timeDuration: HTMLElement
+                , scrubber: HTMLElement
+                };
 type Audio = AudioF & Atom;
 
 function setPlayingState(dom: DomService, playPauseButton: HTMLElement) {
@@ -138,7 +139,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     const timePlayed = (root.querySelector(timePlayedSelector): ?HTMLElement);
     const timeDuration = (root.querySelector(timeDurationSelector): ?HTMLElement);
 
-    return audio && player && playPauseButton && timePlayed && timeDuration && scrubber
+    return audio && player && playPauseButton && timePlayed && scrubber
       ? Object.freeze({
         atomId: (root.dataset.atomId: string),
         player: player,
