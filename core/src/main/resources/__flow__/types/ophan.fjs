@@ -48,17 +48,9 @@ declare type Action = 'INSERT'
                     | 'SUBSCRIBE'
                     | 'ANSWER'
                     | 'VOTE'
-                    | 'CLICK';
-
-declare type MediaEvent = 'REQUEST'
-                        | 'READY'
-                        | 'PLAY'
-                        | 'PERCENT25'
-                        | 'PERCENT50'
-                        | 'PERCENT75'
-                        | 'THE_END'
-                        ;
-
+                    | 'CLICK'
+                    | 'PLAY'
+                    | 'READY';
 
 declare type AbTest = { name          : string
                       , variant       : string
@@ -73,12 +65,7 @@ declare type ComponentEvent = { component : ComponentV2
                               , abTest   ?: AbTest
                               };
 
-declare type MediaAction = { id : string
-                           , eventType: string
-                           };
-
-declare type OphanRecord = { componentEvent: ComponentEvent }
-                         | { audio: MediaAction };
+declare type OphanRecord = { componentEvent: ComponentEvent };
   
 declare interface OphanService {
   record: (x: OphanRecord) => void;
