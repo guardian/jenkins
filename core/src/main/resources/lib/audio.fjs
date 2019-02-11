@@ -1,6 +1,6 @@
 //@flow
 
-import { Actions } from 'ophan';
+import { Actions, MediaEvents } from 'ophan';
 import type { Channel } from 'channels';
 import { fromEvent } from 'events-getter';
 
@@ -99,7 +99,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onPlayPause = (p: Audio) => (a: Action): void => {
     if (p.player.paused) {
-      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PLAY);
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), MediaEvents.PLAY);
       setPlayingState(dom, p.playPauseButton);
       p.player.play();
       p.player.ontimeupdate = updateTime(dom, p);
@@ -116,7 +116,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onVisible = (p: Audio) => (ratio: number): void => {
     if (ratio >= 1) {
-      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.READY);
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), MediaEvents.READY);
       setupTime(dom, p);
       viewport.unobserve(root, 1, observer);
     }
