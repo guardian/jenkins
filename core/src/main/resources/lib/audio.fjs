@@ -93,6 +93,8 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     observer = onVisible(a);
     viewport.observe(root, 1, observer);
 
+    recordOphanAudioEvent(a.player.getAttribute('data-media-id') || '', MediaEvents.READY);
+
     return Promise.resolve();
   };
   
@@ -124,7 +126,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onVisible = (p: Audio) => (ratio: number): void => {
     if (ratio >= 1) {
-      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), MediaEvents.READY);
       setupTime(dom, p);
       viewport.unobserve(root, 1, observer);
     }
