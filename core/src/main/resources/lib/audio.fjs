@@ -26,19 +26,23 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   let scrubC: Channel<Action>;
   let playerTimeUpdateC: Channel<Action>;
   let observer: (x: number) => void;
-  let audioContainerSelector = '.atom--audio';
-  let audioPlayerSelector = '.atom--audio__player-element';
-  let playPauseButtonSelector = '.atom--audio__button-playaudio';
-  let progressBarSelector = '.atom--audio__progress-bar';
-  let progressSlider = '.atom--audio__progress-bar > input';
-  let timePlayedSelector = '.atom--audio__time-played > span';
-  let timeDurationSelector = '.atom--audio__time-duration > span';
+  const audioContainerSelector = '.atom--audio';
+  const audioPlayerSelector = '.atom--audio__player-element';
+  const playPauseButtonSelector = '.atom--audio__button-playaudio';
+  const progressSliderSelector = '.atom--audio__progress-bar > input';
+  const timePlayedSelector = '.atom--audio__time-played > span';
+  const timeDurationSelector = '.atom--audio__time-duration > span';
 
   const start = (a: Audio): Promise<void> => {
     playPauseC = fromEvent('click', a.playPauseButton)
       .map((e: Event) => ((e.target: any).closest(playPauseButtonSelector): ?HTMLButtonElement))
       .filter((e: ?HTMLButtonElement) => !!e);
     playPauseC.tap(onPlayPause(a));
+
+    scrubC = fromEvent('click', a.scrubber)
+      .map((e: Event) => ((e.target: any).closest(progressSliderSelector): ?HTMLElement))
+      .filter((e: ?HTMLElement) => !!e);
+    scrubC.tap(onTimeSeek(a));
 
     playerTimeUpdateC = fromEvent('timeupdate', a.player)
       .map((e: Event) => ((e.target: any).closest(audioPlayerSelector): ?HTMLElement))
@@ -83,7 +87,18 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       audio.scrubber.value = 0;
       audio.timePlayed.innerText = formatTime(0);
       audio.timeDuration.innerText = formatTime(Number(audio.player.getAttribute('data-duration')) || 0);
-      audio.player.setAttribute('milestones', 'READY');
+      audio.player.setAttribute('milestones', 'READY,');
+    });
+  };
+
+  const showProgress = (audio: Audio, percentPlayed: Number, now: Number, played: string) => {
+    const gradientDescription = `linear-gradient(to right, #C70000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
+
+    dom.write(() => {
+      audio.scrubber.value = percentPlayed;
+      audio.player.setAttribute('last-tick', now.toString());
+      audio.scrubber.style.background = gradientDescription;
+      audio.timePlayed.innerText = formatTime(played);
     });
   };
 
@@ -97,48 +112,46 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     const played = Math.floor(audio.player.currentTime);
     const duration = Number(audio.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
     const percentPlayed = Math.floor(played / duration * 100);
-    const gradientDescription = `linear-gradient(to right, #C70000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
     const milestones = audio.player.getAttribute('milestones');
 
     switch (percentPlayed){
       case 25: if (milestones.lastIndexOf('25%') < 0) {
-          audio.player.setAttribute('milestones', milestones.concat(',25%'));
-          recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT25);
-        }
+        audio.player.setAttribute('milestones', milestones.concat('25%,'));
+        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT25);
+      }
         break;
       case 50: if (milestones.lastIndexOf('50%') < 0) {
-          audio.player.setAttribute('milestones', milestones.concat(',50%'));
-          recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT50);
-        }
+        audio.player.setAttribute('milestones', milestones.concat('50%,'));
+        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT50);
+      }
         break;
       case 75: if (milestones.lastIndexOf('75%') < 0) {
-          audio.player.setAttribute('milestones', milestones.concat(',75%'));
-          recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT75);
-        }
+        audio.player.setAttribute('milestones', milestones.concat('75%,'));
+        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT75);
+      }
         break;
-      case 100: if (milestones.lastIndexOf('THE_END') < 0) {
-          audio.player.setAttribute('milestones', milestones.concat(',THE_END'));
-          recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.THE_END);
-        }
+      case 99: if (milestones.lastIndexOf('THE_END') < 0) {
+        audio.player.setAttribute('milestones', milestones.concat('THE_END,'));
+        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.THE_END);
+      }
     }
 
-    dom.write(() => {
-      audio.scrubber.value = percentPlayed;
-      audio.player.setAttribute('last-tick', now.toString());
-      audio.scrubber.style.background = gradientDescription;
-      audio.timePlayed.innerText = formatTime(played);
-    });
+    showProgress(audio, percentPlayed, now, played);
+
   };
 
   const onPlayPause = (p: Audio) => (a: Action): void => {
     if (p.player.paused) {
       setPlayingState(p.playPauseButton);
-      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PLAY);
       p.player.play();
       p.player.ontimeupdate = updateTime(p);
+      const milestones = p.player.getAttribute('milestones');
+      if (milestones.indexOf("PLAY") < 0 ) {
+        recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PLAY);
+        p.player.setAttribute('milestones', milestones.concat('PLAY,'));
+      }
     } else {
       setPausedState(p.playPauseButton);
-      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PAUSE);
       p.player.pause();
     }
   };
@@ -155,9 +168,18 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     }
   };
 
+  const onTimeSeek = (p: Audio) => (a: Action): void => {
+    const percentSought = Number(p.scrubber.value) || 0;
+    const duration = Number(p.player.getAttribute('data-duration'));
+    const played = Math.floor(duration * percentSought / 100);
+    const now = Date.now();
+    p.player.currentTime = played;
+    showProgress(p, percentSought, now, played);
+  };
+
   const runTry = (): Try<Audio> => {
     const playPauseButton = (root.querySelector(playPauseButtonSelector): ?HTMLElement);
-    const scrubber = (root.querySelector(progressSlider): ?HTMLElement);
+    const scrubber = (root.querySelector(progressSliderSelector): ?HTMLElement);
     const audio = (root.querySelector(audioContainerSelector): ?HTMLElement);
     const player = (root.querySelector(audioPlayerSelector): ?HTMLElement);
     const timePlayed = (root.querySelector(timePlayedSelector): ?HTMLElement);
