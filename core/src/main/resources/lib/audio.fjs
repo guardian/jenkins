@@ -100,7 +100,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   
   const stop = () => {
     playPauseC.close();
-    playerTimeUpdateC.close();
+    scrubC.close();
     viewport.unobserve(root, 1, observer);
   };
 
