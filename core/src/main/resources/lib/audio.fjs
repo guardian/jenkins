@@ -5,11 +5,11 @@ import type { Channel } from 'channels';
 import { fromEvent } from 'events-getter';
 
 type AudioF = { player: HTMLElement
-                , playPauseButton: HTMLElement
-                , timePlayed: HTMLElement
-                , timeDuration: HTMLElement
-                , scrubber: HTMLElement
-                };
+              , playPauseButton: HTMLElement
+              , timePlayed: HTMLElement
+              , timeDuration: HTMLElement
+              , scrubber: HTMLElement
+              };
 type Audio = AudioF & Atom;
 
 function setPlayingState(dom: DomService, playPauseButton: HTMLElement) {
@@ -102,6 +102,8 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     observer = onVisible(a);
     viewport.observe(root, 1, observer);
 
+    recordOphanAudioEvent(a.player.getAttribute('data-media-id') || '', MediaEvents.READY);
+
     return Promise.resolve();
   };
   
@@ -133,7 +135,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onVisible = (p: Audio) => (ratio: number): void => {
     if (ratio >= 1) {
-      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.READY);
       setupTime(dom, p);
       viewport.unobserve(root, 1, observer);
     }
