@@ -79,12 +79,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       .filter((e: ?HTMLButtonElement) => !!e);
     playPauseC.tap(onPlayPause(a));
 
-    const firstPlayC = fromEvent('click', a.playPauseButton)
-      .map((e: Event) => ((e.target: any).closest(playPauseButtonSelector): ?HTMLButtonElement))
-      .filter((e: ?HTMLButtonElement) => !!e)
-      .takeN(1);
-    playPauseC.tap(onFirstPlay(a));
-
     playerTimeUpdateC = fromEvent('timeupdate', a.player)
       .map((e: Event) => ((e.target: any).closest(audioPlayerSelector): ?HTMLElement))
       .filter((e: ?HTMLElement) => !!e);
@@ -102,8 +96,9 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     viewport.unobserve(root, 1, observer);
   };
 
-  const onPlayPause = (p: Audio) => (b: HTMLButtonElement): void => {
+  const onPlayPause = (p: Audio) => (a: Action): void => {
     if (p.player.paused) {
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), MediaEvents.PLAY);
       setPlayingState(dom, p.playPauseButton);
       p.player.play();
       p.player.ontimeupdate = updateTime(dom, p);
@@ -112,10 +107,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       p.player.pause();
     }
   };
-
-  const onFirstPlay = (p: Audio) => (b: HTMLButtonElement): void => {
-    recordOphanAudioEvent(p.player.getAttribute('data-media-id') || '', MediaEvents.PLAY);
-  }
 
   const onTick = (p: Audio) => (a: Action): void => {
     //TODO: send progress events to Ophan - needs thought re deduplication because it's based on percentage played
