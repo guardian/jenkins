@@ -49,7 +49,15 @@ export const Actions: { [Action]: Action } =
   , ANSWER: 'ANSWER'
   , VOTE: 'VOTE'
   , CLICK: 'CLICK'
-  , PLAY: 'PLAY'
+  };
+
+export const MediaEvents: { [MediaEvent]: MediaEvent } =
+  { REQUEST: 'REQUEST'
   , READY: 'READY'
+  , PLAY: 'PLAY'
+  , PERCENT25: 'PERCENT25'
+  , PERCENT50: 'PERCENT50'
+  , PERCENT75: 'PERCENT75'
+  , THE_END: 'THE_END'
   };
 

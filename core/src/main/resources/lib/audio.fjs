@@ -1,6 +1,6 @@
 //@flow
 
-import { Actions } from 'ophan';
+import { Actions, MediaEvents } from 'ophan';
 import type { Channel } from 'channels';
 import { fromEvent } from 'events-getter';
 
@@ -38,6 +38,15 @@ function setupTime(dom: DomService, audio: Audio) {
     audio.scrubber.value = 0;
     audio.timePlayed.innerText = formatTime(0);
     audio.timeDuration.innerText = formatTime(Number(audio.player.getAttribute('data-duration')) || 0);
+  });
+}
+
+function recordOphanAudioEvent(id: string, eventName: string) {
+  ophan.record({
+    audio: {
+      id,
+      eventType: `audio:content:${eventName}`,
+    },
   });
 }
 
@@ -122,15 +131,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     }
   };
 
-  const recordOphanAudioEvent = (id: string, eventName: string) => {
-    ophan.record({
-      audio: {
-        id,
-        eventType: `audio:content:${eventName}`,
-      },
-    });
-  };
-  
   const runTry = (): Try<Audio> => {
     const playPauseButton = (root.querySelector(playPauseButtonSelector): ?HTMLElement);
     const scrubber = (root.querySelector(progressSlider): ?HTMLElement);
