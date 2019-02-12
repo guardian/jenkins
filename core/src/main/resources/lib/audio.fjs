@@ -22,8 +22,6 @@ function formatTime(t: number): string {
 }
 
 export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<AudioF> => (root: HTMLElement): Coeval<Audio> => {
-  let playPauseC: Channel<Action>;
-  let scrubC: Channel<Action>;
   let playerTimeUpdateC: Channel<Action>;
   let observer: (x: number) => void;
   const audioContainerSelector = '.atom--audio';
@@ -34,20 +32,18 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   const timeDurationSelector = '.atom--audio__time-duration > span';
 
   const start = (a: Audio): Promise<void> => {
-    playPauseC = fromEvent('click', a.playPauseButton)
-      .map((e: Event) => ((e.target: any).closest(playPauseButtonSelector): ?HTMLButtonElement))
-      .filter((e: ?HTMLButtonElement) => !!e);
-    playPauseC.tap(onPlayPause(a));
-
-    scrubC = fromEvent('click', a.scrubber)
-      .map((e: Event) => ((e.target: any).closest(progressSliderSelector): ?HTMLElement))
-      .filter((e: ?HTMLElement) => !!e);
-    scrubC.tap(onTimeSeek(a));
+    /*
+      Safari 11+ doesn't recognise our handling of a click event intercepted over a Channel and therefore
+      refuses to start playback in response, so we're stuck with using the default addEventListener technique for now.
+    */
+    a.playPauseButton.addEventListener('click', onPlayPause(a));
+    a.scrubber.addEventListener('input', onTimeSeek(a));
+    a.scrubber.addEventListener('change', onTimeSeek(a));
 
     playerTimeUpdateC = fromEvent('timeupdate', a.player)
       .map((e: Event) => ((e.target: any).closest(audioPlayerSelector): ?HTMLElement))
       .filter((e: ?HTMLElement) => !!e);
-    playerTimeUpdateC.tap(onTick(a));
+    playerTimeUpdateC.tap(updateTime(a));
 
     observer = onVisible(a);
     viewport.observe(root, 1, observer);
@@ -56,8 +52,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
   
   const stop = () => {
-    playPauseC.close();
-    scrubC.close();
+    playerTimeUpdateC.close();
     viewport.unobserve(root, 1, observer);
   };
 
@@ -102,45 +97,40 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     });
   };
 
-  const updateTime = (audio: Audio) => {
+  const updateTime = (p: Audio) => (): void => {
     const now = Date.now();
-    const last = audio.player.getAttribute('last-tick');
+    const last = p.player.getAttribute('last-tick');
 
     // throttle to 1 update per second
     if (now - (Number(last) || 0) < 1000) return;
 
-    const played = Math.floor(audio.player.currentTime);
-    const duration = Number(audio.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
+    const played = Math.floor(p.player.currentTime);
+    const duration = Number(p.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
     const percentPlayed = Math.floor(played / duration * 100);
-    const milestones = audio.player.getAttribute('milestones');
+    const milestones = p.player.getAttribute('milestones');
 
-    switch (percentPlayed){
-      case 25: if (milestones.lastIndexOf('25%') < 0) {
-        audio.player.setAttribute('milestones', milestones.concat('25%,'));
-        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT25);
-      }
-        break;
-      case 50: if (milestones.lastIndexOf('50%') < 0) {
-        audio.player.setAttribute('milestones', milestones.concat('50%,'));
-        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT50);
-      }
-        break;
-      case 75: if (milestones.lastIndexOf('75%') < 0) {
-        audio.player.setAttribute('milestones', milestones.concat('75%,'));
-        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.PERCENT75);
-      }
-        break;
-      case 99: if (milestones.lastIndexOf('THE_END') < 0) {
-        audio.player.setAttribute('milestones', milestones.concat('THE_END,'));
-        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.THE_END);
-      }
+    if (percentPlayed >= 25 && milestones.lastIndexOf('25%') < 0){
+      p.player.setAttribute('milestones', milestones.concat('25%,'));
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT25);
+    }
+    if (percentPlayed >= 50 && milestones.lastIndexOf('50%') < 0){
+      p.player.setAttribute('milestones', milestones.concat('50%,'));
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT50);
+    }
+    if (percentPlayed >= 75 && milestones.lastIndexOf('75%') < 0){
+      p.player.setAttribute('milestones', milestones.concat('75%,'));
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT75);
+    }
+    if (percentPlayed >= 99 && milestones.lastIndexOf('THE_END') < 0){
+      p.player.setAttribute('milestones', milestones.concat('THE_END,'));
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.THE_END);
     }
 
-    showProgress(audio, percentPlayed, now, played);
+    showProgress(p, percentPlayed, now, played);
 
   };
 
-  const onPlayPause = (p: Audio) => (a: Action): void => {
+  const onPlayPause = (p: Audio) => (): void => {
     if (p.player.paused) {
       setPlayingState(p.playPauseButton);
       p.player.play();
@@ -156,19 +146,15 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     }
   };
 
-  const onTick = (p: Audio) => (a: Action): void => {
-    updateTime(p);
-  };
-
   const onVisible = (p: Audio) => (ratio: number): void => {
     if (ratio >= 1) {
-      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.READY);
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.VIEW);
       setupTime(p);
       viewport.unobserve(root, 1, observer);
     }
   };
 
-  const onTimeSeek = (p: Audio) => (a: Action): void => {
+  const onTimeSeek = (p: Audio) => (): void => {
     const percentSought = Number(p.scrubber.value) || 0;
     const duration = Number(p.player.getAttribute('data-duration'));
     const played = Math.floor(duration * percentSought / 100);

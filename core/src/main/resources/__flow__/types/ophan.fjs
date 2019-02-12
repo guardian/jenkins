@@ -55,7 +55,7 @@ declare type Action = 'INSERT'
                     | 'PERCENT25'
                     | 'PERCENT50'
                     | 'PERCENT75'
-                    | 'THE_END'
+                    | 'THE_END';
 
 declare type AbTest = { name          : string
                       , variant       : string
