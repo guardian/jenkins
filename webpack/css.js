@@ -1,6 +1,6 @@
 module.exports = ({ cssVarsPath }) => [
   {
-    test: /stylesheets\/atoms\.scss$/,
+    test: /static\/src\/stylesheets\/atoms\/vars.scss$/,
     use: ['babel-loader', 'postcss-variables-loader', 'sass-loader']
   },
   {

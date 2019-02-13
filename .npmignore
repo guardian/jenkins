@@ -2,8 +2,7 @@ src
 build
 project
 target
-webpack
-!webpack/css.js
+webpack/atomTypes.js
 node_modules
 ensime*
 pc.stdout.log
