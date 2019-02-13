@@ -22,11 +22,12 @@ lazy val email = (project in file("email"))
 lazy val utils = (project in file("utils"))
   .dependsOn(core, email)
   .settings(commonSettings, utilsSettings, disablePublishingSettings)
+  .enablePlugins(SbtTwirl)
 
 lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++ 
   Seq ( crossScalaVersions  := scalaVersions
       , scalacOptions       ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds")
-      , scalaVersion        := scalaVersions.min
+      , scalaVersion        := scalaVersions.max
       , libraryDependencies ++= coreDeps
       , dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1"
       , publishTo           := sonatypePublishTo.value
@@ -48,8 +49,7 @@ lazy val emailSettings: Seq[Setting[_]] =
 lazy val utilsSettings: Seq[Setting[_]] =
   Seq ( libraryDependencies ++= utilsDeps
       , console / initialCommands := 
-        """import monix.execution.Scheduler.Implicits.global
-          |import com.gu.contentatom.thrift._
+        """import com.gu.contentatom.thrift._
           |import com.gu.contentatom.renderer._
           |import com.gu.contentatom.renderer.utils._
         """.stripMargin
