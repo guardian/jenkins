@@ -1,6 +1,6 @@
 {
   "name": "@guardian/atom-renderer",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "description": "Platform-agnostic rendering library for atoms",
   "repository": "https://github.com/guardian/atom-renderer.git",
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",

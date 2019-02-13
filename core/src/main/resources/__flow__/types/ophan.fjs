@@ -50,7 +50,12 @@ declare type Action = 'INSERT'
                     | 'VOTE'
                     | 'CLICK'
                     | 'PLAY'
-                    | 'READY';
+                    | 'READY'
+                    | 'PAUSE'
+                    | 'PERCENT25'
+                    | 'PERCENT50'
+                    | 'PERCENT75'
+                    | 'THE_END';
 
 declare type AbTest = { name          : string
                       , variant       : string

@@ -7,8 +7,13 @@ sealed trait Configuration
 sealed trait NilConfiguration extends Configuration
 case object NilConfiguration extends NilConfiguration
 
+final case class AudioSettings(
+  externalAdvertising: Boolean
+)
+
 final case class ArticleConfiguration(
   ajaxUrl: String,
+    audioSettings: AudioSettings,
   commonsdivisionConfiguration: CommonsdivisionConfiguration
 ) extends Configuration
 
