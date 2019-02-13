@@ -136,7 +136,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       p.player.play();
       p.player.ontimeupdate = updateTime(p);
       const milestones = p.player.getAttribute('data-milestones');
-      if (milestones.indexOf("PLAY") < 0 ) {
+      if (milestones.indexOf('PLAY') < 0 ) {
         recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PLAY);
         p.player.setAttribute('data-milestones', milestones.concat('PLAY,'));
       }
