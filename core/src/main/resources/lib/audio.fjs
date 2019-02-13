@@ -82,7 +82,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       audio.scrubber.value = 0;
       audio.timePlayed.innerText = formatTime(0);
       audio.timeDuration.innerText = formatTime(Number(audio.player.getAttribute('data-duration')) || 0);
-      audio.player.setAttribute('milestones', 'READY,');
+      audio.player.setAttribute('data-milestones', 'READY,');
     });
   };
 
@@ -91,7 +91,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
     dom.write(() => {
       audio.scrubber.value = percentPlayed;
-      audio.player.setAttribute('last-tick', now.toString());
+      audio.player.setAttribute('data-last-tick', now.toString());
       audio.scrubber.style.background = gradientDescription;
       audio.timePlayed.innerText = formatTime(played);
     });
@@ -99,7 +99,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const updateTime = (p: Audio) => (): void => {
     const now = Date.now();
-    const last = p.player.getAttribute('last-tick');
+    const last = p.player.getAttribute('data-last-tick');
 
     // throttle to 1 update per second
     if (now - (Number(last) || 0) < 1000) return;
@@ -107,22 +107,22 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     const played = Math.floor(p.player.currentTime);
     const duration = Number(p.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
     const percentPlayed = Math.floor(played / duration * 100);
-    const milestones = p.player.getAttribute('milestones');
+    const milestones = p.player.getAttribute('data-milestones');
 
     if (percentPlayed >= 25 && milestones.lastIndexOf('25%') < 0){
-      p.player.setAttribute('milestones', milestones.concat('25%,'));
+      p.player.setAttribute('data-milestones', milestones.concat('25%,'));
       recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT25);
     }
     if (percentPlayed >= 50 && milestones.lastIndexOf('50%') < 0){
-      p.player.setAttribute('milestones', milestones.concat('50%,'));
+      p.player.setAttribute('data-milestones', milestones.concat('50%,'));
       recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT50);
     }
     if (percentPlayed >= 75 && milestones.lastIndexOf('75%') < 0){
-      p.player.setAttribute('milestones', milestones.concat('75%,'));
+      p.player.setAttribute('data-milestones', milestones.concat('75%,'));
       recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT75);
     }
     if (percentPlayed >= 99 && milestones.lastIndexOf('THE_END') < 0){
-      p.player.setAttribute('milestones', milestones.concat('THE_END,'));
+      p.player.setAttribute('data-milestones', milestones.concat('THE_END,'));
       recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.THE_END);
     }
 
@@ -138,7 +138,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       const milestones = p.player.getAttribute('milestones');
       if (milestones.indexOf("PLAY") < 0 ) {
         recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PLAY);
-        p.player.setAttribute('milestones', milestones.concat('PLAY,'));
+        p.player.setAttribute('data-milestones', milestones.concat('PLAY,'));
       }
     } else {
       setPausedState(p.playPauseButton);
