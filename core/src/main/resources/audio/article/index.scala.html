@@ -2,7 +2,7 @@
 , data: com.gu.contentatom.thrift.atom.audio.AudioAtom
 )(implicit conf: com.gu.contentatom.renderer.ArticleConfiguration)
 
-@defining(if(conf.useAcast && !conf.isAdFree) data.trackUrl.replace("https://","https://flex.acast.com/") else data.trackUrl) { srcUrl: String =>
+@defining(if(conf.audioSettings.externalAdvertising) data.trackUrl.replace("https://","https://flex.acast.com/") else data.trackUrl) { srcUrl: String =>
     @fragments.atoms.html.audio(
         atom.id,
         className = "podcast",
