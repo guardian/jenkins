@@ -1,0 +1,132 @@
+@(atom: Option[com.gu.contentatom.thrift.Atom], content: Option[Html], css: Option[String], js: Option[String])
+
+<html>
+  <head>
+    <link href="/assets/styles.css" rel="stylesheet">
+    @css.map { css =>
+      <style>
+        @css
+      </style>
+    }
+  </head>
+  <body>
+    <form id="request" action="/" method="get">
+      <div>
+        <select name="at">
+          <option value="audio">Audio</option>
+          <option value="chart">Chart</option>
+          <option value="guide">Guide</option>
+          <option value="qanda">Q&amp;A</option>
+          <option value="profile">Profile</option>
+          <option value="timeline">Timeline</option>
+        </select>
+        <input id="id" type="text" name="id" placeholder="Atom ID" @atom.map { a => value="@{a.id}" }>
+        <button type="submit">View</button>
+      </div>
+    </form>
+
+    <div id="content">
+      @for( c <- content; a <- atom ) {      
+        <div class="element-atom" data-atom-type="@{a.atomType.toString.toLowerCase}" data-atom-id="@{a.id}">
+          @c
+        </div>
+      }
+    </div>
+
+    @js.map { js =>
+      <script type="text/javascript">
+      (function () {
+        const observers = Object.create(null);
+        const callbacks = Object.create(null);
+        const elements = Object.create(null);
+
+        function observe(element, threshold, callback) {
+          if (!observers[threshold]) {
+            callbacks[threshold] = [callback];
+            elements[threshold] = [element];
+            observers[threshold] = new IntersectionObserver(entries => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  callbacks[threshold].forEach((c, index) => {
+                    if (elements[threshold][index] === entry.target) {
+                      c(entry.intersectionRatio);
+                    }
+                  });
+                }
+              });
+            }, { threshold });
+          } else {
+            callbacks[threshold].push(callback);
+            elements[threshold].push(element);
+          }
+          observers[threshold].observe(element);
+        }
+
+        function unobserve(element, threshold, callback) {
+          if (!observers[threshold]) return;
+
+          observers[threshold].unobserve(element);
+
+          const idx = callbacks[threshold].indexOf(callback);
+          if (idx !== -1) {
+            callbacks[threshold].splice(idx, 1);
+            elements[threshold].splice(idx, 1);
+          }
+
+          if (callbacks[threshold].length === 0) {
+            observers[threshold] = null;
+          }
+        }  
+         
+        const services = {
+          ophan: {
+            record(obj) {
+              console.log("Sending data to Ophan...", obj)
+            }
+          },
+          dom: {
+            write(f) { f(); },
+            read(f) { f(); }
+          },
+          viewport: {
+            observe,
+            unobserve
+          }
+        };
+
+        var atoms = {};
+        function readAtoms() {
+          @Html(js)         
+        }
+        readAtoms.call(atoms);
+
+        function init() {
+            const atomTypes = atoms;
+            Object.keys(atomTypes).forEach(t => {
+                const f = atomTypes[t];
+                if (typeof f.default !== 'function' || f.default.length !== 1) {
+                    return;
+                }
+                bootAtomType(t, atomTypes[t]);
+            });
+        }
+
+        function bootAtomType(atomType, atomFactory) {
+            const atomBuilder = atomFactory.default(services);
+            const atoms = document.querySelectorAll(`.element-atom[data-atom-type="${atomType}"]`);
+            for (let i = 0; i < atoms.length; i++) {
+                const atom = atomBuilder(atoms[i]).runTry();
+                if (typeof atom === 'string') {
+                    console.log(`Failed to initialise atom [${atomType}/${atoms[i].getAttribute('data-atom-id')}]: ${atom}`);
+                } else {
+                    atom.start();
+                }
+            }
+        }
+
+        init();
+      }());
+      </script>
+    }
+  </body>
+</html>
