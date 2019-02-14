@@ -1,8 +1,6 @@
 //@flow
 
 import { Actions } from 'ophan';
-import type { Channel } from 'channels';
-import { fromEvent } from 'events-getter';
 
 type AudioF = { audioId: string
                 , player: HTMLElement
@@ -22,7 +20,6 @@ function formatTime(t: number): string {
 }
 
 export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<AudioF> => (root: HTMLElement): Coeval<Audio> => {
-  let playerTimeUpdateC: Channel<Action>;
   let observer: (x: number) => void;
   const audioContainerSelector = '.atom--audio';
   const audioPlayerSelector = '.atom--audio__player-element';
@@ -34,16 +31,13 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   const start = (a: Audio): Promise<void> => {
     /*
       Safari 11+ doesn't recognise our handling of a click event intercepted over a Channel and therefore
-      refuses to start playback in response, so we're stuck with using the default addEventListener technique for now.
+      refuses to start playback in response, so we'll use the default addEventListener technique instead
     */
     a.playPauseButton.addEventListener('click', onPlayPause(a));
     a.scrubber.addEventListener('input', onTimeSeek(a));
     a.scrubber.addEventListener('change', onTimeSeek(a));
-
-    playerTimeUpdateC = fromEvent('timeupdate', a.player)
-      .map((e: Event) => ((e.target: any).closest(audioPlayerSelector): ?HTMLElement))
-      .filter((e: ?HTMLElement) => !!e);
-    playerTimeUpdateC.tap(updateTime(a));
+    a.player.addEventListener('timeupdate', updateTime(a));
+    a.player.addEventListener('ended', onPlaybackFinished(a));
 
     observer = onVisible(a);
     viewport.observe(root, 1, observer);
@@ -52,7 +46,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
   
   const stop = () => {
-    playerTimeUpdateC.close();
     viewport.unobserve(root, 1, observer);
   };
 
@@ -82,7 +75,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       audio.scrubber.value = 0;
       audio.timePlayed.innerText = formatTime(0);
       audio.timeDuration.innerText = formatTime(Number(audio.player.getAttribute('data-duration')) || 0);
-      audio.player.setAttribute('data-milestones', 'READY,');
     });
   };
 
@@ -107,23 +99,19 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     const played = Math.floor(p.player.currentTime);
     const duration = Number(p.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
     const percentPlayed = Math.floor(played / duration * 100);
-    const milestones = p.player.getAttribute('data-milestones');
+    const milestones = p.player.getAttribute('data-milestones') || '';
 
-    if (percentPlayed >= 25 && milestones.lastIndexOf('25%') < 0){
-      p.player.setAttribute('data-milestones', milestones.concat('25%,'));
+    if (percentPlayed >= 25 && milestones.indexOf(Actions.PERCENT25) < 0){
+      p.player.setAttribute('data-milestones', milestones.concat(`${Actions.PERCENT25},`));
       recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT25);
     }
-    if (percentPlayed >= 50 && milestones.lastIndexOf('50%') < 0){
-      p.player.setAttribute('data-milestones', milestones.concat('50%,'));
+    if (percentPlayed >= 50 && milestones.indexOf(Actions.PERCENT50) < 0){
+      p.player.setAttribute('data-milestones', milestones.concat(`${Actions.PERCENT50},`));
       recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT50);
     }
-    if (percentPlayed >= 75 && milestones.lastIndexOf('75%') < 0){
-      p.player.setAttribute('data-milestones', milestones.concat('75%,'));
+    if (percentPlayed >= 75 && milestones.indexOf(Actions.PERCENT75) < 0){
+      p.player.setAttribute('data-milestones', milestones.concat(`${Actions.PERCENT75},`));
       recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PERCENT75);
-    }
-    if (percentPlayed >= 99 && milestones.lastIndexOf('THE_END') < 0){
-      p.player.setAttribute('data-milestones', milestones.concat('THE_END,'));
-      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.THE_END);
     }
 
     showProgress(p, percentPlayed, now, played);
@@ -132,14 +120,13 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onPlayPause = (p: Audio) => (): void => {
     if (p.player.paused) {
+      const milestones = p.player.getAttribute('data-milestones') || '';
+      if (milestones.indexOf(Actions.PLAY) < 0 ) {
+        p.player.setAttribute('data-milestones', milestones.concat(`${Actions.PLAY},`));
+        recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PLAY);
+      }
       setPlayingState(p.playPauseButton);
       p.player.play();
-      p.player.ontimeupdate = updateTime(p);
-      const milestones = p.player.getAttribute('data-milestones');
-      if (milestones.indexOf('PLAY') < 0 ) {
-        recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.PLAY);
-        p.player.setAttribute('data-milestones', milestones.concat('PLAY,'));
-      }
     } else {
       setPausedState(p.playPauseButton);
       p.player.pause();
@@ -161,6 +148,20 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     const now = Date.now();
     p.player.currentTime = played;
     showProgress(p, percentSought, now, played);
+  };
+
+  const onPlaybackFinished = (p: Audio) => (): void => {
+    const percentReached = 100;
+    const duration = Number(p.player.getAttribute('data-duration'));
+    const now = Date.now();
+    const milestones = p.player.getAttribute('data-milestones') || '';
+    if (milestones.indexOf(Actions.THE_END) < 0 ) {
+      recordOphanAudioEvent(p.player.getAttribute('data-media-id'), Actions.THE_END);
+      p.player.setAttribute('data-milestones', milestones.concat(`${Actions.THE_END},`));
+    }
+    p.player.currentTime = duration;
+    setPausedState(p.playPauseButton);
+    showProgress(p, percentReached, now, duration);
   };
 
   const runTry = (): Try<Audio> => {
