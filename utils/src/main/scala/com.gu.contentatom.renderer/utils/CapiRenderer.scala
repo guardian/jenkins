@@ -32,7 +32,12 @@ class IoCapiRenderer(_apiKey: String) extends Capi[Task] with CapiRenderer[Task]
 
   val client = new GuardianContentClient(_apiKey)
 
-  val articleConfig = ArticleConfiguration("http://localhost", CommonsdivisionConfiguration(true))
+  val audioSettings = AudioSettings(externalAdvertising = false)
+  val articleConfig = ArticleConfiguration(
+    ajaxUrl = "http://localhost",
+    audioSettings = audioSettings,
+    commonsdivisionConfiguration = CommonsdivisionConfiguration(true)
+  )
   val emailConfig = EmailConfiguration(
     viewInBrowserUrl = "http://localhost",
     siteUrl = "http://localhost",
