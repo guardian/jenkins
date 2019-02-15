@@ -44,8 +44,8 @@ object Main extends IOApp {
   val client = new GuardianContentClient(sys.env("CAPI_TEST_KEY"))
 
   val assetsService: HttpRoutes[IO] = HttpRoutes.of[IO] {
-    case req @ GET -> Root / "styles" ~ "css" =>
-      StaticFile.fromResource("/styles.css", global, Some(req)).getOrElseF(NotFound())
+    case req @ GET -> path =>
+      StaticFile.fromResource(s"$path", global, Some(req)).getOrElseF(NotFound())
   }
 
   val capiService: HttpRoutes[IO] = HttpRoutes[IO] {
