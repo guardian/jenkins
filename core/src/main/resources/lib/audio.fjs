@@ -38,6 +38,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     audio.scrubber.addEventListener('change', onTimeSeek);
     audio.player.addEventListener('timeupdate', updateTime);
     audio.player.addEventListener('ended', onPlaybackFinished);
+    audio.player.addEventListener('durationchange', onDurationChange);
     viewport.observe(root, 1, onVisible);
     
     recordOphanAudioEvent(a.player.getAttribute('data-media-id') || '', MediaEvents.READY);
@@ -85,6 +86,11 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
       audio.scrubber.style.background = gradientDescription;
       audio.timePlayed.innerText = formatTime(played);
     });
+  };
+
+  const onDurationChange = () => {
+    audio.timeDuration.innerText = formatTime(audio.player.duration);
+    audio.player.removeEventListener('durationchange', onDurationChange);
   };
 
   const updateTime = (): void => {
