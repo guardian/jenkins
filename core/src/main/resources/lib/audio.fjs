@@ -76,14 +76,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     });
   };
 
-  const setupTime = (audio: Audio) => {
-    dom.write(() => {
-      audio.scrubber.value = 0;
-      audio.timePlayed.innerText = formatTime(0);
-      audio.timeDuration.innerText = formatTime(Number(audio.player.getAttribute('data-duration')) || 0);
-    });
-  };
-
   const showProgress = (audio: Audio, percentPlayed: Number, now: Number, played: string) => {
     const gradientDescription = `linear-gradient(to right, #C70000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
 
@@ -142,7 +134,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   const onVisible = (ratio: number): void => {
     if (ratio >= 1) {
       recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.VIEW);
-      setupTime(audio);
       viewport.unobserve(root, 1, onVisible);
     }
   };
