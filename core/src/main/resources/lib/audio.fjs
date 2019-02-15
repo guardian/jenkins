@@ -107,15 +107,15 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     const percentPlayed = Math.floor(played / duration * 100);
     const milestones = audio.player.getAttribute('data-milestones') || '';
 
-    if (percentPlayed >= 25 && milestones.indexOf(Actions.PERCENT25) < 0){
+    if (percentPlayed >= 25 && milestones.indexOf(MediaEvents.PERCENT25) < 0){
       audio.player.setAttribute('data-milestones', milestones.concat(`${MediaEvents.PERCENT25},`));
       recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), MediaEvents.PERCENT25);
     }
-    if (percentPlayed >= 50 && milestones.indexOf(Actions.PERCENT50) < 0){
+    if (percentPlayed >= 50 && milestones.indexOf(MediaEvents.PERCENT50) < 0){
       audio.player.setAttribute('data-milestones', milestones.concat(`${MediaEvents.PERCENT50},`));
       recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), MediaEvents.PERCENT50);
     }
-    if (percentPlayed >= 75 && milestones.indexOf(Actions.PERCENT75) < 0){
+    if (percentPlayed >= 75 && milestones.indexOf(MediaEvents.PERCENT75) < 0){
       audio.player.setAttribute('data-milestones', milestones.concat(`${MediaEvents.PERCENT75},`));
       recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), MediaEvents.PERCENT75);
     }
