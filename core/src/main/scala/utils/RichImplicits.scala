@@ -1,6 +1,7 @@
 package com.gu.contentatom.renderer
 package utils
 
+import com.gu.contentatom.thrift.atom.audio.AudioAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineItem
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 
@@ -21,6 +22,15 @@ object Implicits {
       notifications <- s.notifications
       email <- notifications.email
     } yield email.listId
+  }
+
+  implicit class RichAudio(val audio: AudioAtom) extends AnyVal {
+    def durationStr: String = {
+      val seconds: Int = audio.duration % 60;
+      val minutes: Int = Math.min(59, audio.duration / 60);
+      val hours: Int   = audio.duration / 3600;
+      f"$seconds%02d:$minutes%02d:$hours%02d"
+    }
   }
 
 }
