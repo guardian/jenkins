@@ -52,6 +52,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     audio.scrubber.removeEventListener('change', onTimeSeek);
     audio.player.removeEventListener('timeupdate', updateTime);
     audio.player.removeEventListener('ended', onPlaybackFinished);
+    audio = null;
   };
 
   const recordOphanAudioEvent = (id: string, eventName: string) => {
