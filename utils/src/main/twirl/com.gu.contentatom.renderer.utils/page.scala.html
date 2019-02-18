@@ -12,14 +12,16 @@
   <body>
     <form id="request" action="/" method="get">
       <div>
-        <select name="at">
-          <option value="audio">Audio</option>
-          <option value="chart">Chart</option>
-          <option value="guide">Guide</option>
-          <option value="qanda">Q&amp;A</option>
-          <option value="profile">Profile</option>
-          <option value="timeline">Timeline</option>
-        </select>
+        @defining(atom.fold("audio")(_.atomType.toString.toLowerCase)) { atomType =>
+          <select name="at">
+            <option value="audio" @if(atomType == "audio"){selected}>Audio</option>
+            <option value="chart" @if(atomType == "chart"){selected}>Chart</option>
+            <option value="guide" @if(atomType == "guide"){selected}>Guide</option>
+            <option value="qanda" @if(atomType == "qanda"){selected}>Q&amp;A</option>
+            <option value="profile" @if(atomType == "profile"){selected}>Profile</option>
+            <option value="timeline" @if(atomType == "timeline"){selected}>Timeline</option>
+          </select>
+        }
         <input id="id" type="text" name="id" placeholder="Atom ID" @atom.map { a => value="@{a.id}" }>
         <button type="submit">View</button>
       </div>
