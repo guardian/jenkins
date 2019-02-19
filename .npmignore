@@ -15,3 +15,5 @@ TODO.md
 *.sbt
 *.html
 *.scala
+.bloop
+.metals
