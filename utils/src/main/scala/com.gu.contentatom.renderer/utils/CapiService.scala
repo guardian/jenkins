@@ -50,9 +50,9 @@ object Main extends IOApp {
 
   val capiService: HttpRoutes[IO] = HttpRoutes[IO] {
     case GET -> Root :? AtomTypeMatcher(atomType) +& AtomIdMatcher(atomId) =>
-      OptionT.liftF(IO.async[ItemResponse] { cb =>
+      OptionT.liftF(IO.async[ItemResponse] { callback =>
         client.getResponse(ContentApiClient.item(s"atom/${atomType.toString.toLowerCase}/$atomId"))
-          .onComplete(_.fold(t => cb(Left(t)), r => cb(Right(r))))
+          .onComplete(_.fold(throwable => callback(Left(throwable)), response => callback(Right(response))))
       }.flatMap { resp =>
         atomType match {
           case AtomType.Audio    => 
@@ -109,7 +109,7 @@ object Main extends IOApp {
                 ArticleAtomRenderer.getJS(AtomType.Timeline)
               ))
             )
-          case _                 => InternalServerError("Hmm, this is weird")
+          case _                 => InternalServerError(s"Hmm, this is weird, it seems ${atomType} hasn't been properly decoded?")
         }        
       })
 
@@ -120,7 +120,7 @@ object Main extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] =
     BlazeServerBuilder[IO]
-      .bindHttp(9000, "localhost")
+      .bindHttp(8080, "localhost")
       .withHttpApp(Router[IO]("/" -> capiService, "/assets" -> assetsService).orNotFound)
       .serve
       .compile
