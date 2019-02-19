@@ -13,7 +13,7 @@ final case class AudioSettings(
 
 final case class ArticleConfiguration(
   ajaxUrl: String,
-    audioSettings: AudioSettings,
+  audioSettings: AudioSettings,
   commonsdivisionConfiguration: CommonsdivisionConfiguration
 ) extends Configuration
 
