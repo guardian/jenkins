@@ -74,6 +74,7 @@
 }
 
 .atom--audio__body .atom--audio__controls {
+  box-sizing: content-box;
   padding-top: 10px;
   padding-right: 10px;
   width: 50px;
