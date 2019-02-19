@@ -20,6 +20,7 @@ function formatTime(t: number): string {
 
 export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<AudioF> => (root: HTMLElement): Coeval<Audio> => {
   let audio: Audio;
+  let duration: number;
   const audioContainerSelector = '.atom--audio';
   const audioPlayerSelector = '.atom--audio__player-element';
   const playPauseButtonSelector = '.atom--audio__button-playaudio';
@@ -38,10 +39,13 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     audio.scrubber.addEventListener('change', onTimeSeek);
     audio.player.addEventListener('timeupdate', updateTime);
     audio.player.addEventListener('ended', onPlaybackFinished);
+    audio.player.addEventListener('durationchange', onDurationChange);
     viewport.observe(root, 1, onVisible);
     
     recordOphanAudioEvent(a.player.getAttribute('data-media-id') || '', MediaEvents.READY);
-    
+     
+    duration = Number(audio.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
+
     return Promise.resolve();
   };
   
@@ -76,14 +80,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     });
   };
 
-  const setupTime = (audio: Audio) => {
-    dom.write(() => {
-      audio.scrubber.value = 0;
-      audio.timePlayed.innerText = formatTime(0);
-      audio.timeDuration.innerText = formatTime(Number(audio.player.getAttribute('data-duration')) || 0);
-    });
-  };
-
   const showProgress = (audio: Audio, percentPlayed: Number, now: Number, played: string) => {
     const gradientDescription = `linear-gradient(to right, #C70000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
 
@@ -95,6 +91,12 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     });
   };
 
+  const onDurationChange = () => {
+    audio.timeDuration.innerText = formatTime(audio.player.duration);
+    audio.player.removeEventListener('durationchange', onDurationChange);
+    duration = audio.player.duration;
+  };
+
   const updateTime = (): void => {
     const now = Date.now();
     const last = audio.player.getAttribute('data-last-tick');
@@ -103,7 +105,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     if (now - (Number(last) || 0) < 1000) return;
 
     const played = Math.floor(audio.player.currentTime);
-    const duration = Number(audio.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
     const percentPlayed = Math.floor(played / duration * 100);
     const milestones = audio.player.getAttribute('data-milestones') || '';
 
@@ -142,14 +143,12 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   const onVisible = (ratio: number): void => {
     if (ratio >= 1) {
       recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.VIEW);
-      setupTime(audio);
       viewport.unobserve(root, 1, onVisible);
     }
   };
 
   const onTimeSeek = (): void => {
     const percentSought = Number(audio.scrubber.value) || 0;
-    const duration = Number(audio.player.getAttribute('data-duration'));
     const played = Math.floor(duration * percentSought / 100);
     const now = Date.now();
     audio.player.currentTime = played;
@@ -158,7 +157,6 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onPlaybackFinished = (): void => {
     const percentReached = 100;
-    const duration = Number(audio.player.getAttribute('data-duration'));
     const now = Date.now();
     const milestones = audio.player.getAttribute('data-milestones') || '';
     if (milestones.indexOf(Actions.THE_END) < 0 ) {
