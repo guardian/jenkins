@@ -15,6 +15,7 @@ import org.http4s.server.blaze._
 import org.http4s.syntax._
 import org.http4s.twirl._
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.util.{ Success, Failure }
 import play.twirl.api.Html
 
 
@@ -52,7 +53,10 @@ object Main extends IOApp {
     case GET -> Root :? AtomTypeMatcher(atomType) +& AtomIdMatcher(atomId) =>
       OptionT.liftF(IO.async[ItemResponse] { callback =>
         client.getResponse(ContentApiClient.item(s"atom/${atomType.toString.toLowerCase}/$atomId"))
-          .onComplete(_.fold(throwable => callback(Left(throwable)), response => callback(Right(response))))
+          .onComplete {
+            case Failure(throwable) => callback(Left(throwable))
+            case Success(response) => callback(Right(response))
+          }
       }.flatMap { resp =>
         atomType match {
           case AtomType.Audio    => 
