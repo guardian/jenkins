@@ -29,7 +29,7 @@ object Implicits {
       val seconds: Int = audio.duration % 60;
       val minutes: Int = Math.min(59, audio.duration / 60);
       val hours: Int   = audio.duration / 3600;
-      f"$seconds%02d:$minutes%02d:$hours%02d"
+      f"$hours%02d:$minutes%02d:$seconds%02d"
     }
   }
 
