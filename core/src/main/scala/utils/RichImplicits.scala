@@ -2,6 +2,7 @@ package com.gu.contentatom.renderer
 package utils
 
 import com.gu.contentatom.thrift.atom.audio.AudioAtom
+import com.gu.contentatom.thrift.atom.chart.ChartAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineItem
 import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 
@@ -31,6 +32,11 @@ object Implicits {
       val hours: Int   = audio.duration / 3600;
       f"$hours%02d:$minutes%02d:$seconds%02d"
     }
+  }
+
+  implicit class RichChart(val chart: ChartAtom) extends AnyVal {
+    def newDefaultHtml(html: String): String =
+      html.replace("<script>", "<gu-script>").replace("</script>", "</gu-script>")
   }
 
 }
