@@ -55,7 +55,14 @@
 .atom--snippet__headline {
     @include headline(3);
     font-family: var(--f-serif-headline);
-    font-weight: 500;
+}
+
+.atom--snippet__label {
+    font-weight: 600;
+}
+
+.atom--snippet__headline {
+    font-weight: 400;
 }
 
 .atom--snippet__handle,
