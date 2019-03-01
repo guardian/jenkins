@@ -58,7 +58,14 @@
 .atom--audio__headline {
     @include headline(3);
     font-family: var(--f-serif-headline);
-    font-weight: 500;
+}
+
+.atom--audio__label {
+    font-weight: 600;
+}
+
+.atom--audio__headline {
+    font-weight: 400;
 }
 
 .atom--audio__body {
