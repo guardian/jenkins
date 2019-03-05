@@ -75,7 +75,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     ophan.record({
       componentEvent: {
         component: {
-          'AUDIO_ATOM',
+          ComponentTypes.AUDIO_ATOM,
           id,
           products: [],
           labels: []
