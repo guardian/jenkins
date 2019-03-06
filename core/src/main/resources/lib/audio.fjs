@@ -1,6 +1,6 @@
 //@flow
 
-import { Actions, MediaEvents } from 'ophan';
+import { Actions, MediaEvents, ComponentTypes } from 'ophan';
 
 type AudioF = { atomId: string
               , player: HTMLElement
@@ -75,7 +75,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     ophan.record({
       componentEvent: {
         component: {
-          ComponentTypes.AUDIO_ATOM,
+          component: ComponentTypes.AUDIO_ATOM,
           id,
           products: [],
           labels: []
