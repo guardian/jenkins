@@ -47,7 +47,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     duration = Number(audio.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
     mediaId = audio.player.getAttribute('data-media-id') || '';
 
-    recordOphanAudioEvent(mediaId, Actions.READY);
+    recordOphanAudioEvent(mediaId, MediaEvents.READY);
      
     return Promise.resolve();
   };
