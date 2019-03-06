@@ -1,8 +1,9 @@
 //@flow
 
-import { Actions, MediaEvents } from 'ophan';
+import { Actions, MediaEvents, ComponentTypes } from 'ophan';
 
-type AudioF = { player: HTMLElement
+type AudioF = { atomId: string
+              , player: HTMLElement
               , playPauseButton: HTMLElement
               , timePlayed: HTMLElement
               , timeDuration: HTMLElement
@@ -21,6 +22,7 @@ function formatTime(t: number): string {
 export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<AudioF> => (root: HTMLElement): Coeval<Audio> => {
   let audio: Audio;
   let duration: number;
+  let mediaId: string;
   const audioContainerSelector = '.atom--audio';
   const audioPlayerSelector = '.atom--audio__player-element';
   const playPauseButtonSelector = '.atom--audio__button-playaudio';
@@ -42,10 +44,11 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     audio.player.addEventListener('durationchange', onDurationChange);
     viewport.observe(root, 1, onVisible);
     
-    recordOphanAudioEvent(a.player.getAttribute('data-media-id') || '', MediaEvents.READY);
-     
     duration = Number(audio.player.getAttribute('data-duration')) || 1; // avoid divide by zero if not present
+    mediaId = audio.player.getAttribute('data-media-id') || '';
 
+    recordOphanAudioEvent(mediaId, Actions.READY);
+     
     return Promise.resolve();
   };
   
@@ -59,7 +62,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     audio = null;
   };
 
-  const recordOphanAudioEvent = (id: string, eventName: string) => {
+  const recordOphanAudioEvent = (id: string, eventName: MediaEvent) => {
     ophan.record({
       audio: {
         id,
@@ -68,6 +71,20 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     });
   };
 
+  const recordOphanComponentEvent = (id: string, action: Action) => {
+    ophan.record({
+      componentEvent: {
+        component: {
+          component: ComponentTypes.AUDIO_ATOM,
+          id,
+          products: [],
+          labels: []
+        },
+        action
+      }
+    });
+  }
+  
   const setPlayingState = (playPauseButton: HTMLElement) => {
     dom.write(() => {
       playPauseButton.classList.add('is-playing');
@@ -110,15 +127,15 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
     if (percentPlayed >= 25 && milestones.indexOf(MediaEvents.PERCENT25) < 0){
       audio.player.setAttribute('data-milestones', milestones.concat(`${MediaEvents.PERCENT25},`));
-      recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), MediaEvents.PERCENT25);
+      recordOphanAudioEvent(mediaId, MediaEvents.PERCENT25);
     }
     if (percentPlayed >= 50 && milestones.indexOf(MediaEvents.PERCENT50) < 0){
       audio.player.setAttribute('data-milestones', milestones.concat(`${MediaEvents.PERCENT50},`));
-      recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), MediaEvents.PERCENT50);
+      recordOphanAudioEvent(mediaId, MediaEvents.PERCENT50);
     }
     if (percentPlayed >= 75 && milestones.indexOf(MediaEvents.PERCENT75) < 0){
       audio.player.setAttribute('data-milestones', milestones.concat(`${MediaEvents.PERCENT75},`));
-      recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), MediaEvents.PERCENT75);
+      recordOphanAudioEvent(mediaId, MediaEvents.PERCENT75);
     }
 
     showProgress(audio, percentPlayed, now, played);
@@ -128,9 +145,9 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   const onPlayPause = (): void => {
     if (audio.player.paused) {
       const milestones = audio.player.getAttribute('data-milestones') || '';
-      if (milestones.indexOf(Actions.PLAY) < 0 ) {
+      if (milestones.indexOf(MediaEvents.PLAY) < 0 ) {
         audio.player.setAttribute('data-milestones', milestones.concat(`${MediaEvents.PLAY},`));
-        recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), MediaEvents.PLAY);
+        recordOphanAudioEvent(mediaId, MediaEvents.PLAY);
       }
       setPlayingState(audio.playPauseButton);
       audio.player.play();
@@ -142,7 +159,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
 
   const onVisible = (ratio: number): void => {
     if (ratio >= 1) {
-      recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), Actions.VIEW);
+      recordOphanComponentEvent(audio.atomId, Actions.VIEW);
       viewport.unobserve(root, 1, onVisible);
     }
   };
@@ -159,8 +176,8 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     const percentReached = 100;
     const now = Date.now();
     const milestones = audio.player.getAttribute('data-milestones') || '';
-    if (milestones.indexOf(Actions.THE_END) < 0 ) {
-      recordOphanAudioEvent(audio.player.getAttribute('data-media-id'), MediaEvents.THE_END);
+    if (milestones.indexOf(MediaEvents.THE_END) < 0 ) {
+      recordOphanAudioEvent(mediaId, MediaEvents.THE_END);
       audio.player.setAttribute('data-milestones', milestones.concat(`${MediaEvents.THE_END},`));
     }
     audio.player.currentTime = duration;
