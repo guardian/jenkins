@@ -54,6 +54,20 @@
     .content--pillar-lifestyle & { color: $c-pillar--lifestyle; }
 }
 
+.icon--play-button-svg > g > circle,
+.icon--pause-button-svg > g > circle {
+  .garnett--pillar-news      &,
+  .content--pillar-news      & { fill: $c-pillar--news; }
+  .garnett--pillar-arts      &,
+  .content--pillar-arts      & { fill: $c-pillar--arts; }
+  .garnett--pillar-sport     &,
+  .content--pillar-sport     & { fill: $c-pillar--sport; }
+  .garnett--pillar-opinion   &,
+  .content--pillar-opinion   & { fill: $c-pillar--opinion; }
+  .garnett--pillar-lifestyle &,
+  .content--pillar-lifestyle & { fill: $c-pillar--lifestyle; }
+}
+
 .atom--audio__label,
 .atom--audio__headline {
     @include headline(3);
@@ -135,7 +149,19 @@ input[type=range]:focus {
   width: 100%;
   cursor: pointer;
   height: 6px;
-  background: linear-gradient(to right, #C70000 0%, #afafaf 0%);
+}
+
+.atom--audio__progress-bar input[type=range] {
+  .garnett--pillar-news      &,
+  .content--pillar-news      & { background: linear-gradient(to right, $c-pillar--news 0%, #afafaf 0%); }
+  .garnett--pillar-arts      &,
+  .content--pillar-arts      & { background: linear-gradient(to right, $c-pillar--arts 0%, #afafaf 0%); }
+  .garnett--pillar-sport     &,
+  .content--pillar-sport     & { background: linear-gradient(to right, $c-pillar--sport 0%, #afafaf 0%); }
+  .garnett--pillar-opinion   &,
+  .content--pillar-opinion   & { background: linear-gradient(to right, $c-pillar--opinion 0%, #afafaf 0%); }
+  .garnett--pillar-lifestyle &,
+  .content--pillar-lifestyle & { background: linear-gradient(to right, $c-pillar--lifestyle 0%, #afafaf 0%); }
 }
 
 /* IE and FF slider input styling */
@@ -145,7 +171,7 @@ input[type=range]:focus {
 }
 
 .atom--audio__progress-bar input[type=range]::-moz-range-progress {
-   background-color: #C70000;	
+  background-color: #C70000;
   height: 8px;
 }
 
@@ -159,7 +185,6 @@ input[type=range]:focus {
   -moz-appearance: none;
   width: 15px;
   height: 15px;
-  background: #C70000;
   border-radius: 50%;
   margin-top: -4px;
   border: none;
@@ -175,7 +200,44 @@ input[type=range]:focus {
   -webkit-appearance: none;
   width: 15px;
   height: 15px;
-  background:#C70000;
   border-radius: 50%;
   margin-top: -4px;
+}
+
+// these non-standard pseudo selectors can't be comma-separated - so much duplication :(
+.atom--audio__progress-bar input[type=range]::-moz-range-thumb {
+  .garnett--pillar-news      &,
+  .content--pillar-news      & { background: $c-pillar--news; }
+  .garnett--pillar-arts      &,
+  .content--pillar-arts      & { background: $c-pillar--arts; }
+  .garnett--pillar-sport     &,
+  .content--pillar-sport     & { background: $c-pillar--sport; }
+  .garnett--pillar-opinion   &,
+  .content--pillar-opinion   & { background: $c-pillar--opinion; }
+  .garnett--pillar-lifestyle &,
+  .content--pillar-lifestyle & { background: $c-pillar--lifestyle; }
+}
+.atom--audio__progress-bar input[type=range]::-webkit-slider-thumb {
+  .garnett--pillar-news      &,
+  .content--pillar-news      & { background: $c-pillar--news; }
+  .garnett--pillar-arts      &,
+  .content--pillar-arts      & { background: $c-pillar--arts; }
+  .garnett--pillar-sport     &,
+  .content--pillar-sport     & { background: $c-pillar--sport; }
+  .garnett--pillar-opinion   &,
+  .content--pillar-opinion   & { background: $c-pillar--opinion; }
+  .garnett--pillar-lifestyle &,
+  .content--pillar-lifestyle & { background: $c-pillar--lifestyle; }
+}
+.atom--audio__progress-bar input[type=range]::-ms-thumb {
+  .garnett--pillar-news      &,
+  .content--pillar-news      & { background: $c-pillar--news; }
+  .garnett--pillar-arts      &,
+  .content--pillar-arts      & { background: $c-pillar--arts; }
+  .garnett--pillar-sport     &,
+  .content--pillar-sport     & { background: $c-pillar--sport; }
+  .garnett--pillar-opinion   &,
+  .content--pillar-opinion   & { background: $c-pillar--opinion; }
+  .garnett--pillar-lifestyle &,
+  .content--pillar-lifestyle & { background: $c-pillar--lifestyle; }
 }

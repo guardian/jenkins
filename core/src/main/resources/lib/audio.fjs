@@ -83,7 +83,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
         action
       }
     });
-  }
+  };
   
   const setPlayingState = (playPauseButton: HTMLElement) => {
     dom.write(() => {
@@ -98,7 +98,8 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
 
   const showProgress = (audio: Audio, percentPlayed: Number, now: Number, played: string) => {
-    const gradientDescription = `linear-gradient(to right, #C70000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
+    // TODO: make the input control's background honour the pillar colour - meanwhile use the 'news' default
+    const gradientDescription = `linear-gradient(to right, #e00000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
 
     dom.write(() => {
       audio.scrubber.value = percentPlayed;
