@@ -98,8 +98,9 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
 
   const showProgress = (audio: Audio, percentPlayed: Number, now: Number, played: string) => {
-    // TODO: make the input control's background honour the pillar colour - meanwhile use the 'news' default
-    const gradientDescription = `linear-gradient(to right, #e00000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
+    const css = getComputedStyle(audio.scrubber);
+    const cssBackgroundImage = css.getPropertyValue('background-image');
+    const gradientDescription = cssBackgroundImage.replace(/\d{1,3}%/gi, `${percentPlayed.toString()}%`);
 
     dom.write(() => {
       audio.scrubber.value = percentPlayed;
