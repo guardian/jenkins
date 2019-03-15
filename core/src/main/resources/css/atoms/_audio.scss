@@ -166,12 +166,30 @@ input[type=range]:focus {
 
 /* IE and FF slider input styling */
 .atom--audio__progress-bar input[type=range]::-ms-fill-lower {
-  background-color: #C70000;	
+  .garnett--pillar-news      &,
+  .content--pillar-news      & { background-color: linear-gradient(to right, $c-pillar--news 0%, #afafaf 0%); }
+  .garnett--pillar-arts      &,
+  .content--pillar-arts      & { background-color: linear-gradient(to right, $c-pillar--arts 0%, #afafaf 0%); }
+  .garnett--pillar-sport     &,
+  .content--pillar-sport     & { background-color: linear-gradient(to right, $c-pillar--sport 0%, #afafaf 0%); }
+  .garnett--pillar-opinion   &,
+  .content--pillar-opinion   & { background-color: linear-gradient(to right, $c-pillar--opinion 0%, #afafaf 0%); }
+  .garnett--pillar-lifestyle &,
+  .content--pillar-lifestyle & { background-color: linear-gradient(to right, $c-pillar--lifestyle 0%, #afafaf 0%); }
   height: 7px;
 }
 
 .atom--audio__progress-bar input[type=range]::-moz-range-progress {
-  background-color: #C70000;
+  .garnett--pillar-news      &,
+  .content--pillar-news      & { background-color: linear-gradient(to right, $c-pillar--news 0%, #afafaf 0%); }
+  .garnett--pillar-arts      &,
+  .content--pillar-arts      & { background-color: linear-gradient(to right, $c-pillar--arts 0%, #afafaf 0%); }
+  .garnett--pillar-sport     &,
+  .content--pillar-sport     & { background-color: linear-gradient(to right, $c-pillar--sport 0%, #afafaf 0%); }
+  .garnett--pillar-opinion   &,
+  .content--pillar-opinion   & { background-color: linear-gradient(to right, $c-pillar--opinion 0%, #afafaf 0%); }
+  .garnett--pillar-lifestyle &,
+  .content--pillar-lifestyle & { background-color: linear-gradient(to right, $c-pillar--lifestyle 0%, #afafaf 0%); }
   height: 8px;
 }
 
