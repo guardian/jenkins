@@ -83,7 +83,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
         action
       }
     });
-  }
+  };
   
   const setPlayingState = (playPauseButton: HTMLElement) => {
     dom.write(() => {
@@ -98,7 +98,9 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
   };
 
   const showProgress = (audio: Audio, percentPlayed: Number, now: Number, played: string) => {
-    const gradientDescription = `linear-gradient(to right, #C70000 ${percentPlayed}%, #afafaf ${percentPlayed}%)`;
+    const css = getComputedStyle(audio.scrubber);
+    const cssBackgroundImage = css.getPropertyValue('background-image');
+    const gradientDescription = cssBackgroundImage.replace(/\d{1,3}%/gi, `${percentPlayed.toString()}%`);
 
     dom.write(() => {
       audio.scrubber.value = percentPlayed;
