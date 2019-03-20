@@ -105,7 +105,7 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     dom.write(() => {
       audio.scrubber.value = percentPlayed;
       audio.player.setAttribute('data-last-tick', now.toString());
-      audio.scrubber.style.background = gradientDescription;
+      audio.scrubber.style.backgroundImage = gradientDescription;
       audio.timePlayed.innerText = formatTime(played);
     });
   };

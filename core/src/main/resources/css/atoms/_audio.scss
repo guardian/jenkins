@@ -181,15 +181,15 @@ input[type=range]:focus {
 
 .atom--audio__progress-bar input[type=range]::-moz-range-progress {
   .garnett--pillar-news      &,
-  .content--pillar-news      & { background-color: linear-gradient(to right, $c-pillar--news 0%, #afafaf 0%); }
+  .content--pillar-news      & { background-image: linear-gradient(to right, $c-pillar--news 100%, #afafaf); }
   .garnett--pillar-arts      &,
-  .content--pillar-arts      & { background-color: linear-gradient(to right, $c-pillar--arts 0%, #afafaf 0%); }
+  .content--pillar-arts      & { background-image: linear-gradient(to right, $c-pillar--arts 100%, #afafaf); }
   .garnett--pillar-sport     &,
-  .content--pillar-sport     & { background-color: linear-gradient(to right, $c-pillar--sport 0%, #afafaf 0%); }
+  .content--pillar-sport     & { background-image: linear-gradient(to right, $c-pillar--sport 100%, #afafaf); }
   .garnett--pillar-opinion   &,
-  .content--pillar-opinion   & { background-color: linear-gradient(to right, $c-pillar--opinion 0%, #afafaf 0%); }
+  .content--pillar-opinion   & { background-image: linear-gradient(to right, $c-pillar--opinion 100%, #afafaf); }
   .garnett--pillar-lifestyle &,
-  .content--pillar-lifestyle & { background-color: linear-gradient(to right, $c-pillar--lifestyle 0%, #afafaf 0%); }
+  .content--pillar-lifestyle & { background-image: linear-gradient(to right, $c-pillar--lifestyle 100%, #afafaf); }
   height: 8px;
 }
 
