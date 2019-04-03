@@ -5,7 +5,7 @@ object Dependencies {
   val http4sVersion = "0.20.0-M5"
 
   val coreDeps = Seq(
-    "com.gu"   %% "content-atom-model" % "2.4.67"
+    "com.gu"   %% "content-atom-model" % "3.0.0"
   )
 
   val emailDeps = Seq(

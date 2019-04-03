@@ -29,7 +29,6 @@ lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++
       , scalacOptions       ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds")
       , scalaVersion        := scalaVersions.max
       , libraryDependencies ++= coreDeps
-      , dependencyOverrides += "org.apache.thrift" % "libthrift" % "0.9.1"
       , publishTo           := sonatypePublishTo.value
       , Compile / unmanagedResourceDirectories       += (ThisBuild / baseDirectory).value / "build"
       , Compile / unmanagedResources / excludeFilter := "*.fjs" || "*.scss"
