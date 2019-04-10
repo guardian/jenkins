@@ -75,7 +75,7 @@ lazy val releaseSteps: Seq[ReleaseStep] =
       , setReleaseVersion
       , commitReleaseVersion
       , tagRelease
-      , releaseStepCommandAndRemaining(s"+${releasePublishAction.key.label}")
+      , releaseStepCommandAndRemaining(s"${releasePublishAction.key.label}")
       , setNextVersion
       , commitNextVersion
       , pushChanges
