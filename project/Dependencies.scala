@@ -13,7 +13,7 @@ object Dependencies {
   )
 
   val utilsDeps = Seq(
-    "com.gu"        %% "content-api-client-default" % "12.18",
+    "com.gu"        %% "content-api-client-default" % "13.0",
     "org.http4s"    %% "http4s-dsl"                 % http4sVersion,
     "org.http4s"    %% "http4s-twirl"               % http4sVersion,
     "org.http4s"    %% "http4s-blaze-server"        % http4sVersion,
