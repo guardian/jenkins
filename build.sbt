@@ -63,7 +63,6 @@ lazy val publishSettings: Seq[Setting[_]] =
   Seq ( sonatypeProfileName := "com.gu"
       , publishMavenStyle   := true
       , releaseVcsSign      := true
-      , releaseCrossBuild   := true
       , releaseProcess      := releaseSteps
       )
 
