@@ -5,7 +5,7 @@ object Dependencies {
   val http4sVersion = "0.20.0-M5"
 
   val coreDeps = Seq(
-    "com.gu"   %% "content-atom-model" % "3.0.0"
+    "com.gu"   %% "content-atom-model" % "3.0.2"
   )
 
   val emailDeps = Seq(
@@ -13,7 +13,7 @@ object Dependencies {
   )
 
   val utilsDeps = Seq(
-    "com.gu"        %% "content-api-client-default" % "14.0",
+    "com.gu"        %% "content-api-client-default" % "14.1",
     "org.http4s"    %% "http4s-dsl"                 % http4sVersion,
     "org.http4s"    %% "http4s-twirl"               % http4sVersion,
     "org.http4s"    %% "http4s-blaze-server"        % http4sVersion,

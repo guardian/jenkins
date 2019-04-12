@@ -30,6 +30,7 @@ lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++
       , scalaVersion        := scalaVersions.max
       , libraryDependencies ++= coreDeps
       , publishTo           := sonatypePublishTo.value
+      , resolvers           += Resolver.sonatypeRepo("public")
       , Compile / unmanagedResourceDirectories       += (ThisBuild / baseDirectory).value / "build"
       , Compile / unmanagedResources / excludeFilter := "*.fjs" || "*.scss"
       )
