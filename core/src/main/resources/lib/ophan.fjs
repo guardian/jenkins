@@ -52,7 +52,7 @@ export const Actions: { [Action]: Action } =
   , CLICK: 'CLICK'
   };
 
-export const MediaEvents: { [MediaEvent]: MediaEvent } =
+export const MediaEvents: { [string]: MediaEvent } =
   { REQUEST: 'REQUEST'
   , READY: 'READY'
   , PLAY: 'PLAY'
