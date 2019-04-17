@@ -52,13 +52,12 @@ export const Actions: { [Action]: Action } =
   , CLICK: 'CLICK'
   };
 
-export const MediaEvents: { [MediaEvent]: MediaEvent } =
+export const MediaEvents: { [string]: MediaEvent } =
   { REQUEST: 'REQUEST'
   , READY: 'READY'
   , PLAY: 'PLAY'
-  , PERCENT25: 'PERCENT25'
-  , PERCENT50: 'PERCENT50'
-  , PERCENT75: 'PERCENT75'
-  , THE_END: 'THE_END'
+  , PERCENT25: '25'
+  , PERCENT50: '50'
+  , PERCENT75: '75'
+  , THE_END: 'end'
   };
-

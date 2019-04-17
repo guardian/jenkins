@@ -55,10 +55,10 @@ declare type Action = 'INSERT'
 declare type MediaEvent = 'REQUEST'
                         | 'READY'
                         | 'PLAY'
-                        | 'PERCENT25'
-                        | 'PERCENT50'
-                        | 'PERCENT75'
-                        | 'THE_END'
+                        | '25'
+                        | '50'
+                        | '75'
+                        | 'end'
                         ;
 
 
