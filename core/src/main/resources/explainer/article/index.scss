@@ -2,8 +2,9 @@
 
 .atom--explainer {
     padding: $baseline / 2 $gutter / 4;
-    background-color: $guardian-brand;
-    color: #ffffff;
+    border-top: 1px solid $neutral-1;
+    background-color: $neutral-8;
+    color: $neutral-1;
     position: relative;
 }
 
