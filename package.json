@@ -6,7 +6,7 @@
   "author": "Regis Kuckaertz <regis.kuckaertz@theguardian.com>",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=8.5.0"
+    "node": ">=8.10.0"
   },
   "dependencies": {
     "@babel/preset-env": "^7.3.1",
@@ -46,9 +46,9 @@
     "webpack-cli": "3.2.1"
   },
   "scripts": {
-    "build": "babel src/main/resources",
+    "build": "babel core/src/main/resources",
     "flow": "flow",
-    "lint": "eslint --ext .fjs src/main/resources",
+    "lint": "eslint --ext .fjs core/src/main/resources",
     "copy": "node ./tools/copy.js",
     "postcss": "postcss build/*/*/*.css -u autoprefixer",
     "apps": "yarn run appsJS; yarn run appsCSS; yarn run appsEmailCSS",
