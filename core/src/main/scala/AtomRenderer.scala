@@ -11,7 +11,6 @@ import com.gu.contentatom.thrift.atom.qanda.QAndAAtom
 import com.gu.contentatom.thrift.atom.quiz.QuizAtom
 import com.gu.contentatom.thrift.atom.recipe.RecipeAtom
 import com.gu.contentatom.thrift.atom.review.ReviewAtom
-import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineAtom
 import com.gu.contentatom.thrift.atom.commonsdivision.CommonsDivision
 import com.gu.contentatom.thrift.atom.chart.ChartAtom
@@ -43,7 +42,6 @@ trait AtomRenderer {
     case AtomData.Quiz(data)           => getHTML(atom, data, conf)
     case AtomData.Recipe(data)         => getHTML(atom, data, conf)
     case AtomData.Review(data)         => getHTML(atom, data, conf)
-    case AtomData.Storyquestions(data) => getHTML(atom, data, conf)
     case AtomData.Timeline(data)       => getHTML(atom, data, conf)
     case AtomData.CommonsDivision(data) => getHTML(atom, data, conf)
     case AtomData.Chart(data)          => getHTML(atom, data, conf)
@@ -68,7 +66,6 @@ trait AtomRenderer {
     case AtomType.Quiz           => getCSS[QuizAtom]
     case AtomType.Recipe         => getCSS[RecipeAtom]
     case AtomType.Review         => getCSS[ReviewAtom]
-    case AtomType.Storyquestions => getCSS[StoryQuestionsAtom]
     case AtomType.Timeline       => getCSS[TimelineAtom]
     case AtomType.Commonsdivision => getCSS[CommonsDivision]
     case AtomType.Chart          => getCSS[ChartAtom]
@@ -90,7 +87,6 @@ trait AtomRenderer {
     case AtomType.Quiz           => getJS[QuizAtom]
     case AtomType.Recipe         => getJS[RecipeAtom]
     case AtomType.Review         => getJS[ReviewAtom]
-    case AtomType.Storyquestions => getJS[StoryQuestionsAtom]
     case AtomType.Timeline       => getJS[TimelineAtom]
     case AtomType.Commonsdivision => getJS[CommonsDivision]
     case AtomType.Chart          => getJS[ChartAtom]

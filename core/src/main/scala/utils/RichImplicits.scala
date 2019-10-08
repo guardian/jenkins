@@ -4,7 +4,6 @@ package utils
 import com.gu.contentatom.thrift.atom.audio.AudioAtom
 import com.gu.contentatom.thrift.atom.chart.ChartAtom
 import com.gu.contentatom.thrift.atom.timeline.TimelineItem
-import com.gu.contentatom.thrift.atom.storyquestions.StoryQuestionsAtom
 
 object Implicits {
 
@@ -16,13 +15,6 @@ object Implicits {
         case _ =>  GuardianDateFormatter.toCustomFormat(date, "d MMMM uuuu")
       }
     }
-  }
-
-  implicit class RichStoryQuestions(val s: StoryQuestionsAtom) extends AnyVal {
-    def listId: Option[String] = for {
-      notifications <- s.notifications
-      email <- notifications.email
-    } yield email.listId
   }
 
   implicit class RichAudio(val audio: AudioAtom) extends AnyVal {
