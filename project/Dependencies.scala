@@ -1,11 +1,11 @@
 import sbt._
 
 object Dependencies {
-  val scalaVersions = Seq("2.11.12", "2.12.8")
-  val http4sVersion = "0.20.0-M5"
+  val scalaVersions = Seq("2.11.12", "2.12.10", "2.13.1")
+  val http4sVersion = "0.21.0-M5"
 
   val coreDeps = Seq(
-    "com.gu"   %% "content-atom-model" % "3.0.2"
+    "com.gu"   %% "content-atom-model" % "3.1.0"
   )
 
   val emailDeps = Seq(
@@ -13,7 +13,7 @@ object Dependencies {
   )
 
   val utilsDeps = Seq(
-    "com.gu"        %% "content-api-client-default" % "14.1",
+    "com.gu"        %% "content-api-client-default" % "15.3",
     "org.http4s"    %% "http4s-dsl"                 % http4sVersion,
     "org.http4s"    %% "http4s-twirl"               % http4sVersion,
     "org.http4s"    %% "http4s-blaze-server"        % http4sVersion,
