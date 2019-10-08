@@ -29,7 +29,7 @@ lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++
       , scalacOptions       ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds")
       , scalaVersion        := scalaVersions.max
       , libraryDependencies ++= coreDeps
-      , publishTo           := sonatypePublishTo.value
+      , publishTo           := sonatypePublishToBundle.value
       , resolvers           += Resolver.sonatypeRepo("public")
       , Compile / unmanagedResourceDirectories       += (ThisBuild / baseDirectory).value / "build"
       , Compile / unmanagedResources / excludeFilter := "*.fjs" || "*.scss"
@@ -76,7 +76,8 @@ lazy val releaseSteps: Seq[ReleaseStep] =
       , setReleaseVersion
       , commitReleaseVersion
       , tagRelease
-      , releaseStepCommandAndRemaining(s"${releasePublishAction.key.label}")
+      , releaseStepCommandAndRemaining("+publishSigned")
+      , releaseStepCommand("sonatypeBundleRelease")
       , setNextVersion
       , commitNextVersion
       , pushChanges
