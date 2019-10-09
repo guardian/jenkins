@@ -1,4 +1,5 @@
 import sbt.Keys._
+import xerial.sbt.Sonatype._
 import ReleaseTransformations._
 import Dependencies._
 
@@ -60,19 +61,23 @@ lazy val twirlSettings: Seq[Setting[_]] =
       )
 
 lazy val publishSettings: Seq[Setting[_]] = 
-  Seq ( crossScalaVersions  := scalaVersions
-      , sonatypeProfileName := "com.gu"
-      , publishTo           := sonatypePublishToBundle.value
-      , publishMavenStyle   := true
-      , releaseVcsSign      := true
-      , releaseProcess      := releaseSteps
+  Seq ( crossScalaVersions     := scalaVersions
+      , pomIncludeRepository   := { _ => false }
+      , sonatypeProfileName    := "com.gu"
+      , sonatypeProjectHosting := Some(GitHubHosting("guardian", "atom-renderer", "content.platforms@guardian.co.uk"))
+      , publishArtifact in Test:= false
+      , publishTo              := sonatypePublishToBundle.value
+      , publishMavenStyle      := true
+      , releaseVcsSign         := true
+      , releaseCrossBuild      := true
+      , releaseProcess         := releaseSteps
       )
 
 lazy val releasePublishAction: TaskKey[_] = PgpKeys.publishSigned
 lazy val releaseSteps: Seq[ReleaseStep] = 
-  Seq ( runClean
-      , checkSnapshotDependencies
+  Seq ( checkSnapshotDependencies
       , inquireVersions
+      , runClean
       , runTest
       , setReleaseVersion
       , commitReleaseVersion
@@ -85,4 +90,4 @@ lazy val releaseSteps: Seq[ReleaseStep] =
       )
 
 val disablePublishingSettings: Seq[Setting[_]] = 
-  Seq (publish := { })
+  Seq (publish / skip := true)
