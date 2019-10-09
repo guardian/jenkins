@@ -6,12 +6,13 @@ import Dependencies._
 lazy val root = (project in file("."))
   .aggregate(core, email, utils)
   .settings(commonSettings, publishSettings, disablePublishingSettings)
-  .settings(
-    name               := Metadata.ghProject,
-    crossScalaVersions := Nil,
-    Compile / sources  := Seq.empty,
-    Test    / sources  := Seq.empty
-  )
+  .settings( name               := Metadata.ghProject
+           , sonatypeProfileName    := "com.gu"
+           , sonatypeProjectHosting := Some(GitHubHosting("guardian", "atom-renderer", "content.platforms@guardian.co.uk"))
+           , crossScalaVersions := Nil
+           , Compile / sources  := Seq.empty
+           , Test    / sources  := Seq.empty
+           )
 
 lazy val core = (project in file("core"))
   .settings(commonSettings, coreSettings, publishSettings, twirlSettings)
@@ -64,8 +65,6 @@ lazy val twirlSettings: Seq[Setting[_]] =
 lazy val publishSettings: Seq[Setting[_]] = 
   Seq ( crossScalaVersions     := scalaVersions
       , pomIncludeRepository   := { _ => false }
-      , sonatypeProfileName    := "com.gu"
-      , sonatypeProjectHosting := Some(GitHubHosting("guardian", "atom-renderer", "content.platforms@guardian.co.uk"))
       , publishArtifact in Test:= false
       , publishTo              := sonatypePublishToBundle.value
       , publishMavenStyle      := true
