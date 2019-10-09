@@ -44,9 +44,9 @@ object Main extends IOApp {
 
   val client = new GuardianContentClient(sys.env("CAPI_TEST_KEY"))
 
-  val assetsService: HttpRoutes[IO] = HttpRoutes.of[IO] {
+  def assetsService(blocker: Blocker): HttpRoutes[IO] = HttpRoutes.of[IO] {
     case req @ GET -> path =>
-      StaticFile.fromResource(s"$path", global, Some(req)).getOrElseF(NotFound())
+      StaticFile.fromResource(s"$path", blocker, Some(req)).getOrElseF(NotFound())
   }
 
   val capiService: HttpRoutes[IO] = HttpRoutes[IO] {
@@ -123,11 +123,13 @@ object Main extends IOApp {
   }
 
   def run(args: List[String]): IO[ExitCode] =
-    BlazeServerBuilder[IO]
-      .bindHttp(8080, "localhost")
-      .withHttpApp(Router[IO]("/" -> capiService, "/assets" -> assetsService).orNotFound)
-      .serve
-      .compile
-      .drain
-      .as(ExitCode.Success)
+    Blocker[IO].use { blocker =>
+      BlazeServerBuilder[IO]
+        .bindHttp(8080, "localhost")
+        .withHttpApp(Router[IO]("/" -> capiService, "/assets" -> assetsService(blocker)).orNotFound)
+        .serve
+        .compile
+        .drain
+        .as(ExitCode.Success)
+    }
 }
