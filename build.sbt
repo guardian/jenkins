@@ -7,6 +7,7 @@ lazy val root = (project in file("."))
   .aggregate(core, email, utils)
   .settings(commonSettings, publishSettings, disablePublishingSettings)
   .settings(
+    name               := Metadata.ghProject,
     crossScalaVersions := Nil,
     Compile / sources  := Seq.empty,
     Test    / sources  := Seq.empty
