@@ -22,6 +22,7 @@ lazy val email = (project in file("email"))
 lazy val utils = (project in file("utils"))
   .dependsOn(core, email)
   .settings(commonSettings, utilsSettings, disablePublishingSettings)
+  .settings(crossScalaVersions := Seq.empty)
   .enablePlugins(SbtTwirl)
 
 lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++ 
@@ -29,7 +30,6 @@ lazy val commonSettings: Seq[Setting[_]] = Metadata.settings ++
       , scalacOptions       ++= Seq("-feature", "-deprecation", "-target:jvm-1.8", "-language:higherKinds")
       , scalaVersion        := scalaVersions.max
       , libraryDependencies ++= coreDeps
-      , publishTo           := sonatypePublishToBundle.value
       , resolvers           += Resolver.sonatypeRepo("public")
       , Compile / unmanagedResourceDirectories       += (ThisBuild / baseDirectory).value / "build"
       , Compile / unmanagedResources / excludeFilter := "*.fjs" || "*.scss"
@@ -62,6 +62,7 @@ lazy val twirlSettings: Seq[Setting[_]] =
 
 lazy val publishSettings: Seq[Setting[_]] = 
   Seq ( sonatypeProfileName := "com.gu"
+      , publishTo           := sonatypePublishToBundle.value
       , publishMavenStyle   := true
       , releaseVcsSign      := true
       , releaseProcess      := releaseSteps
