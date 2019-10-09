@@ -22,7 +22,7 @@ module.exports = ({ cssVarsPath }) => [
       {
         loader: 'sass-loader',
         options: {
-          data: `@import '${cssVarsPath}';`
+          prependData: `@import '${cssVarsPath}';`
         }
       }
     ]
