@@ -42,7 +42,7 @@ object Main extends IOApp {
     commonsdivisionConfiguration = ArticleConfiguration.CommonsdivisionConfiguration(true)
   )
 
-  val client = new GuardianContentClient(sys.env("CAPI_TEST_KEY"))
+  val client = GuardianContentClient(sys.env("CAPI_TEST_KEY"))
 
   def assetsService(blocker: Blocker): HttpRoutes[IO] = HttpRoutes.of[IO] {
     case req @ GET -> path =>
