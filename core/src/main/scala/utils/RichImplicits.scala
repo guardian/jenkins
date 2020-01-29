@@ -19,9 +19,10 @@ object Implicits {
 
   implicit class RichAudio(val audio: AudioAtom) extends AnyVal {
     def durationStr: String = {
-      val seconds: Int = audio.duration % 60;
-      val minutes: Int = Math.min(59, audio.duration / 60);
-      val hours: Int   = audio.duration / 3600;
+      val duration = audio.duration
+      val hours = duration / 3600
+      val minutes = (duration - hours*3600) / 60
+      val seconds = duration - hours*3600 - minutes*60
       f"$hours%02d:$minutes%02d:$seconds%02d"
     }
   }
