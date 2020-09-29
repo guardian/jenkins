@@ -19,7 +19,7 @@ function formatTime(t: number): string {
   return `${format(hour)}:${format(minute)}:${format(second)}`;
 }
 
-export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Services): AtomBuilder<AudioF> => (root: HTMLElement): Coeval<Audio> => {
+export default (componentType: ComponentType) => ({ ophan, dom, viewport, consent, commercial }: Services): AtomBuilder<AudioF> => (root: HTMLElement): Coeval<Audio> => {
   let audio: Audio;
   let duration: number;
   let mediaId: string;
@@ -196,6 +196,16 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport }: Serv
     const player = ((root.querySelector(audioPlayerSelector): any): ?HTMLMediaElement);
     const timePlayed = (root.querySelector(timePlayedSelector): ?HTMLElement);
     const timeDuration = (root.querySelector(timeDurationSelector): ?HTMLElement);
+
+    // Use Acast (advertising service) based on consent and ad-free status.
+    if (consent.acast && !commercial.isAdFree && player) {
+      const srcUrl =player.getAttribute('src');
+      if (srcUrl) {
+        dom.write(() => {
+          player.setAttribute('src', srcUrl.replace("https://","https://flex.acast.com/"));
+        });
+      }
+    }
 
     return audio && player && playPauseButton && timePlayed && timeDuration && scrubber
       ? Object.freeze({
