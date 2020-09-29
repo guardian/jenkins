@@ -29,7 +29,7 @@ More information on [Getting Started with Flow](https://flow.org/en/docs/getting
 
 ### Locally
 
-The `utils` project provides a convenience application to quickly preview the rendering of an atom. Just go in that project and `run` it, then hit http://localhost:9000. The app will ask you to select an atom type and type an atom ID, then will render it using the "article" rendering.
+The `utils` project provides a convenience application to quickly preview the rendering of an atom. Just go in that project and `run` it, then hit http://localhost:8080. The app will ask you to select an atom type and type an atom ID, then will render it using the "article" rendering.
 
 Note: you will need to set a value for the `CAPI_TEST_KEY` environment variable, e.g. in your `.bash_profile`, to be able to run the project locally.
 
