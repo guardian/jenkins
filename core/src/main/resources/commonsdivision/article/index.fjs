@@ -20,14 +20,16 @@ export default ({
     c.parties.forEach(party => {
       const button = (party.querySelector('.atom--commonsdivision__party-handle'): ?HTMLElement);
 
-      const expandParty = fromEvent('click', button)
-        .map((e: Event) => {
-          Array.from(button.children).forEach(child => {
-            child.classList.toggle('is-off');
+      if (button) {
+        const expandParty = fromEvent('click', button)
+          .map((e: Event) => {
+            Array.from(button.children).forEach(child => {
+              child.classList.toggle('is-off');
+            });
+            const mps = (party.querySelector('.atom--commonsdivision__party-mps'): ?HTMLElement);
+            mps && mps.classList.toggle('is-off');
           });
-          const mps = (party.querySelector('.atom--commonsdivision__party-mps'): ?HTMLElement);
-          mps.classList.toggle('is-off');
-        });
+      }
     });
     return Promise.resolve();
   };
@@ -38,7 +40,7 @@ export default ({
     return parties ? Object.freeze({
       parties,
       atomId: root.id,
-      stop,
+      stop: () => {},
       start(): Promise<void> {
         return start(this);
       }
