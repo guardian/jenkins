@@ -198,13 +198,17 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport, consen
     const timeDuration = (root.querySelector(timeDurationSelector): ?HTMLElement);
 
     // Use Acast (advertising service) based on consent and ad-free status.
-    if (consent.acast && !commercial.isAdFree && player) {
-      const srcUrl =player.getAttribute('src');
-      if (srcUrl) {
-        dom.write(() => {
-          player.setAttribute('src', srcUrl.replace("https://","https://flex.acast.com/"));
-        });
-      }
+    if (!commercial.isAdFree) {
+      consent.acast.then(acast => {
+        if (player && acast) {
+          const srcUrl =player.getAttribute('src');
+          if (srcUrl) {
+            dom.write(() => {
+              player.setAttribute('src', srcUrl.replace("https://","https://flex.acast.com/"));
+            });
+          }
+        }
+      })
     }
 
     return audio && player && playPauseButton && timePlayed && timeDuration && scrubber
