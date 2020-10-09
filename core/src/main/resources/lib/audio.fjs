@@ -199,7 +199,9 @@ export default (componentType: ComponentType) => ({ ophan, dom, viewport, consen
 
     // Use Acast (advertising service) based on consent and ad-free status.
     if (!commercial.isAdFree) {
-      consent.acast.then(acast => {
+      consent.onAcastConsentChange(acast => {
+        const player = ((root.querySelector(audioPlayerSelector): any): ?HTMLMediaElement);
+        
         if (player && acast) {
           const srcUrl =player.getAttribute('src');
           if (srcUrl) {

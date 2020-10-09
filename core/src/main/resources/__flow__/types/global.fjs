@@ -3,7 +3,7 @@
 declare type Services = { ophan: OphanService
                         , dom: DomService
                         , viewport: ViewportService
-                        , consent: { acast: Promise<boolean>; }
+                        , consent: { onAcastConsentChange: (callback: boolean => void) => void }
                         , commercial: { isAdFree: boolean; } 
                         };
 

@@ -95,7 +95,7 @@
             unobserve
           },
           consent: {
-            acast: Promise.resolve(true),
+            onAcastConsentChange: (callback) => { callback(true); },
           },
           commercial: {
             isAdFree: false,
